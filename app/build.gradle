@@ -56,4 +56,26 @@ dependencies {
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion"
+//    Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion"
+    //    Gson
+    implementation "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+//    OkHttp3
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation("com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion")
+//    Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+//    Lottie Animation
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+//    Preference manager
+    implementation "androidx.preference:preference-ktx:$preferenceVersion"
+    //    Hamcrest
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+
 }

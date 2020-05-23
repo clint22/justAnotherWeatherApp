@@ -7,4 +7,5 @@
     <string name="location_title">Location</string>
     <string name="forecast_title">Forecast</string>
     <string name="settings_title">Settings</string>
+    <string name="degree_celsius">32\u2103</string>
 </resources>
