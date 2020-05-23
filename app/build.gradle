@@ -6,6 +6,10 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.2"
 
+    viewBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.ducttapeprogrammer.myapplication"
         minSdkVersion rootProject.minSdkVersion
@@ -33,9 +37,23 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
 //    Unit testing
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "junit:junit:$junitVersion"
 
 //    Instrumentation testing
     androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCore"
+
+//    Navigation component
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    // Dynamic Feature Module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
 }
