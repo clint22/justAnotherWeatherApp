@@ -35,14 +35,21 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-
-//    Unit testing
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+//    Local Unit testing
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
+    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 
 //    Instrumentation testing
     androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCore"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
 
 //    Navigation component
     // Java language implementation
@@ -77,5 +84,6 @@ dependencies {
     implementation "androidx.preference:preference-ktx:$preferenceVersion"
     //    Hamcrest
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
-
+//    Intuit - dimen library
+    implementation "com.intuit.sdp:sdp-android:$intuitVersion"
 }

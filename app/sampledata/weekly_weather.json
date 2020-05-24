@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "date": "Tue, Apr 20",
+      "weatherIcon": "@drawable/clear_sky_recycler_item_svg",
+      "degree": "32 degree"
+    },
+    {
+      "date": "Wed, Apr 21",
+      "weatherIcon": "@drawable/clear_sky_recycler_item_svg",
+      "degree": "32 degree"
+    },
+    {
+      "date": "Thu, Apr 22",
+      "weatherIcon": "@drawable/clear_sky_recycler_item_svg",
+      "degree": "32 degree"
+    },
+    {
+      "date": "Fri, Apr 23",
+      "weatherIcon": "@drawable/clear_sky_recycler_item_svg",
+      "degree": "32 degree"
+    }
+  ]
+}
