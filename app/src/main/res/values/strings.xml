@@ -7,11 +7,13 @@
     <string name="location_title">Location</string>
     <string name="forecast_title">Forecast</string>
     <string name="settings_title">Settings</string>
-    <string name="degree_celsius">32\u2103</string>
+    <string name="degree_celsius_description">%1$s\u2103</string>
+    <string name="wind_speed_description">%1$sm/s</string>
     <string name="description_now">Now</string>
     <string name="test_place_description">Ernakulam, India</string>
     <string name="sample_weather_condition_description">Mostly cloudy</string>
     <string name="wind_description">Wind</string>
     <string name="test_wind_speed_description">10m/s</string>
     <string name="test_date">Tue, Apr 20</string>
+    <string name="weather_icon_desc">Current weather icon</string>
 </resources>

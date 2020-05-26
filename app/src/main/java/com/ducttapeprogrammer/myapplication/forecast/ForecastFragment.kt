@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.ducttapeprogrammer.myapplication.SNOW
+import androidx.lifecycle.ViewModelProvider
+import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentForecastBinding
-import com.ducttapeprogrammer.myapplication.getWeatherConditionIcon
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+@ExperimentalStdlibApi
 class ForecastFragment : Fragment() {
+    private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
     private lateinit var binding: FragmentForecastBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +27,40 @@ class ForecastFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setWeatherConditionIcon()
+        binding.lifecycleOwner = this.viewLifecycleOwner
+        setupViewModel()
+        observeViewModel()
+        getCurrentWeatherData()
 
     }
 
-    private fun setWeatherConditionIcon() {
+    private fun getCurrentWeatherData() {
 
-        binding.imageViewWeatherCondition.getWeatherConditionIcon(SNOW)
+        currentWeatherViewModel.getCurrentWeather(
+            TEST_LATITUDE,
+            TEST_LONGITUDE,
+            API_KEY
+        )
     }
+
+    private fun observeViewModel() {
+        currentWeatherViewModel.lottieAnimation.observe(requireActivity(), EventObserver {
+            if (it) {
+                binding.lottieLoadingAnimation.stopLottieAnimationView()
+                binding.imageViewWeatherCondition.getWeatherConditionIcon(
+                    getIntSharedPreference(
+                        SHARED_PREF_WEATHER_CONDITION_KEY
+                    )
+                )
+            } else {
+                binding.lottieLoadingAnimation.startLottieAnimationView()
+            }
+        })
+    }
+
+    private fun setupViewModel() {
+        currentWeatherViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
+        binding.viewModel = currentWeatherViewModel
+    }
+
 }

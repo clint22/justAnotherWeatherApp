@@ -22,7 +22,7 @@ val CLOUD_RANGE = 801..804
 const val SHARED_PREF_WEATHER_CONDITION_KEY = "weather_condition"
 
 //Base URL
-const val BASE_URL = "api.openweathermap.org/data/2.5/"
+const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
 
 //API Key
 const val API_KEY = "4504261d389d54692524da1ad6dd932d"
@@ -33,5 +33,12 @@ const val KEY_LONGITUDE = "lon"
 const val KEY_APP_ID = "appid"
 
 //TEST DATA's
+//16.198896 lat, 77.369793 long ( Raichur )
+//9.992540 lat, 76.302948 long ( Kochi )
+//-32.041388, 115.936144 long ( Australia )
+//11.9871160, 75.7698640 ( Kannur )
 const val TEST_LATITUDE = "9.992540"
 const val TEST_LONGITUDE = "76.302948"
+
+//TEMPERATURE CONSTANTS
+const val KELVIN = 273.1
