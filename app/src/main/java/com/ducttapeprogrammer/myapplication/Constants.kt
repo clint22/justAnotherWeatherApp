@@ -20,3 +20,18 @@ val CLOUD_RANGE = 801..804
 
 //SharedPref Keys
 const val SHARED_PREF_WEATHER_CONDITION_KEY = "weather_condition"
+
+//Base URL
+const val BASE_URL = "api.openweathermap.org/data/2.5/"
+
+//API Key
+const val API_KEY = "4504261d389d54692524da1ad6dd932d"
+
+//PARAM KEYS
+const val KEY_LATITUDE = "lat"
+const val KEY_LONGITUDE = "lon"
+const val KEY_APP_ID = "appid"
+
+//TEST DATA's
+const val TEST_LATITUDE = "9.992540"
+const val TEST_LONGITUDE = "76.302948"
