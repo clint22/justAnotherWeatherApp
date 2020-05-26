@@ -14,6 +14,9 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.IOException
 
+/**
+ * This class will write the logic of all the functions mentioned in the [AppDataSource]
+ * */
 object RemoteDataSource : AppDataSource {
 
     private val observeCurrentWeather = MutableLiveData<CurrentWeather>()

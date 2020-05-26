@@ -1,5 +1,8 @@
 package com.ducttapeprogrammer.myapplication
 
+/**
+ * This function wrap the response as Success, Failure or Loading
+ * */
 sealed class Result<out R> {
 
     /**

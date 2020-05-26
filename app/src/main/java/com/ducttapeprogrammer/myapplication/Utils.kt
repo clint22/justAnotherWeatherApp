@@ -125,6 +125,9 @@ fun getIntSharedPreference(sharedPrefKey: String): Int {
     return preference.getInt(sharedPrefKey, 0)
 }
 
+/**
+ * This function will convert the kelvin to degree celsius given the input
+ * */
 fun convertKelvinToDegreeCelsius(kelvin: Double?): String {
     val celsius = (kelvin?.toInt()?.minus(KELVIN))?.roundToInt()
     return celsius.toString()

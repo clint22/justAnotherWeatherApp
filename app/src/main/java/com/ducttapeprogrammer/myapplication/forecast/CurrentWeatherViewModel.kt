@@ -12,7 +12,13 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.math.roundToInt
 
+/**
+ * An annotation which makes sure 'capitalize(Locale.getDefault()' works perfectly with no issues
+ * */
 @ExperimentalStdlibApi
+/**
+ * This class will act as the link b/w UI and the repository
+ * */
 class CurrentWeatherViewModel : ViewModel() {
 
     private val currentWeatherRepository = CurrentWeatherRepository()
@@ -33,7 +39,9 @@ class CurrentWeatherViewModel : ViewModel() {
     val weatherCondition = MutableLiveData<String>()
     val windSpeed = MutableLiveData<String>()
 
-
+    /**
+     * This function will get the result from [CurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
+     * */
     fun getCurrentWeather(
         latitude: String,
         longitude: String,

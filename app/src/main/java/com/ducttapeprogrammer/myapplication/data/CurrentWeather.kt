@@ -3,6 +3,9 @@ package com.ducttapeprogrammer.myapplication.data
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * POJO for Current weather API
+ * */
 data class CurrentWeather(
     @SerializedName("base")
     val base: String,
@@ -31,11 +34,17 @@ data class CurrentWeather(
     @SerializedName("wind")
     val wind: Wind
 ) {
+    /**
+     * data class for getting clouds details
+     * */
     data class Clouds(
         @SerializedName("all")
         val all: Int
     )
 
+    /**
+     * data class for getting current co-ordinates
+    * */
     data class Coord(
         @SerializedName("lat")
         val lat: Double,
@@ -43,6 +52,9 @@ data class CurrentWeather(
         val lon: Double
     )
 
+    /**
+     * data class for main weather details
+    * */
     data class Main(
         @SerializedName("feels_like")
         val feelsLike: Double,
@@ -58,6 +70,9 @@ data class CurrentWeather(
         val tempMin: Double
     )
 
+    /**
+     * data class getting user location specific weather details
+     * */
     data class Sys(
         @SerializedName("country")
         val country: String,
@@ -71,6 +86,9 @@ data class CurrentWeather(
         val type: Int
     )
 
+    /**
+     * data class for getting weather meta-data
+     * */
     data class Weather(
         @SerializedName("description")
         val description: String,
@@ -82,6 +100,9 @@ data class CurrentWeather(
         val main: String
     )
 
+    /**
+     * data class for getting wind details
+     * */
     data class Wind(
         @SerializedName("deg")
         val deg: Int,
