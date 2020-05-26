@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -9,7 +10,13 @@ android {
     viewBinding {
         enabled = true
     }
-
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     defaultConfig {
         applicationId "com.ducttapeprogrammer.myapplication"
         minSdkVersion rootProject.minSdkVersion
@@ -86,4 +93,6 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
 //    Intuit - dimen library
     implementation "com.intuit.sdp:sdp-android:$intuitVersion"
+//    Timber - logging library
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 }

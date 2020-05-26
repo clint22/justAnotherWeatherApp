@@ -5,11 +5,12 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import kotlin.math.roundToInt
 
 /**
  * This function will return weather type ID providing the weatherCondition ID
  * */
-fun getWeatherCondition(weatherConditionId: Int): Int {
+fun getWeatherCondition(weatherConditionId: Int?): Int {
     var weatherId = 0
     when (weatherConditionId) {
         in THUNDER_STORM_RANGE -> {
@@ -42,7 +43,7 @@ fun getWeatherCondition(weatherConditionId: Int): Int {
  * */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun ImageView.getWeatherConditionIcon(weatherID: Int) {
-    var drawable: Drawable? = null
+    val drawable: Drawable?
     when (weatherID) {
         THUNDER_STORM -> {
 
@@ -117,9 +118,17 @@ fun Int.setIntSharedPreference(sharedPrefKey: String) {
 /**
  * Get a SharedPreference for a Integer value
  */
-fun getIntSharedPreference(sharedPrefKey: String): Int? {
+fun getIntSharedPreference(sharedPrefKey: String): Int {
     val preference = MyApplication.instance.applicationContext.getSharedPreferences(
         MyApplication.instance.getString(R.string.app_name), Context.MODE_PRIVATE
     )
     return preference.getInt(sharedPrefKey, 0)
+}
+
+/**
+ * This function will convert the kelvin to degree celsius given the input
+ * */
+fun convertKelvinToDegreeCelsius(kelvin: Double?): String {
+    val celsius = (kelvin?.toInt()?.minus(KELVIN))?.roundToInt()
+    return celsius.toString()
 }
