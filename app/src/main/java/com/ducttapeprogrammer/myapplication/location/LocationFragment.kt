@@ -19,7 +19,10 @@ import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentLocationBinding
 import timber.log.Timber
 
-
+/**
+ * This fragment will helps the user to choose the current location and
+ * also let the user to choose other location.
+ * */
 class LocationFragment : Fragment() {
     private lateinit var binding: FragmentLocationBinding
     private val accessFineLocationAndCoarseLocationPermissionRequestCode = 10

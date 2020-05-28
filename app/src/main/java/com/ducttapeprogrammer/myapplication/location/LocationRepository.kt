@@ -1,5 +1,6 @@
 package com.ducttapeprogrammer.myapplication.location
 
-class LocationRepository {
-
-}
+/**
+ * This class will act as a link b/w [LocationViewModel] and the underlying dB
+ * */
+class LocationRepository

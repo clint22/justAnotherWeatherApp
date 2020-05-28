@@ -25,6 +25,9 @@ fun LottieAnimationView.stopLottieAnimationView() {
     this.cancelAnimation()
 }
 
+/**
+ * Function which show's a toast provided the String
+ * */
 fun String.showToast(context: Context) {
 
     Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
