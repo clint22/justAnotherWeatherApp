@@ -17,4 +17,5 @@
     <string name="test_date">Tue, Apr 20</string>
     <string name="weather_icon_desc">Current weather icon</string>
     <string name="permissions_needed">Location permission needed. Please allow in App Settings for additional functionality.</string>
+    <string name="unable_to_find_location">Unable to find location</string>
 </resources>

@@ -36,7 +36,6 @@ class LocationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         checkGpsEnabled()
-//        requestPermissionForLocation()
     }
 
     private fun checkGpsEnabled() {
@@ -133,7 +132,7 @@ class LocationFragment : Fragment() {
                 }
             }
         } else {
-            "Unable to find location".showToast(requireContext())
+            requireActivity().getString(R.string.unable_to_find_location).showToast(requireContext())
         }
 
     }
