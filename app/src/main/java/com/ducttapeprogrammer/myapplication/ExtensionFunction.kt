@@ -1,7 +1,9 @@
 package com.ducttapeprogrammer.myapplication
 
+import android.content.Context
 import android.view.View
 import android.view.animation.Animation
+import android.widget.Toast
 import com.airbnb.lottie.LottieAnimationView
 
 /**
@@ -21,4 +23,9 @@ fun LottieAnimationView.startLottieAnimationView() {
 fun LottieAnimationView.stopLottieAnimationView() {
     this.visibility = View.GONE
     this.cancelAnimation()
+}
+
+fun String.showToast(context: Context) {
+
+    Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
 }

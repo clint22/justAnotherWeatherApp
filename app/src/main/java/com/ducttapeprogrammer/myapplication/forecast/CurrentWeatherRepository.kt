@@ -16,8 +16,8 @@ class CurrentWeatherRepository {
      * This function will return the result of current weather from the [RemoteDataSource.getCurrentWeather]
      * */
     suspend fun getCurrentWeather(
-        latitude: String,
-        longitude: String,
+        latitude: String?,
+        longitude: String?,
         appId: String
     ): Result<CurrentWeather> {
         return remoteDataSource.getCurrentWeather(latitude, longitude, appId)

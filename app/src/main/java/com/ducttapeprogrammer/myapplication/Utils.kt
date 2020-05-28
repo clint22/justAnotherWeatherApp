@@ -114,7 +114,6 @@ fun Int.setIntSharedPreference(sharedPrefKey: String) {
 
 }
 
-
 /**
  * Get a SharedPreference for a Integer value
  */
@@ -124,6 +123,31 @@ fun getIntSharedPreference(sharedPrefKey: String): Int {
     )
     return preference.getInt(sharedPrefKey, 0)
 }
+
+/**
+ * Set a SharedPreference for a String value
+ */
+fun String.setStringSharedPreference(sharedPrefKey: String) {
+
+    val preference = MyApplication.instance.applicationContext.getSharedPreferences(
+        MyApplication.instance.getString(R.string.app_name), Context.MODE_PRIVATE
+    )
+    val editor = preference.edit()
+    editor.putString(sharedPrefKey, this)
+    editor.apply()
+
+}
+
+/**
+ * Get a SharedPreference for a Integer value
+ */
+fun getStringSharedPreference(sharedPrefKey: String): String? {
+    val preference = MyApplication.instance.applicationContext.getSharedPreferences(
+        MyApplication.instance.getString(R.string.app_name), Context.MODE_PRIVATE
+    )
+    return preference.getString(sharedPrefKey, "")
+}
+
 
 /**
  * This function will convert the kelvin to degree celsius given the input

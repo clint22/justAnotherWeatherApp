@@ -18,8 +18,8 @@ interface GetDataService {
      * */
     @GET("weather")
     suspend fun getCurrentWeather(
-        @Query(KEY_LATITUDE) latitude: String,
-        @Query(KEY_LONGITUDE) longitude: String,
+        @Query(KEY_LATITUDE) latitude: String?,
+        @Query(KEY_LONGITUDE) longitude: String?,
         @Query(KEY_APP_ID) appId: String
     ):Response<CurrentWeather>?
 

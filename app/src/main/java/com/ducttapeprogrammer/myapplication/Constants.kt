@@ -39,8 +39,8 @@ const val KEY_APP_ID = "appid"
 //9.992540 lat, 76.302948 long ( Kochi )
 //-32.041388, 115.936144 long ( Australia )
 //11.9871160, 75.7698640 ( Kannur )
-const val TEST_LATITUDE = "9.992540"
-const val TEST_LONGITUDE = "76.302948"
+const val TEST_LATITUDE = "9.989876"
+const val TEST_LONGITUDE = "76.294732"
 
 //TEMPERATURE CONSTANTS
 const val KELVIN = 273.1
