@@ -43,8 +43,8 @@ class CurrentWeatherViewModel : ViewModel() {
      * This function will get the result from [CurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
      * */
     fun getCurrentWeather(
-        latitude: String,
-        longitude: String,
+        latitude: String?,
+        longitude: String?,
         appId: String
     ) {
         _lottieAnimation.value = Event(false)

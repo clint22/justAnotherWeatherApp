@@ -37,8 +37,8 @@ class ForecastFragment : Fragment() {
     private fun getCurrentWeatherData() {
 
         currentWeatherViewModel.getCurrentWeather(
-            TEST_LATITUDE,
-            TEST_LONGITUDE,
+            getStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE),
+            getStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE),
             API_KEY
         )
     }

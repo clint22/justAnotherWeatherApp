@@ -13,8 +13,8 @@ interface AppDataSource {
      * This function will return the [CurrentWeather] that is wrapped in the [Result]
      * */
     suspend fun getCurrentWeather(
-        latitude: String,
-        longitude: String,
+        latitude: String?,
+        longitude: String?,
         appId: String
     ) : Result<CurrentWeather>
 

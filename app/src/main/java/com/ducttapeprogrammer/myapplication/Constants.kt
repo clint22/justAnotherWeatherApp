@@ -20,6 +20,8 @@ val CLOUD_RANGE = 801..804
 
 //SharedPref Keys
 const val SHARED_PREF_WEATHER_CONDITION_KEY = "weather_condition"
+const val SHARED_PREF_CURRENT_LATITUDE = "current_latitude"
+const val SHARED_PREF_CURRENT_LONGITUDE = "current_longitude"
 
 //Base URL
 const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
@@ -37,8 +39,8 @@ const val KEY_APP_ID = "appid"
 //9.992540 lat, 76.302948 long ( Kochi )
 //-32.041388, 115.936144 long ( Australia )
 //11.9871160, 75.7698640 ( Kannur )
-const val TEST_LATITUDE = "9.992540"
-const val TEST_LONGITUDE = "76.302948"
+const val TEST_LATITUDE = "9.989876"
+const val TEST_LONGITUDE = "76.294732"
 
 //TEMPERATURE CONSTANTS
 const val KELVIN = 273.1

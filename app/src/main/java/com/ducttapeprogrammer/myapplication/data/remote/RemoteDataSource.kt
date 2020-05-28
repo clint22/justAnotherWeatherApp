@@ -23,8 +23,8 @@ object RemoteDataSource : AppDataSource {
     private var currentWeather: CurrentWeather? = null
     private var isExceptionOccurred: Boolean = false
     override suspend fun getCurrentWeather(
-        latitude: String,
-        longitude: String,
+        latitude: String?,
+        longitude: String?,
         appId: String
     ): Result<CurrentWeather> {
 
