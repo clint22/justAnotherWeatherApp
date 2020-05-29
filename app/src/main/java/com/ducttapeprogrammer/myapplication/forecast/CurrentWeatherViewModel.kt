@@ -38,6 +38,7 @@ class CurrentWeatherViewModel : ViewModel() {
     val currentTemperature = MutableLiveData<String>()
     val weatherCondition = MutableLiveData<String>()
     val windSpeed = MutableLiveData<String>()
+    val currentRegion = MutableLiveData<String>()
 
     /**
      * This function will get the result from [CurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
@@ -70,6 +71,7 @@ class CurrentWeatherViewModel : ViewModel() {
         currentTemperature.value = convertKelvinToDegreeCelsius(data?.main?.temp)
         weatherCondition.value = data?.weather?.get(0)?.description?.capitalize(Locale.getDefault())
         windSpeed.value = (data?.wind?.speed)?.roundToInt().toString()
+        currentRegion.value = data?.name + "," + data?.sys?.country
     }
 
 

@@ -18,4 +18,5 @@
     <string name="weather_icon_desc">Current weather icon</string>
     <string name="permissions_needed">Location permission needed. Please allow in App Settings for additional functionality.</string>
     <string name="unable_to_find_location">Unable to find location</string>
+    <string name="current_location_description">Your current location</string>
 </resources>
