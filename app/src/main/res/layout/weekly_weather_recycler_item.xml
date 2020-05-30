@@ -5,6 +5,7 @@
 
     <data>
 
+
         <variable
             name="utils"
             type="com.ducttapeprogrammer.myapplication.UtilsKt" />
@@ -30,13 +31,14 @@
         android:weightSum="3">
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/textViewDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/grey_50"
+            app:date="@{weatherForNextSevenDays.weather}"
             tools:text="@sample/weekly_weather.json/data/date" />
 
         <ImageView
@@ -46,7 +48,7 @@
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:weatherIcon="@{weatherForNextSevenDays.WeatherMainList.id}"
+            app:weatherIcon="@{weatherForNextSevenDays.weather}"
             tools:srcCompat="@sample/weekly_weather.json/data/weatherIcon" />
 
         <TextView

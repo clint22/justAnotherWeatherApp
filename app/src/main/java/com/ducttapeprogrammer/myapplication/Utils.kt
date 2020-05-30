@@ -5,6 +5,9 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 /**
@@ -101,34 +104,66 @@ fun ImageView.setWeatherConditionIcon(weatherID: Int) {
 
 }
 
-fun getWeatherConditionIcon(weatherID: Int): Int? {
-
-    var resource: Int? = R.drawable.thunder_storm_svg
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun ImageView.setRecyclerWeatherConditionIcon(weatherID: Int) {
+    val drawable: Drawable?
     when (weatherID) {
         THUNDER_STORM -> {
-            resource = R.drawable.thunder_storm_svg
+
+            drawable = MyApplication.instance.resources.getDrawable(
+                R.drawable.thunder_storm_recycler_item_svg,
+                MyApplication.instance.theme
+            )
+            this.setImageDrawable(drawable)
         }
         DRIZZLE -> {
-            resource = R.drawable.shower_rains_svg
+            drawable = MyApplication.instance.resources.getDrawable(
+                R.drawable.shower_rains_recyler_item_svg,
+                MyApplication.instance.theme
+            )
+            this.setImageDrawable(drawable)
         }
         RAIN -> {
-            resource = R.drawable.rain_svg
+            drawable = MyApplication.instance.resources.getDrawable(
+                R.drawable.rain_recycler_item_svg,
+                MyApplication.instance.theme
+            )
+            this.setImageDrawable(drawable)
         }
+
         SNOW -> {
-            resource = R.drawable.snow_svg
+            drawable = MyApplication.instance.resources.getDrawable(
+                R.drawable.snow_recycler_item_svg,
+                MyApplication.instance.theme
+            )
+            this.setImageDrawable(drawable)
         }
         ATMOSPHERE -> {
-            resource = R.drawable.mist_svg
+            drawable = MyApplication.instance.resources.getDrawable(
+                R.drawable.mist_recycler_item_svg,
+                MyApplication.instance.theme
+            )
+            this.setImageDrawable(drawable)
         }
         CLEAR -> {
-            resource = R.drawable.clear_sky_svg
+            drawable = MyApplication.instance.resources.getDrawable(
+                R.drawable.clear_sky_recycler_item_svg,
+                MyApplication.instance.theme
+            )
+            this.setImageDrawable(drawable)
         }
         CLOUDS -> {
-            resource = R.drawable.cloudy_svg
+            drawable = MyApplication.instance.resources.getDrawable(
+                R.drawable.cloudy_recycler_item_svg,
+                MyApplication.instance.theme
+            )
+            this.setImageDrawable(drawable)
         }
     }
-    return resource
+
+
 }
+
 
 /**
  * Set a SharedPreference for a Integer value
@@ -185,5 +220,20 @@ fun getStringSharedPreference(sharedPrefKey: String): String? {
 fun convertKelvinToDegreeCelsius(kelvin: Double?): Int? {
     return (kelvin?.toInt()?.minus(KELVIN))?.roundToInt()
 }
+
+fun getCurrentDate(count: Int): String {
+    val oldDate: String? = SimpleDateFormat("dd-MMMM-yyyy", Locale.getDefault()).format(Date())
+    val simpleDateFormat = SimpleDateFormat("dd-MMMM-yyyy", Locale.getDefault())
+    val calendar = Calendar.getInstance()
+    try {
+        calendar.time = simpleDateFormat.parse(oldDate)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    calendar.add(Calendar.DAY_OF_MONTH, count)
+    return simpleDateFormat.format(calendar.time)
+}
+
+
 
 
