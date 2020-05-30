@@ -42,7 +42,7 @@ fun getWeatherCondition(weatherConditionId: Int?): Int {
  * This function will return the current weather condition icon providing the weatherID
  * */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun ImageView.getWeatherConditionIcon(weatherID: Int) {
+fun ImageView.setWeatherConditionIcon(weatherID: Int) {
     val drawable: Drawable?
     when (weatherID) {
         THUNDER_STORM -> {
@@ -98,6 +98,36 @@ fun ImageView.getWeatherConditionIcon(weatherID: Int) {
         }
     }
 
+
+}
+
+fun getWeatherConditionIcon(weatherID: Int): Int? {
+
+    var resource: Int? = R.drawable.thunder_storm_svg
+    when (weatherID) {
+        THUNDER_STORM -> {
+            resource = R.drawable.thunder_storm_svg
+        }
+        DRIZZLE -> {
+            resource = R.drawable.shower_rains_svg
+        }
+        RAIN -> {
+            resource = R.drawable.rain_svg
+        }
+        SNOW -> {
+            resource = R.drawable.snow_svg
+        }
+        ATMOSPHERE -> {
+            resource = R.drawable.mist_svg
+        }
+        CLEAR -> {
+            resource = R.drawable.clear_sky_svg
+        }
+        CLOUDS -> {
+            resource = R.drawable.cloudy_svg
+        }
+    }
+    return resource
 }
 
 /**
@@ -152,7 +182,8 @@ fun getStringSharedPreference(sharedPrefKey: String): String? {
 /**
  * This function will convert the kelvin to degree celsius given the input
  * */
-fun convertKelvinToDegreeCelsius(kelvin: Double?): String {
-    val celsius = (kelvin?.toInt()?.minus(KELVIN))?.roundToInt()
-    return celsius.toString()
+fun convertKelvinToDegreeCelsius(kelvin: Double?): Int? {
+    return (kelvin?.toInt()?.minus(KELVIN))?.roundToInt()
 }
+
+

@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="currentWeather"
-            type="com.ducttapeprogrammer.myapplication.data.CurrentWeather" />
-
-        <variable
             name="viewModel"
             type="com.ducttapeprogrammer.myapplication.forecast.CurrentWeatherViewModel" />
     </data>
@@ -136,9 +132,12 @@
                 tools:text="@string/test_wind_speed_description" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_weather_for_next_seven_days"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_50sdp"
+                app:items="@{viewModel.observeWeatherForNextSevenDays}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

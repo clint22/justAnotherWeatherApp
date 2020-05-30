@@ -63,4 +63,12 @@ class UtilsTest {
         assertEquals(result, 0)
     }
 
+    @Test
+    fun getKelvinToDegreeCelsiusValue_inputThreeHundredAndFifty_returnSeventySeven() {
+
+        val input = 350.0
+        val result = convertKelvinToDegreeCelsius(input)
+        assertEquals(result, 77)
+    }
+
 }

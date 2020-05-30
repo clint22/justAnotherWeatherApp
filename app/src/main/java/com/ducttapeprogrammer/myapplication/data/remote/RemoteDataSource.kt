@@ -2,12 +2,10 @@ package com.ducttapeprogrammer.myapplication.data.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ducttapeprogrammer.myapplication.Result
-import com.ducttapeprogrammer.myapplication.SHARED_PREF_WEATHER_CONDITION_KEY
-import com.ducttapeprogrammer.myapplication.data.CurrentWeather
+import com.ducttapeprogrammer.myapplication.*
+import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
+import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.data.source.AppDataSource
-import com.ducttapeprogrammer.myapplication.getWeatherCondition
-import com.ducttapeprogrammer.myapplication.setIntSharedPreference
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,8 +18,12 @@ import java.io.IOException
 object RemoteDataSource : AppDataSource {
 
     private val observeCurrentWeather = MutableLiveData<CurrentWeather>()
+    private val observeWeatherForNextSevenDays =
+        MutableLiveData<List<WeatherForNextSevenDays.WeatherList>>()
     private var currentWeather: CurrentWeather? = null
-    private var isExceptionOccurred: Boolean = false
+    private var weatherForNextSevenDays: WeatherForNextSevenDays? = null
+    private var isCurrentWeatherExceptionOccurred: Boolean = false
+    private var isWeatherForNextSevenDaysExceptionOccurred: Boolean = false
     override suspend fun getCurrentWeather(
         latitude: String?,
         longitude: String?,
@@ -44,19 +46,61 @@ object RemoteDataSource : AppDataSource {
                     }
                 }
             } catch (exception: IOException) {
-                isExceptionOccurred = true
+                isCurrentWeatherExceptionOccurred = true
                 print(exception)
             }
         }
-        if (isExceptionOccurred) {
-            return Result.Error(Unit)
+        return if (isCurrentWeatherExceptionOccurred) {
+            Result.Error(Unit)
         } else {
 
-            return Result.Success(currentWeather)
+            Result.Success(currentWeather)
         }
     }
 
     override fun observeCurrentWeather(): LiveData<CurrentWeather> {
         return observeCurrentWeather
+    }
+
+    override suspend fun getWeatherDataForNextSevenDays(
+        latitude: String?,
+        longitude: String?,
+        appId: String
+    ) {
+
+        withContext(Dispatchers.IO) {
+
+            try {
+                val service = ApiFactory.retrofit().create(GetDataService::class.java)
+                val call = service.getWeatherDataForNextSevenDays(
+                    latitude,
+                    longitude,
+                    appId
+                )
+                if (call?.isSuccessful!!) {
+
+                    call.body().let { weatherDataForNextSevenDaysData ->
+
+                        weatherForNextSevenDays = weatherDataForNextSevenDaysData
+                        observeWeatherForNextSevenDays.postValue(
+                            weatherForNextSevenDays?.list?.subList(
+                                WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE,
+                                (weatherForNextSevenDays?.list!!.size - 1)
+                            )
+                        )
+                        Timber.e(Gson().toJson(weatherDataForNextSevenDaysData))
+                    }
+                }
+
+            } catch (exception: IOException) {
+                isWeatherForNextSevenDaysExceptionOccurred = true
+                print(exception)
+            }
+        }
+
+    }
+
+    override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>> {
+        return observeWeatherForNextSevenDays
     }
 }

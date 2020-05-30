@@ -29,10 +29,19 @@ class ForecastFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
         setupViewModel()
+        setAdapter()
         observeViewModel()
         getCurrentWeatherData()
 
     }
+
+    private fun setAdapter() {
+        val weatherForNextSevenDaysAdapter = WeatherForNextSevenDaysAdapter(
+            binding.viewModel
+        )
+        binding.recyclerViewWeatherForNextSevenDays.adapter = weatherForNextSevenDaysAdapter
+    }
+
 
     private fun getCurrentWeatherData() {
 
@@ -47,7 +56,7 @@ class ForecastFragment : Fragment() {
         currentWeatherViewModel.lottieAnimation.observe(requireActivity(), EventObserver {
             if (it) {
                 binding.lottieLoadingAnimation.stopLottieAnimationView()
-                binding.imageViewWeatherCondition.getWeatherConditionIcon(
+                binding.imageViewWeatherCondition.setWeatherConditionIcon(
                     getIntSharedPreference(
                         SHARED_PREF_WEATHER_CONDITION_KEY
                     )
