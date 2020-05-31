@@ -22,6 +22,7 @@ val CLOUD_RANGE = 801..804
 const val SHARED_PREF_WEATHER_CONDITION_KEY = "weather_condition"
 const val SHARED_PREF_CURRENT_LATITUDE = "current_latitude"
 const val SHARED_PREF_CURRENT_LONGITUDE = "current_longitude"
+const val SHARED_PREF_DATE_COUNT = "date_count"
 
 //Base URL
 const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
@@ -44,3 +45,7 @@ const val TEST_LONGITUDE = "76.294732"
 
 //TEMPERATURE CONSTANTS
 const val KELVIN = 273.1
+
+//Others
+const val WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE = 1
+const val DATE_FORMAT_ONE = "dd-MMMM-yyyy"

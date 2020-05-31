@@ -1,4 +1,4 @@
-package com.ducttapeprogrammer.myapplication.data
+package com.ducttapeprogrammer.myapplication.data.model
 
 
 import com.google.gson.annotations.SerializedName

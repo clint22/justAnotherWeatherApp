@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="currentWeather"
-            type="com.ducttapeprogrammer.myapplication.data.CurrentWeather" />
-
-        <variable
             name="viewModel"
             type="com.ducttapeprogrammer.myapplication.forecast.CurrentWeatherViewModel" />
     </data>
@@ -39,14 +35,14 @@
             android:visibility="@{viewModel.dataLoading? View.GONE : View.VISIBLE}">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewRegion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="@string/test_place_description"
+                android:text="@{viewModel.currentRegion}"
                 android:textColor="@color/dark_30"
                 android:textSize="18sp"
-                app:fontFamily="sans-serif-condensed-medium"
+                app:fontFamily="@font/amaranth"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,41 +52,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:textSize="@dimen/_8sdp"
+                android:fontFamily="@font/amaranth"
                 android:text="@string/description_now"
                 android:textColor="@color/dark_30"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintEnd_toEndOf="@+id/textViewRegion"
+                app:layout_constraintStart_toStartOf="@+id/textViewRegion"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRegion" />
 
             <ImageView
                 android:id="@+id/imageViewWeatherCondition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="68dp"
                 android:contentDescription="@string/weather_icon_desc"
                 android:src="@drawable/rain_svg"
-                app:layout_constraintBottom_toTopOf="@+id/textViewCurrentTemperature"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
                 android:id="@+id/textViewCurrentTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/amaranth_bold"
                 android:text="@{String.format(@string/degree_celsius_description,viewModel.currentTemperature)}"
                 android:textColor="@color/dark_30"
-                android:textSize="72sp"
-                app:fontFamily="sans-serif-condensed"
-                app:layout_constraintBottom_toTopOf="@+id/textViewWeatherCondition"
+                android:textSize="@dimen/_40sdp"
+                app:fontFamily="@font/amaranth_bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewWeatherCondition"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/imageViewWeatherCondition"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherCondition"
-                app:layout_constraintVertical_chainStyle="packed" />
+                tools:text="33" />
 
             <TextView
                 android:id="@+id/textViewWeatherCondition"
@@ -100,13 +95,11 @@
                 android:fontFamily="sans-serif-condensed"
                 android:text="@{viewModel.weatherCondition}"
                 android:textColor="@color/dark_30"
-                app:fontFamily="sans-serif-condensed"
-                app:layout_constraintBottom_toTopOf="@+id/textView5"
+                app:fontFamily="@font/amaranth"
                 app:layout_constraintEnd_toEndOf="@+id/textViewCurrentTemperature"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="@+id/textViewCurrentTemperature"
                 app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature"
-                app:layout_constraintVertical_chainStyle="packed"
                 tools:text="@string/sample_weather_condition_description" />
 
             <TextView
@@ -114,6 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:fontFamily="@font/amaranth"
                 android:text="@string/wind_description"
                 android:textColor="@color/dark_30"
                 app:layout_constraintEnd_toEndOf="@+id/textViewWeatherCondition"
@@ -128,6 +122,7 @@
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/wind_svg"
                 android:drawablePadding="@dimen/_5sdp"
+                android:fontFamily="@font/amaranth"
                 android:text="@{String.format(@string/wind_speed_description,viewModel.windSpeed)}"
                 android:textColor="@color/dark_30"
                 app:layout_constraintEnd_toEndOf="@+id/textView5"
@@ -136,9 +131,12 @@
                 tools:text="@string/test_wind_speed_description" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_weather_for_next_seven_days"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_50sdp"
+                app:items="@{viewModel.observeWeatherForNextSevenDays}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
