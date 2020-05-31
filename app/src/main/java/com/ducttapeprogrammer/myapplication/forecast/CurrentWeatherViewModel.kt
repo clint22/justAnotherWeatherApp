@@ -64,13 +64,13 @@ class CurrentWeatherViewModel : ViewModel() {
             ).let {
                 if (it is Result.Success) {
                     onWeatherDataLoaded(it.data)
-                    _dataLoading.value = false
                     _lottieAnimation.value = Event(true)
                     currentWeatherRepository.getWeatherDataForNextSevenDays(
                         latitude,
                         longitude,
                         appId
                     )
+                    _dataLoading.value = false
                 }
 
             }

@@ -5,18 +5,9 @@
 
     <data>
 
-
-        <variable
-            name="utils"
-            type="com.ducttapeprogrammer.myapplication.UtilsKt" />
-
         <variable
             name="weatherForNextSevenDays"
             type="com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays.WeatherList" />
-
-        <variable
-            name="weatherMainList"
-            type="com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays.WeatherList.WeatherMainList" />
 
         <variable
             name="viewModel"
@@ -36,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
+            android:fontFamily="@font/amaranth"
             android:gravity="center"
             android:textColor="@color/grey_50"
             app:date="@{weatherForNextSevenDays.weather}"
@@ -57,11 +49,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
+            android:fontFamily="@font/amaranth"
             android:gravity="center"
             android:textColor="@color/grey_50"
-            app:currentTemperature="@{weatherForNextSevenDays.temp.day}"
+            app:currentTemperature="@{weatherForNextSevenDays.temp}"
             tools:text="@sample/weekly_weather.json/data/degree" />
     </LinearLayout>
 </layout>
 
-    <!--app:weatherIcon="@{weatherForNextSevenDays.WeatherMainList.id}"-->

@@ -8,6 +8,7 @@
     <string name="forecast_title">Forecast</string>
     <string name="settings_title">Settings</string>
     <string name="degree_celsius_description">%1$s\u2103</string>
+    <string name="degree_celsius_max_min_description" formatted="false">%1$s\u2103\\%2$s\u2103</string>
     <string name="wind_speed_description">%1$sm/s</string>
     <string name="description_now">Now</string>
     <string name="test_place_description">Ernakulam, India</string>

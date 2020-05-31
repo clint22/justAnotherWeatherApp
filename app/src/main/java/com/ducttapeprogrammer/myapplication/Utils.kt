@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -221,9 +222,17 @@ fun convertKelvinToDegreeCelsius(kelvin: Double?): Int? {
     return (kelvin?.toInt()?.minus(KELVIN))?.roundToInt()
 }
 
-fun getCurrentDate(count: Int): String {
-    val oldDate: String? = SimpleDateFormat("dd-MMMM-yyyy", Locale.getDefault()).format(Date())
-    val simpleDateFormat = SimpleDateFormat("dd-MMMM-yyyy", Locale.getDefault())
+fun getCurrentDate(): String {
+    Timber.d("date_count_size %1s", getIntSharedPreference(SHARED_PREF_DATE_COUNT).toString())
+    if (getIntSharedPreference(SHARED_PREF_DATE_COUNT) > 4) {
+        val count = 0
+        count.setIntSharedPreference(SHARED_PREF_DATE_COUNT)
+    }
+    var count = getIntSharedPreference(SHARED_PREF_DATE_COUNT)
+    count += 1
+    count.setIntSharedPreference(SHARED_PREF_DATE_COUNT)
+    val oldDate: String? = SimpleDateFormat(DATE_FORMAT_ONE, Locale.getDefault()).format(Date())
+    val simpleDateFormat = SimpleDateFormat(DATE_FORMAT_ONE, Locale.getDefault())
     val calendar = Calendar.getInstance()
     try {
         calendar.time = simpleDateFormat.parse(oldDate)
@@ -231,6 +240,7 @@ fun getCurrentDate(count: Int): String {
         e.printStackTrace()
     }
     calendar.add(Calendar.DAY_OF_MONTH, count)
+
     return simpleDateFormat.format(calendar.time)
 }
 

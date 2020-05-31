@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.forecast.WeatherForNextSevenDaysAdapter
-import com.google.gson.Gson
 import timber.log.Timber
 
 
@@ -22,12 +21,13 @@ fun setItems(listView: RecyclerView, items: List<WeatherForNextSevenDays.Weather
 }
 
 @BindingAdapter("app:currentTemperature")
-fun setCurrentTemperature(textView: TextView, value: Double) {
+fun setCurrentTemperature(textView: TextView, value: WeatherForNextSevenDays.WeatherList.Temp) {
 
     textView.text =
         MyApplication.instance.getString(
-            R.string.degree_celsius_description,
-            convertKelvinToDegreeCelsius(value).toString()
+            R.string.degree_celsius_max_min_description,
+            convertKelvinToDegreeCelsius(value.max).toString(),
+            convertKelvinToDegreeCelsius(value.min).toString()
         )
 }
 
@@ -37,7 +37,6 @@ fun setWeatherIcon(
     imageView: ImageView,
     items: List<WeatherForNextSevenDays.WeatherList.WeatherMainList>
 ) {
-    Timber.d(Gson().toJson(items))
     items.forEach { weatherMain ->
         Timber.d(weatherMain.id.toString())
         imageView.setRecyclerWeatherConditionIcon(getWeatherCondition(weatherMain.id))
@@ -49,8 +48,7 @@ fun setDate(
     textView: TextView,
     items: List<WeatherForNextSevenDays.WeatherList.WeatherMainList>
 ) {
-    Timber.d(items.size.toString())
-    textView.text = getCurrentDate(1)
+    textView.text = getCurrentDate()
 
 
 }
