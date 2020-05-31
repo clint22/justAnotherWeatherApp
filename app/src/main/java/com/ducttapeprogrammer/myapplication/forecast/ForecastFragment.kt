@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentForecastBinding
 
+/**
+ * This fragment acts as the UI for showing weather related information
+ * */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 @ExperimentalStdlibApi
 class ForecastFragment : Fragment() {

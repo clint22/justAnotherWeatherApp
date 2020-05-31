@@ -6,7 +6,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ducttapeprogrammer.myapplication.databinding.ActivityMainBinding
 
-
+/**
+ * This activity will act as the Navigation host fragment
+ * */
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {

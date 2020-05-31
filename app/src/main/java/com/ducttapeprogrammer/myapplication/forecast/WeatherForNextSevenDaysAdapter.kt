@@ -27,8 +27,15 @@ class WeatherForNextSevenDaysAdapter(private val viewModel: CurrentWeatherViewMo
         return ViewHolder.from(parent)
     }
 
+    /**
+     * ViewHolder class which returns the bound view items
+     * */
     class ViewHolder private constructor(private val binding: WeeklyWeatherRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        /**
+         * This function will binds
+         * the [CurrentWeatherViewModel] and [WeatherForNextSevenDays.WeatherList]
+         * */
         fun bind(
             viewModel: CurrentWeatherViewModel?,
             itemWeatherList: WeatherForNextSevenDays.WeatherList
@@ -40,6 +47,9 @@ class WeatherForNextSevenDaysAdapter(private val viewModel: CurrentWeatherViewMo
         }
 
         companion object {
+            /**
+             * This function will inflate the layout and helps in view binding
+             * */
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding =

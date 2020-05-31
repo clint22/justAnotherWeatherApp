@@ -3,6 +3,9 @@ package com.ducttapeprogrammer.myapplication.data.model
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * POJO for the next seven days Weather data
+ * */
 data class WeatherForNextSevenDays(
     @SerializedName("city")
     val city: City,
@@ -15,6 +18,9 @@ data class WeatherForNextSevenDays(
     @SerializedName("message")
     val message: Double
 ) {
+    /**
+     * Data class for getting City details
+     * */
     data class City(
         @SerializedName("coord")
         val coord: Coord,
@@ -29,6 +35,9 @@ data class WeatherForNextSevenDays(
         @SerializedName("timezone")
         val timezone: Int
     ) {
+        /**
+         * Data class for getting coordinate details
+         * */
         data class Coord(
             @SerializedName("lat")
             val lat: Double,
@@ -37,6 +46,9 @@ data class WeatherForNextSevenDays(
         )
     }
 
+    /**
+     * Data class that holds other weather information
+     * */
     data class WeatherList(
         @SerializedName("clouds")
         val clouds: Int,
@@ -63,6 +75,9 @@ data class WeatherForNextSevenDays(
         @SerializedName("weather")
         val weather: List<WeatherMainList>
     ) {
+        /**
+         * Data class that get information about what's the weather feels like
+         * */
         data class FeelsLike(
             @SerializedName("day")
             val day: Double,
@@ -74,6 +89,10 @@ data class WeatherForNextSevenDays(
             val night: Double
         )
 
+        /**
+         * Data class that contains information about temperature changes
+         * in the complete day
+         * */
         data class Temp(
             @SerializedName("day")
             val day: Double,
@@ -89,6 +108,9 @@ data class WeatherForNextSevenDays(
             val night: Double
         )
 
+        /**
+         * Data class for getting Weather meta-data
+         **/
         data class WeatherMainList(
             @SerializedName("description")
             val description: String,

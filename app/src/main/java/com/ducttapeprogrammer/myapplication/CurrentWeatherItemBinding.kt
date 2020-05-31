@@ -1,5 +1,6 @@
 package com.ducttapeprogrammer.myapplication
 
+import android.annotation.SuppressLint
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -20,6 +21,11 @@ fun setItems(listView: RecyclerView, items: List<WeatherForNextSevenDays.Weather
     }
 }
 
+/**
+ * This function will help in binding the current temperature by taking the [TextView]
+ * and Min and Max temperature
+ * */
+@SuppressLint("StringFormatMatches")
 @BindingAdapter("app:currentTemperature")
 fun setCurrentTemperature(textView: TextView, value: WeatherForNextSevenDays.WeatherList.Temp) {
 
@@ -31,7 +37,9 @@ fun setCurrentTemperature(textView: TextView, value: WeatherForNextSevenDays.Wea
         )
 }
 
-
+/**
+ * This function will help in binding the weather icon for the next 5 days
+ * */
 @BindingAdapter("app:weatherIcon")
 fun setWeatherIcon(
     imageView: ImageView,
@@ -43,6 +51,9 @@ fun setWeatherIcon(
     }
 }
 
+/**
+ * This function will help in binding the date for the next 5 days
+ * */
 @BindingAdapter("app:date")
 fun setDate(
     textView: TextView,

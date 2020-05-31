@@ -12,7 +12,7 @@ import java.util.*
 import kotlin.math.roundToInt
 
 /**
- * This function will return weather type ID providing the weatherCondition ID
+ * This function will return the weather type ID providing the weatherCondition ID
  * */
 fun getWeatherCondition(weatherConditionId: Int?): Int {
     var weatherId = 0
@@ -105,6 +105,10 @@ fun ImageView.setWeatherConditionIcon(weatherID: Int) {
 
 }
 
+/**
+ * This function will return the current weather condition icon providing the weatherID
+ * for recyclerview item
+ * */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun ImageView.setRecyclerWeatherConditionIcon(weatherID: Int) {
     val drawable: Drawable?
@@ -222,8 +226,13 @@ fun convertKelvinToDegreeCelsius(kelvin: Double?): Int? {
     return (kelvin?.toInt()?.minus(KELVIN))?.roundToInt()
 }
 
+
+/**
+ * This function will return the date as a String. It will increment date by 1 day
+ * every time this function is called. It uses a [SHARED_PREF_DATE_COUNT] to verify the
+ * day is only incremented till 4 days, to make sure, only the next 4 days date is shown.
+ * */
 fun getCurrentDate(): String {
-    Timber.d("date_count_size %1s", getIntSharedPreference(SHARED_PREF_DATE_COUNT).toString())
     if (getIntSharedPreference(SHARED_PREF_DATE_COUNT) > 4) {
         val count = 0
         count.setIntSharedPreference(SHARED_PREF_DATE_COUNT)

@@ -26,13 +26,14 @@ class CurrentWeatherRepository {
     }
 
     /**
-     * This function will observe the changes in the [RemoteDataSource.observeCurrentWeather]
+     * This function will observe any changes in [WeatherForNextSevenDays.WeatherList] and updates the changes
      * */
-    fun observeCurrentWeather(): LiveData<CurrentWeather> = remoteDataSource.observeCurrentWeather()
-
     fun observeWeatherForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>> =
         remoteDataSource.observeWeatherDataForNextSevenDays()
 
+    /**
+     * This function will help in getting the [WeatherForNextSevenDays]
+     * */
     suspend fun getWeatherDataForNextSevenDays(
         latitude: String?,
         longitude: String?,
