@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -23,7 +24,7 @@ import timber.log.Timber
  * This fragment will helps the user to choose the current location and
  * also let the user to choose other location.
  * */
-class LocationFragment : Fragment() {
+class LocationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentLocationBinding
     private val accessFineLocationAndCoarseLocationPermissionRequestCode = 10
     private var locationManager: LocationManager? = null
@@ -39,6 +40,12 @@ class LocationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         checkGpsEnabled()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
+
+        binding.textViewGivePermission.setOnClickListener(this)
     }
 
     private fun checkGpsEnabled() {
@@ -50,6 +57,7 @@ class LocationFragment : Fragment() {
         } else {
             checkLocationPermission()
         }
+
     }
 
 
@@ -58,6 +66,7 @@ class LocationFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        Timber.d("onRequestPermissionsResult_called")
         if (requestCode == accessFineLocationAndCoarseLocationPermissionRequestCode) {
 
             var locationPermissionGranted = true
@@ -65,10 +74,13 @@ class LocationFragment : Fragment() {
                 locationPermissionGranted = locationPermissionGranted and
                         (grantResult == PackageManager.PERMISSION_GRANTED)
             }
+            Timber.d(locationPermissionGranted.toString())
             if (locationPermissionGranted) {
+                Timber.d("locationPermissionGranted")
+                true.setBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)
                 getLatitudeAndLongitude()
             } else {
-                requireActivity().getString(R.string.permissions_needed).showToast(requireContext())
+                binding.constraintLayoutPermissionDenied.visibility = View.VISIBLE
             }
         }
 
@@ -93,20 +105,38 @@ class LocationFragment : Fragment() {
 
     private fun checkLocationPermission() {
 
+        Timber.d("checkLocationPermission_called")
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            ) != PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(
                 requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) ||
+                ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
                     Manifest.permission.ACCESS_COARSE_LOCATION
-                ), accessFineLocationAndCoarseLocationPermissionRequestCode
-            )
+                )
+            ) {
+                binding.constraintLayoutPermissionDenied.visibility = View.VISIBLE
+
+            } else {
+
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ), accessFineLocationAndCoarseLocationPermissionRequestCode
+                )
+            }
         } else {
+            binding.constraintLayoutPermissionDenied.visibility = View.GONE
             getLatitudeAndLongitude()
         }
 
@@ -135,10 +165,26 @@ class LocationFragment : Fragment() {
                 }
             }
         } else {
-            requireActivity().getString(R.string.unable_to_find_location).showToast(requireContext())
+            requireActivity().getString(R.string.unable_to_find_location)
+                .showToast(requireContext())
         }
 
     }
 
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.textViewGivePermission -> {
 
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri: Uri = Uri.fromParts("package", requireActivity().packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkLocationPermission()
+    }
 }

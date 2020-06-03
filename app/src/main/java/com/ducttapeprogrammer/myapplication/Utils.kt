@@ -218,6 +218,30 @@ fun getStringSharedPreference(sharedPrefKey: String): String? {
     return preference.getString(sharedPrefKey, "")
 }
 
+/**
+ * Set a SharedPreference for a boolean value
+ */
+fun Boolean.setBooleanSharedPreference(sharedPrefKey: String) {
+
+    val preference = MyApplication.instance.applicationContext.getSharedPreferences(
+        MyApplication.instance.getString(R.string.app_name), Context.MODE_PRIVATE
+    )
+    val editor = preference.edit()
+    editor.putBoolean(sharedPrefKey, this)
+    editor.apply()
+
+}
+
+/**
+ * Get a SharedPreference for a Boolean value
+ */
+fun getBooleanSharedPreference(sharedPrefKey: String): Boolean {
+    val preference = MyApplication.instance.applicationContext.getSharedPreferences(
+        MyApplication.instance.getString(R.string.app_name), Context.MODE_PRIVATE
+    )
+    return preference.getBoolean(sharedPrefKey, false)
+}
+
 
 /**
  * This function will convert the kelvin to degree celsius given the input

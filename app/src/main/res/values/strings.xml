@@ -20,4 +20,7 @@
     <string name="permissions_needed">Location permission needed. Please allow in App Settings for additional functionality.</string>
     <string name="unable_to_find_location">Unable to find location</string>
     <string name="current_location_description">Your current location</string>
+    <string name="permission_denied_title">You have denied some permissions</string>
+    <string name="permission_denied_description">We regret to inform you that, you have denied permissions that is vital to continue using JAWA. If you have accidentally clicked on the DENY button, please press GIVE PERMISSION button to enable it.</string>
+    <string name="give_permission">GIVE PERMISSION</string>
 </resources>
