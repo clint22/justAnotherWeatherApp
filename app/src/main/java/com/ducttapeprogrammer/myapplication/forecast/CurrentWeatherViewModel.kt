@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ducttapeprogrammer.myapplication.Event
-import com.ducttapeprogrammer.myapplication.Result
-import com.ducttapeprogrammer.myapplication.convertKelvinToDegreeCelsius
+import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import kotlinx.coroutines.launch
@@ -24,7 +22,7 @@ class CurrentWeatherViewModel : ViewModel() {
 
     private val currentWeatherRepository = CurrentWeatherRepository()
 
-    private val _dataLoading = MutableLiveData<Boolean>(true)
+    private val _dataLoading = MutableLiveData(true)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
     private val _lottieAnimation = MutableLiveData<Event<Boolean>>()
@@ -59,20 +57,23 @@ class CurrentWeatherViewModel : ViewModel() {
         _dataLoading.value = true
 
         viewModelScope.launch {
-            currentWeatherRepository.getCurrentWeather(
-                latitude, longitude, appId
-            ).let {
-                if (it is Result.Success) {
-                    onWeatherDataLoaded(it.data)
-                    _lottieAnimation.value = Event(true)
-                    currentWeatherRepository.getWeatherDataForNextSevenDays(
-                        latitude,
-                        longitude,
-                        appId
-                    )
-                    _dataLoading.value = false
-                }
+//            Current Weather API will be called only if the permissions are given
+            if (getBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)) {
+                currentWeatherRepository.getCurrentWeather(
+                    latitude, longitude, appId
+                ).let {
+                    if (it is Result.Success) {
+                        onWeatherDataLoaded(it.data)
+                        _lottieAnimation.value = Event(true)
+                        currentWeatherRepository.getWeatherDataForNextSevenDays(
+                            latitude,
+                            longitude,
+                            appId
+                        )
+                        _dataLoading.value = false
+                    }
 
+                }
             }
         }
 
