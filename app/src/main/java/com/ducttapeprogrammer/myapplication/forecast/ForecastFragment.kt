@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentForecastBinding
+import com.ducttapeprogrammer.myapplication.utils.getIntSharedPreference
+import com.ducttapeprogrammer.myapplication.utils.getStringSharedPreference
+import com.ducttapeprogrammer.myapplication.utils.setWeatherConditionIcon
 
 /**
  * This fragment acts as the UI for showing weather related information

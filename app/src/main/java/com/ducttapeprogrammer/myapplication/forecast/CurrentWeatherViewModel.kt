@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
+import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
+import com.ducttapeprogrammer.myapplication.utils.getBooleanSharedPreference
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.math.roundToInt
@@ -81,7 +83,9 @@ class CurrentWeatherViewModel : ViewModel() {
     }
 
     private fun onWeatherDataLoaded(data: CurrentWeather?) {
-        currentTemperature.value = convertKelvinToDegreeCelsius(data?.main?.temp).toString()
+        currentTemperature.value = convertKelvinToDegreeCelsius(
+            data?.main?.temp
+        ).toString()
         weatherCondition.value = data?.weather?.get(0)?.description?.capitalize(Locale.getDefault())
         windSpeed.value = (data?.wind?.speed)?.roundToInt().toString()
         currentRegion.value = data?.name + "," + data?.sys?.country

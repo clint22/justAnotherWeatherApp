@@ -7,6 +7,10 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.forecast.WeatherForNextSevenDaysAdapter
+import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
+import com.ducttapeprogrammer.myapplication.utils.getCurrentDate
+import com.ducttapeprogrammer.myapplication.utils.getWeatherCondition
+import com.ducttapeprogrammer.myapplication.utils.setRecyclerWeatherConditionIcon
 import timber.log.Timber
 
 
@@ -32,8 +36,12 @@ fun setCurrentTemperature(textView: TextView, value: WeatherForNextSevenDays.Wea
     textView.text =
         MyApplication.instance.getString(
             R.string.degree_celsius_max_min_description,
-            convertKelvinToDegreeCelsius(value.max).toString(),
-            convertKelvinToDegreeCelsius(value.min).toString()
+            convertKelvinToDegreeCelsius(
+                value.max
+            ).toString(),
+            convertKelvinToDegreeCelsius(
+                value.min
+            ).toString()
         )
 }
 
