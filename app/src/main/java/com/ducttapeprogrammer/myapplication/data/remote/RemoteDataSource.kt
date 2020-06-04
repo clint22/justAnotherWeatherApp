@@ -6,6 +6,8 @@ import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.data.source.AppDataSource
+import com.ducttapeprogrammer.myapplication.utils.getWeatherCondition
+import com.ducttapeprogrammer.myapplication.utils.setIntSharedPreference
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

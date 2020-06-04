@@ -18,6 +18,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentLocationBinding
+import com.ducttapeprogrammer.myapplication.utils.setBooleanSharedPreference
+import com.ducttapeprogrammer.myapplication.utils.setStringSharedPreference
 import timber.log.Timber
 
 /**

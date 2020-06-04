@@ -1,5 +1,6 @@
 package com.ducttapeprogrammer.myapplication
 
+import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -95,7 +96,10 @@ class UtilsTest {
     fun getKelvinToDegreeCelsiusValue_inputThreeHundredAndFifty_returnSeventySeven() {
 
         val input = 350.0
-        val result = convertKelvinToDegreeCelsius(input)
+        val result =
+            convertKelvinToDegreeCelsius(
+                input
+            )
         assertEquals(result, 77)
     }
 
