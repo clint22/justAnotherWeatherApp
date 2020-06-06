@@ -231,39 +231,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
         if (requestCode == autocompletePlacesRequestCode) {
             when (resultCode) {
                 RESULT_OK -> {
-
-                    val place = data?.let { Autocomplete.getPlaceFromIntent(it) }
-                    val latitude = place?.latLng?.latitude
-                    val longitude = place?.latLng?.longitude
-                    var regionName: String? = null
-                    var stateName: String? = null
-                    var countryName: String? = null
-
-                    /*Loops through the addressComponents to filter the types which are locality, administrative_area_level_1 and
-                    * country so that we can easily show the selected place in the format REGION, DISTRICT, COUNTRY wise*/
-
-                    place?.addressComponents?.asList()?.forEach { places ->
-                        Timber.i("Places types %s", places.types)
-                        when {
-                            places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY) -> {
-                                regionName = places.name
-                            }
-                            places.types.contains(GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1) -> {
-                                stateName = places.name
-                            }
-                            places.types.contains(GOOGLE_PLACES_TYPE_COUNTRY) -> {
-                                countryName = places.name
-                            }
-                        }
-                    }
-
-
-                    Timber.i("latitude %s", latitude)
-                    Timber.i("Longitude %s", longitude)
-                    Timber.i("Region Name %s", regionName)
-                    Timber.i("State Name %s", stateName)
-                    Timber.i("Country Name %s", countryName)
-
+                    parsePlaceDetails(data?.let { Autocomplete.getPlaceFromIntent(it) })
                 }
                 RESULT_ERROR -> {
                     val status = data?.let { Autocomplete.getStatusFromIntent(it) }
@@ -274,6 +242,41 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+
+    }
+
+    private fun parsePlaceDetails(place: Place?) {
+
+        val latitude = place?.latLng?.latitude
+        val longitude = place?.latLng?.longitude
+        var regionName: String? = null
+        var stateName: String? = null
+        var countryName: String? = null
+
+        /*Loops through the addressComponents to filter the types which are locality, administrative_area_level_1 and
+        * country so that we can easily show the selected place in the format REGION, DISTRICT, COUNTRY wise*/
+
+        place?.addressComponents?.asList()?.forEach { places ->
+            Timber.i("Places types %s", places.types)
+            when {
+                places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY) -> {
+                    regionName = places.name
+                }
+                places.types.contains(GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1) -> {
+                    stateName = places.name
+                }
+                places.types.contains(GOOGLE_PLACES_TYPE_COUNTRY) -> {
+                    countryName = places.name
+                }
+            }
+        }
+
+        Timber.i("latitude %s", latitude)
+        Timber.i("Longitude %s", longitude)
+        Timber.i("Region Name %s", regionName)
+        Timber.i("State Name %s", stateName)
+        Timber.i("Country Name %s", countryName)
+
 
     }
 
