@@ -27,6 +27,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import timber.log.Timber
 
@@ -231,11 +232,11 @@ class LocationFragment : Fragment(), View.OnClickListener {
         if (requestCode == autocompletePlacesRequestCode) {
             when (resultCode) {
                 RESULT_OK -> {
-                    parsePlaceDetails(data?.let { Autocomplete.getPlaceFromIntent(it) })
+                    createPlace(data?.let { Autocomplete.getPlaceFromIntent(it) })
                 }
-                RESULT_ERROR -> {
+                AutocompleteActivity.RESULT_ERROR -> {
                     val status = data?.let { Autocomplete.getStatusFromIntent(it) }
-                    Timber.i(status?.statusMessage)
+                    Timber.i("auto-complete_places_error %s", status?.statusMessage)
                 }
                 RESULT_CANCELED -> {
                     Timber.i("User canceled the operation")
@@ -245,7 +246,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
     }
 
-    private fun parsePlaceDetails(place: Place?) {
+    private fun createPlace(place: Place?) {
 
         val latitude = place?.latLng?.latitude
         val longitude = place?.latLng?.longitude
@@ -259,25 +260,35 @@ class LocationFragment : Fragment(), View.OnClickListener {
         place?.addressComponents?.asList()?.forEach { places ->
             Timber.i("Places types %s", places.types)
             when {
-                places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY) -> {
+                places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY)
+                        &&
+                        places.types.contains(GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1)
+                        &&
+                        places.types.contains(GOOGLE_PLACES_TYPE_COUNTRY)
+
+                -> {
                     regionName = places.name
-                }
-                places.types.contains(GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1) -> {
                     stateName = places.name
-                }
-                places.types.contains(GOOGLE_PLACES_TYPE_COUNTRY) -> {
                     countryName = places.name
+
                 }
             }
         }
-
         Timber.i("latitude %s", latitude)
         Timber.i("Longitude %s", longitude)
         Timber.i("Region Name %s", regionName)
         Timber.i("State Name %s", stateName)
         Timber.i("Country Name %s", countryName)
 
+        val places = com.ducttapeprogrammer.myapplication.data.model.Places(
+            latitude = latitude,
+            longitude = longitude,
+            region = regionName,
+            state = stateName,
+            country = countryName
+        )
 
+        Timber.i("places is %s", places)
     }
 
     override fun onResume() {

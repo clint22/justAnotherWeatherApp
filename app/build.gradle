@@ -7,6 +7,10 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.3"
 
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
+
     viewBinding {
         enabled = true
     }
@@ -102,4 +106,9 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 //    Google places
     implementation "com.google.android.libraries.places:places:$googlePlacesVersion"
+//    Room components
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
 }
