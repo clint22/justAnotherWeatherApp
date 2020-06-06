@@ -7,7 +7,6 @@ import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.RestrictionsManager.RESULT_ERROR
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -222,7 +221,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 Place.Field.ADDRESS_COMPONENTS
             )
         val intent = Autocomplete.IntentBuilder(
-            AutocompleteActivityMode.FULLSCREEN, fields
+            AutocompleteActivityMode.OVERLAY, fields
         ).build(requireActivity())
         startActivityForResult(intent, autocompletePlacesRequestCode)
     }
