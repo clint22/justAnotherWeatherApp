@@ -36,13 +36,6 @@ const val KEY_LATITUDE = "lat"
 const val KEY_LONGITUDE = "lon"
 const val KEY_APP_ID = "appid"
 
-//TEST DATA's
-//16.198896 lat, 77.369793 long ( Raichur )
-//9.992540 lat, 76.302948 long ( Kochi )
-//-32.041388, 115.936144 long ( Australia )
-//11.9871160, 75.7698640 ( Kannur )
-const val TEST_LATITUDE = "9.989876"
-const val TEST_LONGITUDE = "76.294732"
 
 //TEMPERATURE CONSTANTS
 const val KELVIN = 273.1
@@ -50,3 +43,10 @@ const val KELVIN = 273.1
 //Others
 const val WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE = 1
 const val DATE_FORMAT_ONE = "dd-MMMM-yyyy"
+
+//Google Places
+const val GOOGLE_PLACES_API_KEY = "PUT YOUR GOOGLE PLACES API KEY HERE"
+const val GOOGLE_PLACES_TYPE_LOCALITY = "locality"
+const val GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1 = "administrative_area_level_1"
+const val GOOGLE_PLACES_TYPE_COUNTRY = "country"
+

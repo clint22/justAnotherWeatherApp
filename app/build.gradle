@@ -46,7 +46,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    //    Architecture
+//    Architecture
     kapt "androidx.lifecycle:lifecycle-compiler:$kaptVersion"
 
 //    Local Unit testing
@@ -75,14 +75,14 @@ dependencies {
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
-    // ViewModel
+//    ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
-    // LiveData
+//    LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion"
 //    Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion"
-    //    Gson
+//    Gson
     implementation "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
 //    OkHttp3
@@ -94,10 +94,12 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
 //    Preference manager
     implementation "androidx.preference:preference-ktx:$preferenceVersion"
-    //    Hamcrest
+//    Hamcrest
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
 //    Intuit - dimen library
     implementation "com.intuit.sdp:sdp-android:$intuitVersion"
 //    Timber - logging library
     implementation "com.jakewharton.timber:timber:$timberVersion"
+//    Google places
+    implementation "com.google.android.libraries.places:places:$googlePlacesVersion"
 }

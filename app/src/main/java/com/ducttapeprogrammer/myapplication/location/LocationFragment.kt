@@ -2,9 +2,12 @@ package com.ducttapeprogrammer.myapplication.location
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.RestrictionsManager.RESULT_ERROR
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -20,6 +23,11 @@ import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentLocationBinding
 import com.ducttapeprogrammer.myapplication.utils.setBooleanSharedPreference
 import com.ducttapeprogrammer.myapplication.utils.setStringSharedPreference
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import timber.log.Timber
 
 /**
@@ -29,7 +37,10 @@ import timber.log.Timber
 class LocationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentLocationBinding
     private val accessFineLocationAndCoarseLocationPermissionRequestCode = 10
+    private val autocompletePlacesRequestCode = 11
     private var locationManager: LocationManager? = null
+    private var placesClient: PlacesClient? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +59,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
     private fun setClickListeners() {
 
         binding.textViewGivePermission.setOnClickListener(this)
+        binding.imageViewSearchLocation.setOnClickListener(this)
     }
 
     private fun checkGpsEnabled() {
@@ -139,9 +151,19 @@ class LocationFragment : Fragment(), View.OnClickListener {
             }
         } else {
             binding.constraintLayoutPermissionDenied.visibility = View.GONE
+            setupGooglePlaces()
             getLatitudeAndLongitude()
         }
 
+    }
+
+    private fun setupGooglePlaces() {
+
+        if (!Places.isInitialized()) {
+            Places.initialize(requireActivity(), GOOGLE_PLACES_API_KEY)
+        }
+
+        placesClient = Places.createClient(requireActivity())
     }
 
     @SuppressLint("MissingPermission")
@@ -182,7 +204,77 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 intent.data = uri
                 startActivity(intent)
             }
+
+            R.id.imageViewSearchLocation -> {
+                onSearchCalled()
+            }
         }
+    }
+
+    private fun onSearchCalled() {
+
+        val fields =
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.LAT_LNG,
+                Place.Field.ADDRESS_COMPONENTS
+            )
+        val intent = Autocomplete.IntentBuilder(
+            AutocompleteActivityMode.FULLSCREEN, fields
+        ).build(requireActivity())
+        startActivityForResult(intent, autocompletePlacesRequestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == autocompletePlacesRequestCode) {
+            when (resultCode) {
+                RESULT_OK -> {
+
+                    val place = data?.let { Autocomplete.getPlaceFromIntent(it) }
+                    val latitude = place?.latLng?.latitude
+                    val longitude = place?.latLng?.longitude
+                    var regionName: String? = null
+                    var stateName: String? = null
+                    var countryName: String? = null
+
+                    /*Loops through the addressComponents to filter the types which are locality, administrative_area_level_1 and
+                    * country so that we can easily show the selected place in the format REGION, DISTRICT, COUNTRY wise*/
+
+                    place?.addressComponents?.asList()?.forEach { places ->
+                        Timber.i("Places types %s", places.types)
+                        when {
+                            places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY) -> {
+                                regionName = places.name
+                            }
+                            places.types.contains(GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1) -> {
+                                stateName = places.name
+                            }
+                            places.types.contains(GOOGLE_PLACES_TYPE_COUNTRY) -> {
+                                countryName = places.name
+                            }
+                        }
+                    }
+
+
+                    Timber.i("latitude %s", latitude)
+                    Timber.i("Longitude %s", longitude)
+                    Timber.i("Region Name %s", regionName)
+                    Timber.i("State Name %s", stateName)
+                    Timber.i("Country Name %s", countryName)
+
+                }
+                RESULT_ERROR -> {
+                    val status = data?.let { Autocomplete.getStatusFromIntent(it) }
+                    Timber.i(status?.statusMessage)
+                }
+                RESULT_CANCELED -> {
+                    Timber.i("User canceled the operation")
+                }
+            }
+        }
+
     }
 
     override fun onResume() {
