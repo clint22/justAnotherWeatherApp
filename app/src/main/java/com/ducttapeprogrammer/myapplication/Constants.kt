@@ -45,7 +45,7 @@ const val WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE = 1
 const val DATE_FORMAT_ONE = "dd-MMMM-yyyy"
 
 //Google Places
-const val GOOGLE_PLACES_API_KEY = "AIzaSyC1awQ0Vz3mSeiY11onOE8_tKMNlMtbqr0"
+const val GOOGLE_PLACES_API_KEY = "PUT YOUR API KEY HERE"
 const val GOOGLE_PLACES_TYPE_LOCALITY = "locality"
 const val GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1 = "administrative_area_level_1"
 const val GOOGLE_PLACES_TYPE_COUNTRY = "country"
