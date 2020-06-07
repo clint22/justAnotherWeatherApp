@@ -28,14 +28,10 @@ const val SHARED_PREF_PERMISSIONS_GIVEN = "permissions_given"
 //Base URL
 const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
 
-//API Key
-const val API_KEY = "4504261d389d54692524da1ad6dd932d"
-
 //PARAM KEYS
 const val KEY_LATITUDE = "lat"
 const val KEY_LONGITUDE = "lon"
 const val KEY_APP_ID = "appid"
-
 
 //TEMPERATURE CONSTANTS
 const val KELVIN = 273.1
@@ -45,7 +41,6 @@ const val WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE = 1
 const val DATE_FORMAT_ONE = "dd-MMMM-yyyy"
 
 //Google Places
-const val GOOGLE_PLACES_API_KEY = "AIzaSyC1awQ0Vz3mSeiY11onOE8_tKMNlMtbqr0"
 const val GOOGLE_PLACES_TYPE_LOCALITY = "locality"
 const val GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1 = "administrative_area_level_1"
 const val GOOGLE_PLACES_TYPE_COUNTRY = "country"

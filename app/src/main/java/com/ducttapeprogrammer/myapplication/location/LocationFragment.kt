@@ -160,7 +160,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
     private fun setupGooglePlaces() {
 
         if (!Places.isInitialized()) {
-            Places.initialize(requireActivity(), GOOGLE_PLACES_API_KEY)
+            Places.initialize(requireActivity(), BuildConfig.GOOGLE_PLACES_API_KEY)
         }
 
         placesClient = Places.createClient(requireActivity())
