@@ -16,6 +16,10 @@ class LocationViewModel : ViewModel() {
     private val _getAllPlaces: LiveData<List<Places>> = locationRepository.allPlaces
     val getAllPlaces: LiveData<List<Places>> = _getAllPlaces
 
+    /**
+     * This function will help in calling the insertPlace function inside
+     * the repository
+     * */
     fun insertPlace(place: Places) {
 
         viewModelScope.launch {

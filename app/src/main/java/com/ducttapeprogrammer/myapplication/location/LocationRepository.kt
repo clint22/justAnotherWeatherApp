@@ -14,6 +14,9 @@ class LocationRepository {
 
     val allPlaces: LiveData<List<Places>> = placesDao.getPlaces()
 
+    /**
+     * This function will insert a [Places] into the room database
+     * */
     suspend fun insertPlace(place: Places) {
 
         placesDao.insertPlace(place)
