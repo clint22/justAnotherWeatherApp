@@ -30,11 +30,6 @@ class CurrentWeatherViewModel : ViewModel() {
     private val _lottieAnimation = MutableLiveData<Event<Boolean>>()
     val lottieAnimation: LiveData<Event<Boolean>> = _lottieAnimation
 
-    /*private val _observeCurrentWeather: LiveData<CurrentWeather> =
-        currentWeatherRepository.observeCurrentWeather()
-
-    val observeCurrentWeather: LiveData<CurrentWeather> = _observeCurrentWeather*/
-
     private val _observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDays.WeatherList>> =
         currentWeatherRepository.observeWeatherForNextSevenDays()
 

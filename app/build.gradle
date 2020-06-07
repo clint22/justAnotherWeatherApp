@@ -3,9 +3,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
+// Read credentials
+def credentialFile = rootProject.file("apiKey.properties")
+def credentialProperty = new Properties()
+credentialProperty.load(new FileInputStream(credentialFile))
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.3"
+
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
 
     viewBinding {
         enabled = true
@@ -27,6 +36,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "WEATHER_API_KEY", credentialProperty['WEATHER_API_KEY'])
+        buildConfigField("String", "GOOGLE_PLACES_API_KEY", credentialProperty['GOOGLE_PLACES_API_KEY'])
+
     }
 
     buildTypes {
@@ -102,4 +114,9 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 //    Google places
     implementation "com.google.android.libraries.places:places:$googlePlacesVersion"
+//    Room components
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
 }
