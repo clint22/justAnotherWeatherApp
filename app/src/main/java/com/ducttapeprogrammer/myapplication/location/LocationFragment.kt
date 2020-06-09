@@ -18,6 +18,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentLocationBinding
 import com.ducttapeprogrammer.myapplication.utils.setBooleanSharedPreference
@@ -28,6 +30,7 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.gson.Gson
 import timber.log.Timber
 
 /**
@@ -36,6 +39,7 @@ import timber.log.Timber
  * */
 class LocationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentLocationBinding
+    private lateinit var locationViewModel: LocationViewModel
     private val accessFineLocationAndCoarseLocationPermissionRequestCode = 10
     private val autocompletePlacesRequestCode = 11
     private var locationManager: LocationManager? = null
@@ -54,6 +58,20 @@ class LocationFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         checkGpsEnabled()
         setClickListeners()
+        setupViewModel()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+
+        locationViewModel.getAllPlaces.observe(requireActivity(), Observer { places ->
+            Timber.i("places %s", Gson().toJson(places))
+        })
+    }
+
+    private fun setupViewModel() {
+
+        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
     }
 
     private fun setClickListeners() {
@@ -162,7 +180,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
         if (!Places.isInitialized()) {
             Places.initialize(requireActivity(), BuildConfig.GOOGLE_PLACES_API_KEY)
         }
-
         placesClient = Places.createClient(requireActivity())
     }
 
@@ -221,7 +238,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 Place.Field.ADDRESS_COMPONENTS
             )
         val intent = Autocomplete.IntentBuilder(
-            AutocompleteActivityMode.OVERLAY, fields
+            AutocompleteActivityMode.FULLSCREEN, fields
         ).build(requireActivity())
         startActivityForResult(intent, autocompletePlacesRequestCode)
     }
@@ -259,15 +276,14 @@ class LocationFragment : Fragment(), View.OnClickListener {
         place?.addressComponents?.asList()?.forEach { places ->
             Timber.i("Places types %s", places.types)
             when {
-                places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY)
-                        &&
-                        places.types.contains(GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1)
-                        &&
-                        places.types.contains(GOOGLE_PLACES_TYPE_COUNTRY)
-
-                -> {
+                places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY) -> {
                     regionName = places.name
+                }
+                places.types.contains(GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1) -> {
                     stateName = places.name
+
+                }
+                places.types.contains(GOOGLE_PLACES_TYPE_COUNTRY) -> {
                     countryName = places.name
 
                 }
@@ -286,8 +302,13 @@ class LocationFragment : Fragment(), View.OnClickListener {
             state = stateName,
             country = countryName
         )
-
         Timber.i("places is %s", places)
+        addPlaceToLocal(places)
+    }
+
+    private fun addPlaceToLocal(places: com.ducttapeprogrammer.myapplication.data.model.Places) {
+
+        locationViewModel.insertPlace(places)
     }
 
     override fun onResume() {
