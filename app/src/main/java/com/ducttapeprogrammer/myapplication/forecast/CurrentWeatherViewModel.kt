@@ -50,14 +50,18 @@ class CurrentWeatherViewModel : ViewModel() {
         longitude: String?,
         appId: String
     ) {
+
         _lottieAnimation.value = Event(false)
         _dataLoading.value = true
 
         viewModelScope.launch {
 //            Current Weather API will be called only if the permissions are given
+
             if (getBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)) {
                 currentWeatherRepository.getCurrentWeather(
-                    latitude, longitude, appId
+                    latitude,
+                    longitude,
+                    appId
                 ).let {
                     if (it is Result.Success) {
                         onWeatherDataLoaded(it.data)
