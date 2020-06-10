@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "region": "Raichur",
+      "state": "Karnataka",
+      "country": "India"
+    },
+    {
+      "region": "Hassan",
+      "state": "Karnataka",
+      "country": "India"
+    },
+    {
+      "region": "Bengaluru",
+      "state": "Karnataka",
+      "country": "India"
+    },
+    {
+      "region": "Iritty",
+      "state": "Kannur",
+      "country": "India"
+    }
+  ]
+}

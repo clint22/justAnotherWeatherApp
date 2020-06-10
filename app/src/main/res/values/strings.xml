@@ -24,4 +24,5 @@
     <string name="permission_denied_description">We regret to inform you that, you have denied permissions that is vital to continue using JAWA. If you have accidentally clicked on the DENY button, please press GIVE PERMISSION button to enable it.</string>
     <string name="give_permission">GIVE PERMISSION</string>
     <string name="add_new_location">Locations</string>
+    <string name="location">%1$s,%2$s,%3$s</string>
 </resources>
