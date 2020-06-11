@@ -2,8 +2,13 @@ package com.ducttapeprogrammer.myapplication.data.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ducttapeprogrammer.myapplication.*
+import com.ducttapeprogrammer.myapplication.MyApplication
+import com.ducttapeprogrammer.myapplication.Result
+import com.ducttapeprogrammer.myapplication.SHARED_PREF_WEATHER_CONDITION_KEY
+import com.ducttapeprogrammer.myapplication.WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE
+import com.ducttapeprogrammer.myapplication.data.local.PlacesDatabase
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
+import com.ducttapeprogrammer.myapplication.data.model.Places
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.data.source.AppDataSource
 import com.ducttapeprogrammer.myapplication.utils.getWeatherCondition
@@ -22,10 +27,13 @@ object RemoteDataSource : AppDataSource {
     private val observeCurrentWeather = MutableLiveData<CurrentWeather>()
     private val observeWeatherForNextSevenDays =
         MutableLiveData<List<WeatherForNextSevenDays.WeatherList>>()
+    private val observeAllPlaces = MutableLiveData<List<Places>>()
     private var currentWeather: CurrentWeather? = null
     private var weatherForNextSevenDays: WeatherForNextSevenDays? = null
     private var isCurrentWeatherExceptionOccurred: Boolean = false
     private var isWeatherForNextSevenDaysExceptionOccurred: Boolean = false
+    private val placesDao = PlacesDatabase.getDatabase(MyApplication.instance).placesDao()
+
     override suspend fun getCurrentWeather(
         latitude: String?,
         longitude: String?,
@@ -105,4 +113,13 @@ object RemoteDataSource : AppDataSource {
     override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>> {
         return observeWeatherForNextSevenDays
     }
+
+    override suspend fun insertPlace(place: Places) {
+        placesDao.insertPlace(place)
+    }
+
+    override fun observeAllPlaces(): LiveData<List<Places>> {
+        return placesDao.getPlaces()
+    }
+
 }

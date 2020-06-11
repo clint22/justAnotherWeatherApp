@@ -3,6 +3,7 @@ package com.ducttapeprogrammer.myapplication.data.source
 import androidx.lifecycle.LiveData
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
+import com.ducttapeprogrammer.myapplication.data.model.Places
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 
 /**
@@ -33,9 +34,13 @@ interface AppDataSource {
         appId: String
     )
 
-   /**
-    * This function will observer the [WeatherForNextSevenDays] response
-    * */
-    fun observeWeatherDataForNextSevenDays() : LiveData<List<WeatherForNextSevenDays.WeatherList>>
+    /**
+     * This function will observer the [WeatherForNextSevenDays] response
+     * */
+    fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>>
+
+    suspend fun insertPlace(place: Places)
+
+    fun observeAllPlaces(): LiveData<List<Places>>
 
 }

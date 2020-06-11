@@ -4,22 +4,24 @@ import androidx.lifecycle.LiveData
 import com.ducttapeprogrammer.myapplication.MyApplication
 import com.ducttapeprogrammer.myapplication.data.local.PlacesDatabase
 import com.ducttapeprogrammer.myapplication.data.model.Places
+import com.ducttapeprogrammer.myapplication.data.remote.RemoteDataSource
 
 /**
  * This class will act as a link b/w [LocationViewModel] and the underlying dB
  * */
 class LocationRepository {
 
-    private val placesDao = PlacesDatabase.getDatabase(MyApplication.instance).placesDao()
+    private val remoteDateSource = RemoteDataSource
 
-    val allPlaces: LiveData<List<Places>> = placesDao.getPlaces()
+
+    fun observeAllPlaces(): LiveData<List<Places>> = remoteDateSource.observeAllPlaces()
 
     /**
      * This function will insert a [Places] into the room database
      * */
     suspend fun insertPlace(place: Places) {
 
-        placesDao.insertPlace(place)
+        remoteDateSource.insertPlace(place)
     }
 
 }

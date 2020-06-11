@@ -13,8 +13,10 @@ class LocationViewModel : ViewModel() {
 
     private val locationRepository = LocationRepository()
 
-    private val _getAllPlaces: LiveData<List<Places>> = locationRepository.allPlaces
-    val getAllPlaces: LiveData<List<Places>> = _getAllPlaces
+    private val _observeAllPlaces: LiveData<List<Places>> =
+        locationRepository.observeAllPlaces()
+
+    val observeAllPlaces: LiveData<List<Places>> = _observeAllPlaces
 
     /**
      * This function will help in calling the insertPlace function inside
