@@ -56,22 +56,34 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.lifecycleOwner = this.viewLifecycleOwner
         checkGpsEnabled()
         setClickListeners()
         setupViewModel()
+        setAdapter()
         observeViewModel()
     }
 
     private fun observeViewModel() {
-
-        locationViewModel.getAllPlaces.observe(requireActivity(), Observer { places ->
-            Timber.i("places %s", Gson().toJson(places))
+        locationViewModel.observeAllPlaces.observe(requireActivity(), Observer {
+            Timber.d(Gson().toJson(it))
         })
     }
+
+    private fun setAdapter() {
+
+        val locationAdapter = LocationAdapter(
+            binding.viewModel
+        )
+        binding.recyclerViewLocations.adapter = locationAdapter
+
+    }
+
 
     private fun setupViewModel() {
 
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
+        binding.viewModel = locationViewModel
     }
 
     private fun setClickListeners() {

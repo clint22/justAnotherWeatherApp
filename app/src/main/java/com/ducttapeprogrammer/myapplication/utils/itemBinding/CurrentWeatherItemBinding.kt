@@ -1,10 +1,12 @@
-package com.ducttapeprogrammer.myapplication
+package com.ducttapeprogrammer.myapplication.utils.itemBinding
 
 import android.annotation.SuppressLint
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ducttapeprogrammer.myapplication.MyApplication
+import com.ducttapeprogrammer.myapplication.R
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.forecast.WeatherForNextSevenDaysAdapter
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
