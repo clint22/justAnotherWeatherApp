@@ -39,8 +39,14 @@ interface AppDataSource {
      * */
     fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>>
 
+    /**
+     * This function will insert the place into the Room Database
+     * */
     suspend fun insertPlace(place: Places)
 
+    /**
+     * This function will observe the [Places] List
+     * */
     fun observeAllPlaces(): LiveData<List<Places>>
 
 }

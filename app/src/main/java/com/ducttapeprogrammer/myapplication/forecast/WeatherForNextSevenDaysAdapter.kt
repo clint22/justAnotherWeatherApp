@@ -10,7 +10,7 @@ import com.ducttapeprogrammer.myapplication.databinding.WeeklyWeatherRecyclerIte
 
 
 /**
- * Adapter for the task list. Has a reference to the [CurrentWeatherViewModel] to send actions back to it.
+ * Adapter for the weather for next 7 days list. Has a reference to the [CurrentWeatherViewModel] to send actions back to it.
  */
 @ExperimentalStdlibApi
 class WeatherForNextSevenDaysAdapter(private val viewModel: CurrentWeatherViewModel?) :

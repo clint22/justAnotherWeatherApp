@@ -13,7 +13,9 @@ class LocationRepository {
 
     private val remoteDateSource = RemoteDataSource
 
-
+    /**
+     * This function will observe any changes in [Places] and updates the changes
+     * */
     fun observeAllPlaces(): LiveData<List<Places>> = remoteDateSource.observeAllPlaces()
 
     /**
