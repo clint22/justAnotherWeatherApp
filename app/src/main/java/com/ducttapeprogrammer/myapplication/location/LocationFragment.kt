@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentLocationBinding
 import com.ducttapeprogrammer.myapplication.utils.setBooleanSharedPreference
@@ -44,7 +45,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
     private val autocompletePlacesRequestCode = 11
     private var locationManager: LocationManager? = null
     private var placesClient: PlacesClient? = null
-
+    private var currentPlaceClicked: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,9 +65,20 @@ class LocationFragment : Fragment(), View.OnClickListener {
         observeViewModel()
     }
 
+    override fun onPause() {
+        super.onPause()
+        currentPlaceClicked = false
+    }
+
     private fun observeViewModel() {
-        locationViewModel.observeAllPlaces.observe(requireActivity(), Observer {
+        locationViewModel.locationClicked.observe(requireActivity(), Observer {
             Timber.d(Gson().toJson(it))
+            true.setBooleanSharedPreference(SHARED_PREF_OTHER_PLACES_CLICKED)
+            false.setBooleanSharedPreference(SHARED_PREF_CURRENT_PLACE_CLICKED)
+            it.latitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE)
+            it.longitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE)
+            findNavController().navigate(R.id.action_locationFragment_to_forecastFragment, null)
+
         })
     }
 
@@ -90,6 +102,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
         binding.textViewGivePermission.setOnClickListener(this)
         binding.imageViewSearchLocation.setOnClickListener(this)
+        binding.linearLayoutCurrentPlace.setOnClickListener(this)
     }
 
     private fun checkGpsEnabled() {
@@ -197,24 +210,28 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
     @SuppressLint("MissingPermission")
     private fun getLatitudeAndLongitude() {
-
+        Timber.d("current place clicked %s", currentPlaceClicked)
         Timber.d("permission_success")
         val providers = locationManager?.getProviders(true)
         var bestLocation: Location? = null
         if (providers != null) {
             for (provider in providers) {
                 val l: Location = locationManager?.getLastKnownLocation(provider) ?: continue
-                if (bestLocation == null || l.accuracy < bestLocation.accuracy) { // Found best last known location: %s", l);
+                if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
                     bestLocation = l
-                    Timber.e(bestLocation.latitude.toString())
-                    Timber.e(bestLocation.longitude.toString())
-                    bestLocation.latitude.toString().setStringSharedPreference(
-                        SHARED_PREF_CURRENT_LATITUDE
-                    )
-                    bestLocation.longitude.toString().setStringSharedPreference(
-                        SHARED_PREF_CURRENT_LONGITUDE
-                    )
+                    if (currentPlaceClicked) {
 
+                        bestLocation.latitude.toString().setStringSharedPreference(
+                            SHARED_PREF_CURRENT_LATITUDE
+                        )
+                        bestLocation.longitude.toString().setStringSharedPreference(
+                            SHARED_PREF_CURRENT_LONGITUDE
+                        )
+                        findNavController().navigate(
+                            R.id.action_locationFragment_to_forecastFragment,
+                            null
+                        )
+                    }
                 }
             }
         } else {
@@ -236,6 +253,14 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
             R.id.imageViewSearchLocation -> {
                 onSearchCalled()
+            }
+
+            R.id.linearLayoutCurrentPlace -> {
+                false.setBooleanSharedPreference(SHARED_PREF_CURRENT_PLACE_CLICKED)
+                false.setBooleanSharedPreference(SHARED_PREF_OTHER_PLACES_CLICKED)
+                currentPlaceClicked = true
+                getLatitudeAndLongitude()
+
             }
         }
     }
@@ -319,7 +344,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addPlaceToLocal(places: com.ducttapeprogrammer.myapplication.data.model.Places) {
-
         locationViewModel.insertPlace(places)
     }
 

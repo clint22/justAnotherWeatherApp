@@ -9,7 +9,7 @@ import com.ducttapeprogrammer.myapplication.data.model.Places
 
 /** Annotates class to be a Room Database with a table (entity) of the Places class
  */
-@Database(entities = [Places::class], version = 1, exportSchema = false)
+@Database(entities = [Places::class], version = 3, exportSchema = false)
 abstract class PlacesDatabase : RoomDatabase() {
 
     /**
@@ -38,7 +38,8 @@ abstract class PlacesDatabase : RoomDatabase() {
                     context.applicationContext,
                     PlacesDatabase::class.java,
                     "places_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

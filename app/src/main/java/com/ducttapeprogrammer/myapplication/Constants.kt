@@ -24,6 +24,8 @@ const val SHARED_PREF_CURRENT_LATITUDE = "current_latitude"
 const val SHARED_PREF_CURRENT_LONGITUDE = "current_longitude"
 const val SHARED_PREF_DATE_COUNT = "date_count"
 const val SHARED_PREF_PERMISSIONS_GIVEN = "permissions_given"
+const val SHARED_PREF_CURRENT_PLACE_CLICKED = "current_place_clicked"
+const val SHARED_PREF_OTHER_PLACES_CLICKED = "other_places_clicked"
 
 //Base URL
 const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
