@@ -11,7 +11,9 @@ import androidx.room.PrimaryKey
  * */
 @Entity(tableName = "places_table")
 data class Places(
+
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     var id: Int = 0,
     @ColumnInfo(name = "latitude")
     var latitude: Double?,

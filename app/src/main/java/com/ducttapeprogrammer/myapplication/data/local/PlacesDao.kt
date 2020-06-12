@@ -17,7 +17,7 @@ interface PlacesDao {
     /**
      * This Query will retrieve all the places in the table in ascending order according to it's ID
      * */
-    @Query("SELECT * from places_table ORDER BY id ASC")
+    @Query("SELECT * from places_table")
     fun getPlaces(): LiveData<List<Places>>
 
     /**

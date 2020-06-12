@@ -26,6 +26,7 @@
             android:background="@color/white"
             android:drawableStart="@drawable/location_svg"
             android:drawablePadding="@dimen/_10sdp"
+            android:onClick="@{() -> viewModel.locationClicked(places)}"
             android:padding="@dimen/_10sdp"
             android:text="@{String.format(@string/location, places.region, places.state, places.country)}"
             android:textColor="@color/dark_100"
