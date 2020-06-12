@@ -34,6 +34,9 @@ class LocationViewModel : ViewModel() {
 
     }
 
+    /**
+     * This function will check if the user has clicked any of the "Other Places" he has added.
+     * */
     fun locationClicked(
         place: Places
     ) {
