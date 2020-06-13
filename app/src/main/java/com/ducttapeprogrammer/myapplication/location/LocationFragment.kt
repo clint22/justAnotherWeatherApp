@@ -78,12 +78,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 latitude = it.latitude.toString(),
                 longitude = it.longitude.toString()
             )
-            /*true.setBooleanSharedPreference(SHARED_PREF_OTHER_PLACES_CLICKED)
-            false.setBooleanSharedPreference(SHARED_PREF_CURRENT_PLACE_CLICKED)
-            it.latitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE)
-            it.longitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE)
-            findNavController().navigate(R.id.action_locationFragment_to_forecastFragment, null)*/
-
         })
     }
 
@@ -242,22 +236,11 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
                     bestLocation = l
                     if (currentPlaceClicked) {
-
                         navigateToForecastFragment(
                             otherPlaceClicked = false,
                             latitude = bestLocation.latitude.toString(),
                             longitude = bestLocation.longitude.toString()
                         )
-                        /*bestLocation.latitude.toString().setStringSharedPreference(
-                            SHARED_PREF_CURRENT_LATITUDE
-                        )
-                        bestLocation.longitude.toString().setStringSharedPreference(
-                            SHARED_PREF_CURRENT_LONGITUDE
-                        )
-                        findNavController().navigate(
-                            R.id.action_locationFragment_to_forecastFragment,
-                            null
-                        )*/
                     }
                 }
             }
