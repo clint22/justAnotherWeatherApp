@@ -73,13 +73,35 @@ class LocationFragment : Fragment(), View.OnClickListener {
     private fun observeViewModel() {
         locationViewModel.locationClicked.observe(requireActivity(), Observer {
             Timber.d(Gson().toJson(it))
-            true.setBooleanSharedPreference(SHARED_PREF_OTHER_PLACES_CLICKED)
+            navigateToForecastFragment(
+                otherPlaceClicked = true,
+                latitude = it.latitude.toString(),
+                longitude = it.longitude.toString()
+            )
+            /*true.setBooleanSharedPreference(SHARED_PREF_OTHER_PLACES_CLICKED)
             false.setBooleanSharedPreference(SHARED_PREF_CURRENT_PLACE_CLICKED)
             it.latitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE)
             it.longitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE)
-            findNavController().navigate(R.id.action_locationFragment_to_forecastFragment, null)
+            findNavController().navigate(R.id.action_locationFragment_to_forecastFragment, null)*/
 
         })
+    }
+
+    private fun navigateToForecastFragment(
+        otherPlaceClicked: Boolean,
+        latitude: String,
+        longitude: String
+    ) {
+
+        if (otherPlaceClicked) {
+            latitude.setStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE)
+            longitude.setStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE)
+        } else {
+            latitude.setStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE)
+            longitude.setStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE)
+        }
+        findNavController().navigate(R.id.action_locationFragment_to_forecastFragment, null)
+
     }
 
     private fun setAdapter() {
@@ -221,7 +243,12 @@ class LocationFragment : Fragment(), View.OnClickListener {
                     bestLocation = l
                     if (currentPlaceClicked) {
 
-                        bestLocation.latitude.toString().setStringSharedPreference(
+                        navigateToForecastFragment(
+                            otherPlaceClicked = false,
+                            latitude = bestLocation.latitude.toString(),
+                            longitude = bestLocation.longitude.toString()
+                        )
+                        /*bestLocation.latitude.toString().setStringSharedPreference(
                             SHARED_PREF_CURRENT_LATITUDE
                         )
                         bestLocation.longitude.toString().setStringSharedPreference(
@@ -230,7 +257,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
                         findNavController().navigate(
                             R.id.action_locationFragment_to_forecastFragment,
                             null
-                        )
+                        )*/
                     }
                 }
             }
@@ -256,8 +283,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.linearLayoutCurrentPlace -> {
-                false.setBooleanSharedPreference(SHARED_PREF_CURRENT_PLACE_CLICKED)
-                false.setBooleanSharedPreference(SHARED_PREF_OTHER_PLACES_CLICKED)
                 currentPlaceClicked = true
                 getLatitudeAndLongitude()
 
