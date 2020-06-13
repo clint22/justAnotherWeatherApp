@@ -18,6 +18,18 @@
         android:background="@color/grey_30"
         tools:context=".forecast.ForecastFragment">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.9"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/thunder_season_background" />
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieLoadingAnimation"
             android:layout_width="@dimen/_100sdp"
@@ -40,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="@{viewModel.currentRegion}"
-                android:textColor="@color/dark_30"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 app:fontFamily="sans-serif"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +66,7 @@
                 android:layout_marginTop="2dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/description_now"
-                android:textColor="@color/dark_30"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="@+id/textViewRegion"
                 app:layout_constraintStart_toStartOf="@+id/textViewRegion"
@@ -79,7 +91,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif"
                 android:text="@{String.format(@string/degree_celsius_description,viewModel.currentTemperature)}"
-                android:textColor="@color/dark_30"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_40sdp"
                 app:fontFamily="sans-serif"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewWeatherCondition"
@@ -94,7 +106,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif"
                 android:text="@{viewModel.weatherCondition}"
-                android:textColor="@color/dark_30"
+                android:textColor="@color/white"
                 app:fontFamily="sans-serif"
                 app:layout_constraintEnd_toEndOf="@+id/textViewCurrentTemperature"
                 app:layout_constraintHorizontal_bias="0.488"
@@ -109,7 +121,7 @@
                 android:layout_marginTop="32dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/wind_description"
-                android:textColor="@color/dark_30"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/textViewWeatherCondition"
                 app:layout_constraintHorizontal_bias="0.543"
                 app:layout_constraintStart_toStartOf="@+id/textViewWeatherCondition"
@@ -124,7 +136,7 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:fontFamily="sans-serif"
                 android:text="@{String.format(@string/wind_speed_description,viewModel.windSpeed)}"
-                android:textColor="@color/dark_30"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/textView5"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
@@ -143,6 +155,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewWindSpeed"
                 tools:itemCount="4"
                 tools:listitem="@layout/weekly_weather_recycler_item" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>
