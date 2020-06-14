@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif"
+                android:textStyle="bold"
                 android:text="@{String.format(@string/degree_celsius_description,viewModel.currentTemperature)}"
                 android:textColor="@color/dark_30"
                 android:textSize="@dimen/_40sdp"
@@ -92,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:textStyle="bold"
                 android:fontFamily="sans-serif"
                 android:text="@{viewModel.weatherCondition}"
                 android:textColor="@color/dark_30"
@@ -143,6 +145,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewWindSpeed"
                 tools:itemCount="4"
                 tools:listitem="@layout/weekly_weather_recycler_item" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

@@ -1,23 +1,18 @@
 <resources>
     <string name="app_name">JAWA</string>
-    <string name="just_another_weather_app_description">Just Another Weather App</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="location_title">Location</string>
     <string name="forecast_title">Forecast</string>
     <string name="settings_title">Settings</string>
     <string name="degree_celsius_description">%1$s\u2103</string>
-    <string name="degree_celsius_max_min_description" formatted="false">%1$s\u2103\\%2$s\u2103</string>
+    <string name="degree_celsius_max_min_description" formatted="false">%1$s\u2103 %2$s\u2103</string>
     <string name="wind_speed_description">%1$sm/s</string>
     <string name="description_now">Now</string>
-    <string name="test_place_description">Ernakulam, India</string>
     <string name="sample_weather_condition_description">Mostly cloudy</string>
     <string name="wind_description">Wind</string>
     <string name="test_wind_speed_description">10m/s</string>
-    <string name="test_date">Tue, Apr 20</string>
     <string name="weather_icon_desc">Current weather icon</string>
-    <string name="permissions_needed">Location permission needed. Please allow in App Settings for additional functionality.</string>
     <string name="unable_to_find_location">Unable to find location</string>
     <string name="current_location_description">Your current location</string>
     <string name="permission_denied_title">You have denied some permissions</string>
