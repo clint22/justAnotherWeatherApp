@@ -24,8 +24,6 @@ const val SHARED_PREF_CURRENT_LATITUDE = "current_latitude"
 const val SHARED_PREF_CURRENT_LONGITUDE = "current_longitude"
 const val SHARED_PREF_DATE_COUNT = "date_count"
 const val SHARED_PREF_PERMISSIONS_GIVEN = "permissions_given"
-const val SHARED_PREF_CURRENT_PLACE_CLICKED = "current_place_clicked"
-const val SHARED_PREF_OTHER_PLACES_CLICKED = "other_places_clicked"
 
 //Base URL
 const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
@@ -41,11 +39,12 @@ const val KELVIN = 273.1
 //Others
 const val WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE = 1
 const val DATE_FORMAT_ONE = "E,MMMMd"
+const val ACCESS_FINE_LOCATION_AND_COARSE_LOCATION_PERMISSION_REQUEST_CODE = 10
+const val AUTO_COMPLETE_PLACES_REQUEST_CODE = 11
 
 //Google Places
 const val GOOGLE_PLACES_TYPE_LOCALITY = "locality"
 const val GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1 = "administrative_area_level_1"
 const val GOOGLE_PLACES_TYPE_COUNTRY = "country"
 const val GOOGLE_PLACES_NATURAL_FEATURE = "natural_feature"
-const val GOOGLE_PLACES_ESTABLISHMENT = "establishment"
 

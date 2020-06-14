@@ -41,11 +41,13 @@ import timber.log.Timber
 class LocationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentLocationBinding
     private lateinit var locationViewModel: LocationViewModel
-    private val accessFineLocationAndCoarseLocationPermissionRequestCode = 10
-    private val autocompletePlacesRequestCode = 11
+    private val accessFineLocationAndCoarseLocationPermissionRequestCode =
+        ACCESS_FINE_LOCATION_AND_COARSE_LOCATION_PERMISSION_REQUEST_CODE
+    private val autocompletePlacesRequestCode = AUTO_COMPLETE_PLACES_REQUEST_CODE
     private var locationManager: LocationManager? = null
     private var placesClient: PlacesClient? = null
     private var currentPlaceClicked: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -230,32 +232,39 @@ class LocationFragment : Fragment(), View.OnClickListener {
         placesClient = Places.createClient(requireActivity())
     }
 
-    @SuppressLint("MissingPermission")
     private fun getLatitudeAndLongitude() {
-        Timber.d("current place clicked %s", currentPlaceClicked)
-        Timber.d("permission_success")
-        val providers = locationManager?.getProviders(true)
-        var bestLocation: Location? = null
-        if (providers != null) {
-            for (provider in providers) {
-                val l: Location = locationManager?.getLastKnownLocation(provider) ?: continue
-                if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
-                    bestLocation = l
-                    if (currentPlaceClicked) {
 
-                        navigateToForecastFragment(
-                            otherPlaceClicked = false,
-                            latitude = bestLocation.latitude.toString(),
-                            longitude = bestLocation.longitude.toString()
-                        )
-                    }
-                }
-            }
+        val providers = locationManager?.getProviders(true)
+        val bestLocation: Location? = null
+        if (providers != null) {
+            getCurrentLocationLatitudeAndLongitude(providers, bestLocation)
         } else {
             requireActivity().getString(R.string.unable_to_find_location)
                 .showToast(requireContext())
         }
 
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocationLatitudeAndLongitude(
+        providers: MutableList<String>,
+        bestLocation: Location?
+    ) {
+        var location = bestLocation
+        for (provider in providers) {
+            val l: Location = locationManager?.getLastKnownLocation(provider) ?: continue
+            if (location == null || l.accuracy < location.accuracy) {
+                location = l
+                if (currentPlaceClicked) {
+
+                    navigateToForecastFragment(
+                        otherPlaceClicked = false,
+                        latitude = location.latitude.toString(),
+                        longitude = location.longitude.toString()
+                    )
+                }
+            }
+        }
     }
 
     override fun onClick(view: View?) {
@@ -319,9 +328,9 @@ class LocationFragment : Fragment(), View.OnClickListener {
         Timber.d("places %s", Gson().toJson(place))
         val latitude = place?.latLng?.latitude
         val longitude = place?.latLng?.longitude
-        var regionName: String = ""
-        var stateName: String = ""
-        var countryName: String = ""
+        var regionName = ""
+        var stateName = ""
+        var countryName = ""
 
         /*Loops through the addressComponents to filter the types which are locality, administrative_area_level_1 and
         * country so that we can easily show the selected place in the format REGION, DISTRICT, COUNTRY wise*/
