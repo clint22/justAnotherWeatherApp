@@ -248,16 +248,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
                             latitude = bestLocation.latitude.toString(),
                             longitude = bestLocation.longitude.toString()
                         )
-                        /*bestLocation.latitude.toString().setStringSharedPreference(
-                            SHARED_PREF_CURRENT_LATITUDE
-                        )
-                        bestLocation.longitude.toString().setStringSharedPreference(
-                            SHARED_PREF_CURRENT_LONGITUDE
-                        )
-                        findNavController().navigate(
-                            R.id.action_locationFragment_to_forecastFragment,
-                            null
-                        )*/
                     }
                 }
             }
@@ -326,11 +316,12 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
     private fun createPlace(place: Place?) {
 
+        Timber.d("places %s", Gson().toJson(place))
         val latitude = place?.latLng?.latitude
         val longitude = place?.latLng?.longitude
-        var regionName: String? = null
-        var stateName: String? = null
-        var countryName: String? = null
+        var regionName: String = ""
+        var stateName: String = ""
+        var countryName: String = ""
 
         /*Loops through the addressComponents to filter the types which are locality, administrative_area_level_1 and
         * country so that we can easily show the selected place in the format REGION, DISTRICT, COUNTRY wise*/
@@ -338,6 +329,9 @@ class LocationFragment : Fragment(), View.OnClickListener {
         place?.addressComponents?.asList()?.forEach { places ->
             Timber.i("Places types %s", places.types)
             when {
+                places.types.contains(GOOGLE_PLACES_NATURAL_FEATURE) -> {
+                    regionName = places.name
+                }
                 places.types.contains(GOOGLE_PLACES_TYPE_LOCALITY) -> {
                     regionName = places.name
                 }

@@ -40,10 +40,12 @@ const val KELVIN = 273.1
 
 //Others
 const val WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE = 1
-const val DATE_FORMAT_ONE = "dd-MMMM-yyyy"
+const val DATE_FORMAT_ONE = "E,MMMMd"
 
 //Google Places
 const val GOOGLE_PLACES_TYPE_LOCALITY = "locality"
 const val GOOGLE_PLACES_TYPE_ADMINISTRATIVE_AREA_LEVEL_1 = "administrative_area_level_1"
 const val GOOGLE_PLACES_TYPE_COUNTRY = "country"
+const val GOOGLE_PLACES_NATURAL_FEATURE = "natural_feature"
+const val GOOGLE_PLACES_ESTABLISHMENT = "establishment"
 
