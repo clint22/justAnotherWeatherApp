@@ -1,4 +1,5 @@
-# justAnotherWeatherApp
-Just Another weather app that uses the OpenWeather API. 
+# JAWA - Just Another Weather App
 
-How about I name it as 'JAWA' - Just Another Weather App. How is it? 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/544a2c07390f4b09b3173c8cd01e00ec)](https://app.codacy.com/manual/clintpaul89/justAnotherWeatherApp?utm_source=github.com&utm_medium=referral&utm_content=clint22/justAnotherWeatherApp&utm_campaign=Badge_Grade_Dashboard)
+
+Just Another weather app that uses the OpenWeather API. 

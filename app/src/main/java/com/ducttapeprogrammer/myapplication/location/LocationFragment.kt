@@ -80,12 +80,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 latitude = it.latitude.toString(),
                 longitude = it.longitude.toString()
             )
-            /*true.setBooleanSharedPreference(SHARED_PREF_OTHER_PLACES_CLICKED)
-            false.setBooleanSharedPreference(SHARED_PREF_CURRENT_PLACE_CLICKED)
-            it.latitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE)
-            it.longitude.toString().setStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE)
-            findNavController().navigate(R.id.action_locationFragment_to_forecastFragment, null)*/
-
         })
     }
 
@@ -237,7 +231,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
         val providers = locationManager?.getProviders(true)
         val bestLocation: Location? = null
         if (providers != null) {
-            getCurrentLocationLatitudeAndLongitude(providers, bestLocation)
+            getCurrentLocationLatitudeAndLongitude(providers, bestLocation)   
         } else {
             requireActivity().getString(R.string.unable_to_find_location)
                 .showToast(requireContext())
