@@ -1,6 +1,7 @@
 package com.ducttapeprogrammer.myapplication
 
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
+import com.ducttapeprogrammer.myapplication.utils.getWeatherCondition
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -8,7 +9,6 @@ import org.junit.Test
  * A class which contains all the unit tests of Utils class
  * */
 class UtilsTest {
-
     /**
      * Tests if a value within the range [THUNDER_STORM_RANGE] is provided will it returns the id [THUNDER_STORM]
      * */
@@ -102,5 +102,4 @@ class UtilsTest {
             )
         assertEquals(result, 77)
     }
-
 }

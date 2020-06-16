@@ -21,7 +21,6 @@ import kotlin.math.roundToInt
  * This class will act as the link b/w UI and the repository
  * */
 class CurrentWeatherViewModel : ViewModel() {
-
     private val currentWeatherRepository = CurrentWeatherRepository()
 
     private val _dataLoading = MutableLiveData(true)
@@ -43,7 +42,8 @@ class CurrentWeatherViewModel : ViewModel() {
     val currentRegion = MutableLiveData<String>()
 
     /**
-     * This function will get the result from [CurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
+     * This function will get the result from
+     * [CurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
      * */
     fun getCurrentWeather(
         latitude: String?,
@@ -89,6 +89,4 @@ class CurrentWeatherViewModel : ViewModel() {
         windSpeed.value = (data?.wind?.speed)?.roundToInt().toString()
         currentRegion.value = data?.name + "," + data?.sys?.country
     }
-
-
 }
