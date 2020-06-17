@@ -2,7 +2,9 @@ package com.ducttapeprogrammer.myapplication
 
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
 import com.ducttapeprogrammer.myapplication.utils.getWeatherCondition
+import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThat
 import org.junit.Test
 
 /**
@@ -16,7 +18,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputThunderStorm_returnThunderStormID() {
         val input = 205
         val result = getWeatherCondition(input)
-        assertEquals(result, THUNDER_STORM)
+        assertThat(result, `is`(THUNDER_STORM))
     }
 
     /**
@@ -26,7 +28,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputDrizzle_returnDrizzleID() {
         val input = 305
         val result = getWeatherCondition(input)
-        assertEquals(result, DRIZZLE)
+        assertThat(result, `is`(DRIZZLE))
     }
 
     /**
@@ -36,7 +38,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputRain_returnRainID() {
         val input = 510
         val result = getWeatherCondition(input)
-        assertEquals(result, RAIN)
+        assertThat(result, `is`(RAIN))
     }
 
     /**
@@ -46,7 +48,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputSnow_returnSnowID() {
         val input = 622
         val result = getWeatherCondition(input)
-        assertEquals(result, SNOW)
+        assertThat(result, `is`(SNOW))
     }
 
     /**
@@ -56,7 +58,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputAtmosphere_returnAtmosphereID() {
         val input = 705
         val result = getWeatherCondition(input)
-        assertEquals(result, ATMOSPHERE)
+        assertThat(result, `is`(ATMOSPHERE))
     }
 
     /**
@@ -66,7 +68,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputClear_returnClearID() {
         val input = 800
         val result = getWeatherCondition(input)
-        assertEquals(result, CLEAR)
+        assertThat(result, `is`(CLEAR))
     }
 
     /**
@@ -76,7 +78,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputClouds_returnCloudsID() {
         val input = 802
         val result = getWeatherCondition(input)
-        assertEquals(result, CLOUDS)
+        assertThat(result, `is`(CLOUDS))
     }
 
     /**
@@ -86,7 +88,7 @@ class UtilsTest {
     fun getWeatherConditionType_inputInvalid_returnZero() {
         val input = 0
         val result = getWeatherCondition(input)
-        assertEquals(result, 0)
+        assertThat(result, `is`(0))
     }
 
     /**
@@ -100,6 +102,6 @@ class UtilsTest {
             convertKelvinToDegreeCelsius(
                 input
             )
-        assertEquals(result, 77)
+        assertThat(result, `is`(77))
     }
 }
