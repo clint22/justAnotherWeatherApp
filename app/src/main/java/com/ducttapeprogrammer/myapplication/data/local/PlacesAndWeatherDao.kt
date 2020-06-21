@@ -12,7 +12,7 @@ import com.ducttapeprogrammer.myapplication.data.model.Places
  * insertion and retrieval operations
  * */
 @Dao
-interface PlacesDao {
+interface PlacesAndWeatherDao {
 
     /**
      * This Query will retrieve all the places in the table in ascending order according to it's ID
@@ -26,6 +26,9 @@ interface PlacesDao {
      * */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlace(places: Places)
+
+
+
 
 
 }

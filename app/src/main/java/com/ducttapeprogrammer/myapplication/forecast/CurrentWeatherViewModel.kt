@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ducttapeprogrammer.myapplication.*
-import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
+import com.ducttapeprogrammer.myapplication.data.model.CurrentWeatherRemote
+import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
 import com.ducttapeprogrammer.myapplication.utils.getBooleanSharedPreference
 import kotlinx.coroutines.launch
@@ -29,10 +29,10 @@ class CurrentWeatherViewModel : ViewModel() {
     private val _lottieAnimation = MutableLiveData<Event<Boolean>>()
     val lottieAnimation: LiveData<Event<Boolean>> = _lottieAnimation
 
-    private val _observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDays.WeatherList>> =
+    private val _observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>> =
         currentWeatherRepository.observeWeatherForNextSevenDays()
 
-    val observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDays.WeatherList>> =
+    val observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>> =
         _observeWeatherForNextSevenDays
 
     // Two-way databinding, exposing MutableLiveData
@@ -56,7 +56,6 @@ class CurrentWeatherViewModel : ViewModel() {
 
         viewModelScope.launch {
 //            Current Weather API will be called only if the permissions are given
-
             if (getBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)) {
                 currentWeatherRepository.getCurrentWeather(
                     latitude,
@@ -81,7 +80,7 @@ class CurrentWeatherViewModel : ViewModel() {
 
     }
 
-    private fun onWeatherDataLoaded(data: CurrentWeather?) {
+    private fun onWeatherDataLoaded(data: CurrentWeatherRemote?) {
         currentTemperature.value = convertKelvinToDegreeCelsius(
             data?.main?.temp
         ).toString()

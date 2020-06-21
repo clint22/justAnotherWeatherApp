@@ -2,9 +2,9 @@ package com.ducttapeprogrammer.myapplication.data.source
 
 import androidx.lifecycle.LiveData
 import com.ducttapeprogrammer.myapplication.Result
-import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
+import com.ducttapeprogrammer.myapplication.data.model.CurrentWeatherRemote
 import com.ducttapeprogrammer.myapplication.data.model.Places
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
+import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
 
 /**
  * This interface will hold all the details about the operations in the application
@@ -12,21 +12,21 @@ import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 interface AppDataSource {
 
     /**
-     * This function will return the [CurrentWeather] that is wrapped in the [Result]
+     * This function will return the [CurrentWeatherRemote] that is wrapped in the [Result]
      * */
     suspend fun getCurrentWeather(
         latitude: String?,
         longitude: String?,
         appId: String
-    ): Result<CurrentWeather>
+    ): Result<CurrentWeatherRemote>
 
     /**
-     * This function will observe the [CurrentWeather] response
+     * This function will observe the [CurrentWeatherRemote] response
      * */
-    fun observeCurrentWeather(): LiveData<CurrentWeather>
+    fun observeCurrentWeather(): LiveData<CurrentWeatherRemote>
 
     /**
-     * This function will return the [WeatherForNextSevenDays] that is wrapped in the [Result]
+     * This function will return the [WeatherForNextSevenDaysRemote] that is wrapped in the [Result]
      * */
     suspend fun getWeatherDataForNextSevenDays(
         latitude: String?,
@@ -35,9 +35,9 @@ interface AppDataSource {
     )
 
     /**
-     * This function will observer the [WeatherForNextSevenDays] response
+     * This function will observer the [WeatherForNextSevenDaysRemote] response
      * */
-    fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>>
+    fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>>
 
     /**
      * This function will insert the place into the Room Database
