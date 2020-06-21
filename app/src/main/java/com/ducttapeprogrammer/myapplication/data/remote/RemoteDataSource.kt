@@ -20,7 +20,7 @@ import timber.log.Timber
 import java.io.IOException
 
 /**
- * This class will write the logic of all the functions mentioned in the [AppDataSource]
+ * This class will write the logic of all the functions that is Remote mentioned in the [AppDataSource]
  * */
 object RemoteDataSource : AppDataSource {
 

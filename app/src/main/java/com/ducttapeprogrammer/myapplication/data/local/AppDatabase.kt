@@ -19,9 +19,9 @@ import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 abstract class AppDatabase : RoomDatabase() {
 
     /**
-     * Links the [PlacesDao] in the [AppDatabase]
+     * Links the [PlacesAndWeatherDao] in the [AppDatabase]
      * */
-    abstract fun placesDao(): PlacesDao
+    abstract fun placesDao(): PlacesAndWeatherDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

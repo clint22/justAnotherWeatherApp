@@ -7,6 +7,9 @@ import com.ducttapeprogrammer.myapplication.data.model.Places
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
 import com.ducttapeprogrammer.myapplication.data.source.AppDataSource
 
+/**
+ * This class will write the logic of all the functions that is Local mentioned in the [AppDataSource]
+ * */
 object LocalDataSource : AppDataSource {
 
     override suspend fun getCurrentWeather(
@@ -14,11 +17,11 @@ object LocalDataSource : AppDataSource {
         longitude: String?,
         appId: String
     ): Result<CurrentWeatherRemote> {
-        TODO("Not yet implemented")
+        TODO("Implement CurrentWeather logic here")
     }
 
     override fun observeCurrentWeather(): LiveData<CurrentWeatherRemote> {
-        TODO("Not yet implemented")
+        TODO("Implement Observe CurrentWeather logic here")
     }
 
     override suspend fun getWeatherDataForNextSevenDays(
@@ -26,19 +29,19 @@ object LocalDataSource : AppDataSource {
         longitude: String?,
         appId: String
     ) {
-        TODO("Not yet implemented")
+        TODO("Implement WeatherForNextSeven Days logic here")
     }
 
     override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>> {
-        TODO("Not yet implemented")
+        TODO("Implement Observe WeatherForNextSeven Days logic here")
     }
 
     override suspend fun insertPlace(place: Places) {
-        TODO("Not yet implemented")
+        TODO("Implement Insert place logic here")
     }
 
     override fun observeAllPlaces(): LiveData<List<Places>> {
-        TODO("Not yet implemented")
+        TODO("Implement Observe Places logic here")
     }
 
 }

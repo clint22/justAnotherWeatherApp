@@ -9,12 +9,20 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * A class which contains test cases of all the operations in
+ * LocationViewModel
+ * */
 @RunWith(AndroidJUnit4::class)
 class LocationViewModelTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    /**
+     * Function which tests whether the user clicked
+     * on the other locations or not
+     * */
     @Test
     fun otherLocationClicked_setsOtherLocationAsCurrentlySelectedLocation() {
 

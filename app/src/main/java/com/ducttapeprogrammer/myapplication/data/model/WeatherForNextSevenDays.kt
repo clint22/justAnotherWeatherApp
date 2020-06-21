@@ -4,6 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * This is a POJO class for the Weekly weather which also act's
+ * as the table for the Room database. We are auto-generating the [id]
+ * along with with other parameters
+ * */
 @Entity(tableName = "weather_weekly_table")
 data class WeatherForNextSevenDays(
     @PrimaryKey(autoGenerate = true)
