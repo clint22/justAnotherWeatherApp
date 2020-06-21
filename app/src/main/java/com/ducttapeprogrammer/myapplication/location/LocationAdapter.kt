@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ducttapeprogrammer.myapplication.data.model.Places
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.databinding.LocationRecyclerItemBinding
-import com.ducttapeprogrammer.myapplication.forecast.CurrentWeatherViewModel
 import timber.log.Timber
 
 /**

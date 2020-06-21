@@ -27,5 +27,10 @@ interface PlacesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlace(places: Places)
 
+    @Query("SELECT * from places_table")
+    fun getCurrentWeather(): LiveData<List<Places>>
+
+
+
 
 }

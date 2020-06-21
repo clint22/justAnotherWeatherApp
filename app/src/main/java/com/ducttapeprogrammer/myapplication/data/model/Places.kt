@@ -25,4 +25,5 @@ data class Places(
     var state: String?,
     @ColumnInfo(name = "country")
     var country: String?
+
 )

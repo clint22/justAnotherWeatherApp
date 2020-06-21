@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
+import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
 import com.ducttapeprogrammer.myapplication.databinding.WeeklyWeatherRecyclerItemBinding
 
 
@@ -14,7 +14,7 @@ import com.ducttapeprogrammer.myapplication.databinding.WeeklyWeatherRecyclerIte
  */
 @ExperimentalStdlibApi
 class WeatherForNextSevenDaysAdapter(private val viewModel: CurrentWeatherViewModel?) :
-    ListAdapter<WeatherForNextSevenDays.WeatherList, WeatherForNextSevenDaysAdapter.ViewHolder>(
+    ListAdapter<WeatherForNextSevenDaysRemote.WeatherList, WeatherForNextSevenDaysAdapter.ViewHolder>(
         WeatherForNextSevenDaysDiffCallback()
     ) {
 
@@ -34,15 +34,15 @@ class WeatherForNextSevenDaysAdapter(private val viewModel: CurrentWeatherViewMo
         RecyclerView.ViewHolder(binding.root) {
         /**
          * This function will binds
-         * the [CurrentWeatherViewModel] and [WeatherForNextSevenDays.WeatherList]
+         * the [CurrentWeatherViewModel] and [WeatherForNextSevenDaysRemote.WeatherList]
          * */
         fun bind(
             viewModel: CurrentWeatherViewModel?,
-            itemWeatherList: WeatherForNextSevenDays.WeatherList
+            itemWeatherList: WeatherForNextSevenDaysRemote.WeatherList
         ) {
 
             binding.viewModel = viewModel
-            binding.weatherForNextSevenDays = itemWeatherList
+            binding.weatherForNextSevenDaysRemote = itemWeatherList
             binding.executePendingBindings()
         }
 
@@ -68,17 +68,17 @@ class WeatherForNextSevenDaysAdapter(private val viewModel: CurrentWeatherViewMo
  * list that's been passed to `submitList`.
  */
 class WeatherForNextSevenDaysDiffCallback :
-    DiffUtil.ItemCallback<WeatherForNextSevenDays.WeatherList>() {
+    DiffUtil.ItemCallback<WeatherForNextSevenDaysRemote.WeatherList>() {
     override fun areItemsTheSame(
-        oldItem: WeatherForNextSevenDays.WeatherList,
-        newItem: WeatherForNextSevenDays.WeatherList
+        oldItem: WeatherForNextSevenDaysRemote.WeatherList,
+        newItem: WeatherForNextSevenDaysRemote.WeatherList
     ): Boolean {
         return oldItem.dt == newItem.dt
     }
 
     override fun areContentsTheSame(
-        oldItem: WeatherForNextSevenDays.WeatherList,
-        newItem: WeatherForNextSevenDays.WeatherList
+        oldItem: WeatherForNextSevenDaysRemote.WeatherList,
+        newItem: WeatherForNextSevenDaysRemote.WeatherList
     ): Boolean {
         return oldItem == newItem
     }

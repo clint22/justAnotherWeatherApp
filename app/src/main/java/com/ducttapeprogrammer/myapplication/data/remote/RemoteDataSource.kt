@@ -6,10 +6,10 @@ import com.ducttapeprogrammer.myapplication.MyApplication
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.SHARED_PREF_WEATHER_CONDITION_KEY
 import com.ducttapeprogrammer.myapplication.WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE
-import com.ducttapeprogrammer.myapplication.data.local.PlacesDatabase
-import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
+import com.ducttapeprogrammer.myapplication.data.local.AppDatabase
+import com.ducttapeprogrammer.myapplication.data.model.CurrentWeatherRemote
 import com.ducttapeprogrammer.myapplication.data.model.Places
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
+import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
 import com.ducttapeprogrammer.myapplication.data.source.AppDataSource
 import com.ducttapeprogrammer.myapplication.utils.getWeatherCondition
 import com.ducttapeprogrammer.myapplication.utils.setIntSharedPreference
@@ -24,21 +24,20 @@ import java.io.IOException
  * */
 object RemoteDataSource : AppDataSource {
 
-    private val observeCurrentWeather = MutableLiveData<CurrentWeather>()
+    private val observeCurrentWeather = MutableLiveData<CurrentWeatherRemote>()
     private val observeWeatherForNextSevenDays =
-        MutableLiveData<List<WeatherForNextSevenDays.WeatherList>>()
-    private val observeAllPlaces = MutableLiveData<List<Places>>()
-    private var currentWeather: CurrentWeather? = null
-    private var weatherForNextSevenDays: WeatherForNextSevenDays? = null
+        MutableLiveData<List<WeatherForNextSevenDaysRemote.WeatherList>>()
+    private var currentWeather: CurrentWeatherRemote? = null
+    private var weatherForNextSevenDays: WeatherForNextSevenDaysRemote? = null
     private var isCurrentWeatherExceptionOccurred: Boolean = false
     private var isWeatherForNextSevenDaysExceptionOccurred: Boolean = false
-    private val placesDao = PlacesDatabase.getDatabase(MyApplication.instance).placesDao()
+    private val placesDao = AppDatabase.getDatabase(MyApplication.instance).placesDao()
 
     override suspend fun getCurrentWeather(
         latitude: String?,
         longitude: String?,
         appId: String
-    ): Result<CurrentWeather> {
+    ): Result<CurrentWeatherRemote> {
 
         withContext(Dispatchers.IO) {
 
@@ -68,7 +67,7 @@ object RemoteDataSource : AppDataSource {
         }
     }
 
-    override fun observeCurrentWeather(): LiveData<CurrentWeather> {
+    override fun observeCurrentWeather(): LiveData<CurrentWeatherRemote> {
         return observeCurrentWeather
     }
 
@@ -110,7 +109,7 @@ object RemoteDataSource : AppDataSource {
 
     }
 
-    override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>> {
+    override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>> {
         return observeWeatherForNextSevenDays
     }
 

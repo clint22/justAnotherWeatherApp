@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="weatherForNextSevenDays"
-            type="com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays.WeatherList" />
+            name="weatherForNextSevenDaysRemote"
+            type="com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote.WeatherList" />
 
         <variable
             name="viewModel"
@@ -30,7 +30,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:textColor="@color/dark_30"
-            app:date="@{weatherForNextSevenDays.weather}"
+            app:date="@{weatherForNextSevenDaysRemote.weather}"
             tools:text="@sample/weekly_weather.json/data/date" />
 
         <ImageView
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            app:weatherIcon="@{weatherForNextSevenDays.weather}"
+            app:weatherIcon="@{weatherForNextSevenDaysRemote.weather}"
             tools:srcCompat="@sample/weekly_weather.json/data/weatherIcon" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:textColor="@color/dark_30"
-            app:currentTemperature="@{weatherForNextSevenDays.temp}"
+            app:currentTemperature="@{weatherForNextSevenDaysRemote.temp}"
             tools:text="@sample/weekly_weather.json/data/degree" />
     </LinearLayout>
 </layout>

@@ -231,7 +231,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
         val providers = locationManager?.getProviders(true)
         val bestLocation: Location? = null
         if (providers != null) {
-            getCurrentLocationLatitudeAndLongitude(providers, bestLocation)   
+            getCurrentLocationLatitudeAndLongitude(providers, bestLocation)
         } else {
             requireActivity().getString(R.string.unable_to_find_location)
                 .showToast(requireContext())
