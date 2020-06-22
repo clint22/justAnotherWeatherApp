@@ -5,14 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ducttapeprogrammer.myapplication.data.model.Places
+import com.ducttapeprogrammer.myapplication.data.source.FakeLocalDataSource
 import kotlinx.coroutines.launch
 
-/**
+/**2
  * This class will act as a link b/w the [LocationFragment] and the [LocationRepository]
  * */
 class LocationViewModel : ViewModel() {
 
-    private val locationRepository = LocationRepository()
+    private val fakeDataSource = FakeLocalDataSource()
+    private val locationRepository = LocationRepository(fakeDataSource)
 
     private val _locationClicked = MutableLiveData<Places>()
     val locationClicked: LiveData<Places> = _locationClicked

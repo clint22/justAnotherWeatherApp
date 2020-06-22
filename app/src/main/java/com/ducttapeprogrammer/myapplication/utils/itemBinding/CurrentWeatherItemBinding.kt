@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ducttapeprogrammer.myapplication.MyApplication
 import com.ducttapeprogrammer.myapplication.R
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
+import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.forecast.WeatherForNextSevenDaysAdapter
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
 import com.ducttapeprogrammer.myapplication.utils.getCurrentDate
@@ -17,11 +17,11 @@ import timber.log.Timber
 
 
 /**
- * [BindingAdapter]s for the [WeatherForNextSevenDaysRemote.WeatherList]s list.
+ * [BindingAdapter]s for the [WeatherForNextSevenDays.WeatherList]s list.
  */
 @ExperimentalStdlibApi
 @BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, items: List<WeatherForNextSevenDaysRemote.WeatherList>?) {
+fun setItems(listView: RecyclerView, items: List<WeatherForNextSevenDays.WeatherList>?) {
     items?.let {
         (listView.adapter as WeatherForNextSevenDaysAdapter).submitList(items)
     }
@@ -33,7 +33,7 @@ fun setItems(listView: RecyclerView, items: List<WeatherForNextSevenDaysRemote.W
  * */
 @SuppressLint("StringFormatMatches")
 @BindingAdapter("app:currentTemperature")
-fun setCurrentTemperature(textView: TextView, value: WeatherForNextSevenDaysRemote.WeatherList.Temp) {
+fun setCurrentTemperature(textView: TextView, value: WeatherForNextSevenDays.WeatherList.Temp) {
 
     textView.text =
         MyApplication.instance.getString(
@@ -53,7 +53,7 @@ fun setCurrentTemperature(textView: TextView, value: WeatherForNextSevenDaysRemo
 @BindingAdapter("app:weatherIcon")
 fun setWeatherIcon(
     imageView: ImageView,
-    items: List<WeatherForNextSevenDaysRemote.WeatherList.WeatherMainList>
+    items: List<WeatherForNextSevenDays.WeatherList.WeatherMainList>
 ) {
     items.forEach { weatherMain ->
         Timber.d(weatherMain.id.toString())
@@ -67,7 +67,7 @@ fun setWeatherIcon(
 @BindingAdapter("app:date")
 fun setDate(
     textView: TextView,
-    items: List<WeatherForNextSevenDaysRemote.WeatherList.WeatherMainList>
+    items: List<WeatherForNextSevenDays.WeatherList.WeatherMainList>
 ) {
     textView.text = getCurrentDate()
 
