@@ -17,7 +17,7 @@ interface LocalAppDataSource {
     /**
      * This function will observe the [Places] List
      * */
-    fun observeAllPlaces(): LiveData<List<Places>>
+    fun observeAllPlaces(): LiveData<Result<List<Places>>>
 
     fun getAllPlaces(): Result<List<Places>>
 }

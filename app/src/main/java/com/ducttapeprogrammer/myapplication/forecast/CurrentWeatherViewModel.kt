@@ -1,9 +1,6 @@
 package com.ducttapeprogrammer.myapplication.forecast
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.ducttapeprogrammer.myapplication.Event
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.SHARED_PREF_PERMISSIONS_GIVEN
@@ -11,9 +8,7 @@ import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
 import com.ducttapeprogrammer.myapplication.utils.getBooleanSharedPreference
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -24,8 +19,9 @@ import kotlin.math.roundToInt
 /**
  * This class will act as the link b/w UI and the repository
  * */
-class CurrentWeatherViewModel(private val currentWeatherRepository: CurrentWeatherRepository,
-private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :
+class CurrentWeatherViewModel(
+    private val currentWeatherRepository: CurrentWeatherRepository
+) :
     ViewModel() {
 
     /*private val fakeRemoteDataSource = FakeRemoteDataSource()
@@ -53,7 +49,7 @@ private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :
      * This function will get the result from
      * [DefaultCurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
      * */
-     suspend fun getCurrentWeather(
+    fun getCurrentWeather(
         latitude: String?,
         longitude: String?,
         appId: String
@@ -61,29 +57,7 @@ private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :
 
         _lottieAnimation.value = Event(false)
         _dataLoading.value = true
-
-        withContext(ioDispatcher) {
-            if (getBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)) {
-                currentWeatherRepository.getCurrentWeather(
-                    latitude,
-                    longitude,
-                    appId
-                ).let {
-                    if (it is Result.Success) {
-                        onWeatherDataLoaded(it.data)
-                        _lottieAnimation.value = Event(true)
-                        currentWeatherRepository.getWeatherDataForNextSevenDays(
-                            latitude,
-                            longitude,
-                            appId
-                        )
-                        _dataLoading.value = false
-                    }
-
-                }
-            }
-        }
-        /*viewModelScope.launch {
+        viewModelScope.launch {
 //            Current Weather API will be called only if the permissions are given
             if (getBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)) {
                 currentWeatherRepository.getCurrentWeather(
@@ -104,7 +78,7 @@ private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :
 
                 }
             }
-        }*/
+        }
 
 
     }

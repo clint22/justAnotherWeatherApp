@@ -18,8 +18,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentLocationBinding
@@ -40,7 +40,15 @@ import timber.log.Timber
  * */
 class LocationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentLocationBinding
-    private lateinit var locationViewModel: LocationViewModel
+
+    //    private lateinit var locationViewModel: LocationViewModel
+    private val locationViewModel by viewModels<LocationViewModel> {
+        LocationViewModel.LocationViewModelFactory(
+            DefaultLocationRepository.getLocationRepository(requireActivity().application)
+        )
+    }
+
+
     private val accessFineLocationAndCoarseLocationPermissionRequestCode =
         ACCESS_FINE_LOCATION_AND_COARSE_LOCATION_PERMISSION_REQUEST_CODE
     private val autocompletePlacesRequestCode = AUTO_COMPLETE_PLACES_REQUEST_CODE
@@ -112,7 +120,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
     private fun setupViewModel() {
 
-        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
+//        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
         binding.viewModel = locationViewModel
     }
 

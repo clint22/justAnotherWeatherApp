@@ -6,21 +6,21 @@ import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.data.remote.RemoteDataSource
-import com.ducttapeprogrammer.myapplication.data.source.FakeRemoteDataSource
+import com.ducttapeprogrammer.myapplication.data.source.RemoteAppDataSource
 
 /**
  * This class will act as a link b/w [CurrentWeatherViewModel] and [RemoteDataSource]
  * */
-class DefaultCurrentWeatherRepository constructor(
-    private val remoteDataSource: FakeRemoteDataSource
+class DefaultCurrentWeatherRepository (
+    private val remoteDataSource: RemoteAppDataSource
 ) : CurrentWeatherRepository {
 
     companion object {
         @Volatile
         private var INSTANCE: DefaultCurrentWeatherRepository? = null
-        fun getRepository(app: Application) : DefaultCurrentWeatherRepository {
+        fun getRepository(app: Application): DefaultCurrentWeatherRepository {
             return INSTANCE ?: synchronized(this) {
-                DefaultCurrentWeatherRepository(FakeRemoteDataSource()).also {
+                DefaultCurrentWeatherRepository(RemoteDataSource).also {
                     INSTANCE = it
                 }
             }

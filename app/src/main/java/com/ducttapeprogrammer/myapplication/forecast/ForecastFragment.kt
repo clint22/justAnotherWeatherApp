@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentForecastBinding
 import com.ducttapeprogrammer.myapplication.utils.getIntSharedPreference
 import com.ducttapeprogrammer.myapplication.utils.getStringSharedPreference
 import com.ducttapeprogrammer.myapplication.utils.setWeatherConditionIcon
-import kotlinx.coroutines.GlobalScope
 
 /**
  * This fragment acts as the UI for showing weather related information
@@ -21,12 +19,12 @@ import kotlinx.coroutines.GlobalScope
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 @ExperimentalStdlibApi
 class ForecastFragment : Fragment() {
-    //    private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
-    private val currentWeatherViewModel by viewModels<CurrentWeatherViewModel>() {
+        private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
+    /*private val currentWeatherViewModel by viewModels<CurrentWeatherViewModel>() {
         CurrentWeatherViewModel.CurrentWeatherViewModelFactory(
             DefaultCurrentWeatherRepository.getRepository(requireActivity().application)
         )
-    }
+    }*/
     private lateinit var binding: FragmentForecastBinding
 
     override fun onCreateView(

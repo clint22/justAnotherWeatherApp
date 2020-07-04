@@ -1,27 +1,24 @@
 package com.ducttapeprogrammer.myapplication.location
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.Places
-import com.ducttapeprogrammer.myapplication.data.source.FakeLocalDataSource
 import kotlinx.coroutines.launch
 
 /**2
- * This class will act as a link b/w the [LocationFragment] and the [LocationRepository]
+ * This class will act as a link b/w the [LocationFragment] and the [DefaultLocationRepository]
  * */
-class LocationViewModel : ViewModel() {
+class LocationViewModel(private val locationRepository: LocationRepository) : ViewModel() {
 
-    private val fakeDataSource = FakeLocalDataSource()
-    private val locationRepository = LocationRepository(fakeDataSource)
+    /*private val fakeDataSource = LocalDataSource()
+    private val locationRepository = DefaultLocationRepository(fakeDataSource)*/
 
     private val _locationClicked = MutableLiveData<Places>()
     val locationClicked: LiveData<Places> = _locationClicked
 
-    private val _observeAllPlaces: LiveData<List<Places>> =
+    private val _observeAllPlaces: LiveData<Result<List<Places>>> =
         locationRepository.observeAllPlaces()
-    val observeAllPlaces: LiveData<List<Places>> = _observeAllPlaces
+    val observeAllPlaces: LiveData<Result<List<Places>>> = _observeAllPlaces
 
     /**
      * This function will help in calling the insertPlace function inside
@@ -45,5 +42,13 @@ class LocationViewModel : ViewModel() {
         _locationClicked.value = place
     }
 
+
+    @Suppress("UNCHECKED_CAST")
+    class LocationViewModelFactory(
+        private val locationRepository: LocationRepository
+    ) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>) =
+            (LocationViewModel(locationRepository) as T)
+    }
 
 }

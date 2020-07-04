@@ -1,6 +1,7 @@
 package com.ducttapeprogrammer.myapplication.data.local
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.source.LocalAppDataSource
 import com.ducttapeprogrammer.myapplication.data.model.Places
@@ -19,14 +20,16 @@ class LocalDataSource(private var placesDao: PlacesAndWeatherDao) :
         placesDao.insertPlace(place)
     }
 
-    override fun observeAllPlaces(): LiveData<List<Places>> {
-        return placesDao.observePlaces()
+    override fun observeAllPlaces(): LiveData<Result<List<Places>>> {
+        return placesDao.observePlaces().map {
+            Result.Success(it)
+        }
     }
 
     override fun getAllPlaces(): Result<List<Places>> {
         return try {
             Result.Success(placesDao.getAllPlaces())
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             Result.Error(Unit)
         }
     }

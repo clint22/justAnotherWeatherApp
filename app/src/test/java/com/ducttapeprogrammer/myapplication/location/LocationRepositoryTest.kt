@@ -24,13 +24,13 @@ class LocationRepositoryTest {
     private lateinit var localDataSource: FakeLocalDataSource
 
     //    Class under test
-    private lateinit var locationRepository: LocationRepository
+    private lateinit var locationRepository: DefaultLocationRepository
 
     @Before
     fun createRepository() {
 
         localDataSource = FakeLocalDataSource(localPlaces.toMutableList())
-        locationRepository = LocationRepository(localDataSource)
+        locationRepository = DefaultLocationRepository(localDataSource)
 
     }
 
