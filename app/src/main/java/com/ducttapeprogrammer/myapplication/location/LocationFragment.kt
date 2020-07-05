@@ -61,7 +61,9 @@ class LocationFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentLocationBinding.inflate(layoutInflater)
+        binding = FragmentLocationBinding.inflate(inflater, container, false).apply {
+            binding.viewModel = locationViewModel
+        }
         return binding.root
     }
 
@@ -70,7 +72,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
         binding.lifecycleOwner = this.viewLifecycleOwner
         checkGpsEnabled()
         setClickListeners()
-        setupViewModel()
+//        setupViewModel()
         setAdapter()
         observeViewModel()
     }
@@ -118,11 +120,11 @@ class LocationFragment : Fragment(), View.OnClickListener {
     }
 
 
-    private fun setupViewModel() {
+    /*private fun setupViewModel() {
 
 //        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
         binding.viewModel = locationViewModel
-    }
+    }*/
 
     private fun setClickListeners() {
 

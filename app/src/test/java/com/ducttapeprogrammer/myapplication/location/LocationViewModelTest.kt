@@ -2,10 +2,8 @@ package com.ducttapeprogrammer.myapplication.location
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ducttapeprogrammer.myapplication.data.source.FakeLocationRepository
-import com.ducttapeprogrammer.myapplication.getOrAwaitValue
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.not
-import org.hamcrest.Matchers.nullValue
+import org.hamcrest.core.IsEqual
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,7 +22,7 @@ class LocationViewModelTest {
     @Before
     fun setupViewModel() {
         fakeLocationRepository = FakeLocationRepository()
-        /*val places1 = com.ducttapeprogrammer.myapplication.data.model.Places(
+        val places1 = com.ducttapeprogrammer.myapplication.data.model.Places(
             1,
             92.12,
             15.23,
@@ -48,20 +46,29 @@ class LocationViewModelTest {
             "Kerala",
             "India"
         )
-        fakeLocationRepository.addPlaces(places1, places2, places3)*/
+        fakeLocationRepository.addPlaces(places1, places2, places3)
         locationViewModel = LocationViewModel(fakeLocationRepository)
+    }
+
+
+    @Test
+    fun getPlaces_requestAllPlacesFromLocationRepository() {
+
+        val places = locationViewModel.observeAllPlaces
+        assertThat(places.value, IsEqual(fakeLocationRepository.observeAllPlaces().value))
+
     }
 
     /**
      * Function which tests whether the user clicked
      * on the other locations or not
      * */
-    @Test
+    /*@Test
     fun otherLocationClicked_setsOtherLocationAsCurrentlySelectedLocation() {
 
         locationViewModel.locationClicked
         val value = locationViewModel.locationClicked.getOrAwaitValue()
         assertThat(value, (not(nullValue())))
 
-    }
+    }*/
 }

@@ -21,7 +21,7 @@ class FakeLocalDataSource(private var places: MutableList<Places>? = mutableList
         }
     }
 
-    override fun observeAllPlaces(): LiveData<List<Places>> {
+    override fun observeAllPlaces(): LiveData<Result<List<Places>>> {
         TODO("Not yet implemented")
     }
 

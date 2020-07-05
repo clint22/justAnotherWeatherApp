@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 
 class FakeLocationRepository : LocationRepository {
 
-    var locationServiceData: LinkedHashMap<Int, Places> = LinkedHashMap()
+    private var locationServiceData: LinkedHashMap<Int, Places> = LinkedHashMap()
     private val observablePlaces = MutableLiveData<Result<List<Places>>>()
 
 

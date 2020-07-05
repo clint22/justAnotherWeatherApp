@@ -24,19 +24,17 @@ class CurrentWeatherViewModel(
 ) :
     ViewModel() {
 
-    /*private val fakeRemoteDataSource = FakeRemoteDataSource()
-    private val currentWeatherRepository = DefaultCurrentWeatherRepository(fakeRemoteDataSource)*/
-
+    private var currentWeather: Result<CurrentWeather>? = null
     private val _dataLoading = MutableLiveData(true)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
     private val _lottieAnimation = MutableLiveData<Event<Boolean>>()
     val lottieAnimation: LiveData<Event<Boolean>> = _lottieAnimation
 
-    private val _observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDays.WeatherList>> =
+    private val _observeWeatherForNextSevenDays: LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> =
         currentWeatherRepository.observeWeatherForNextSevenDays()
 
-    val observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDays.WeatherList>> =
+    val observeWeatherForNextSevenDays: LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> =
         _observeWeatherForNextSevenDays
 
     // Two-way databinding, exposing MutableLiveData
@@ -53,7 +51,7 @@ class CurrentWeatherViewModel(
         latitude: String?,
         longitude: String?,
         appId: String
-    ) {
+    ): Result<CurrentWeather>? {
 
         _lottieAnimation.value = Event(false)
         _dataLoading.value = true
@@ -66,6 +64,7 @@ class CurrentWeatherViewModel(
                     appId
                 ).let {
                     if (it is Result.Success) {
+                        currentWeather = it
                         onWeatherDataLoaded(it.data)
                         _lottieAnimation.value = Event(true)
                         currentWeatherRepository.getWeatherDataForNextSevenDays(
@@ -79,8 +78,9 @@ class CurrentWeatherViewModel(
                 }
             }
         }
-
-
+        currentWeather.let {
+            return it
+        }
     }
 
     private fun onWeatherDataLoaded(data: CurrentWeather?) {

@@ -36,7 +36,7 @@ interface RemoteAppDataSource {
     /**
      * This function will observer the [WeatherForNextSevenDays] response
      * */
-    fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>>
+    fun observeWeatherDataForNextSevenDays(): LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>>
 
 
 }

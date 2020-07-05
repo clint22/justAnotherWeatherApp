@@ -5,7 +5,8 @@ import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 
-class FakeRemoteDataSource(private var currentWeather: CurrentWeather? = null) : RemoteAppDataSource {
+class FakeRemoteDataSource(private var currentWeather: CurrentWeather? = null) :
+    RemoteAppDataSource {
 
     override suspend fun getCurrentWeather(
         latitude: String?,
@@ -32,7 +33,7 @@ class FakeRemoteDataSource(private var currentWeather: CurrentWeather? = null) :
     }
 
 
-    override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>> {
+    override fun observeWeatherDataForNextSevenDays(): LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> {
         TODO("Not yet implemented")
     }
 

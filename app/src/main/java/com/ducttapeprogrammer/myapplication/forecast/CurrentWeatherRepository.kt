@@ -18,7 +18,7 @@ interface CurrentWeatherRepository {
     /**
      * This function will observe any changes in [WeatherForNextSevenDays.WeatherList] and updates the changes
      * */
-    fun observeWeatherForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>>
+    fun observeWeatherForNextSevenDays(): LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>>
 
     /**
      * This function will help in getting the [WeatherForNextSevenDays]
@@ -28,4 +28,6 @@ interface CurrentWeatherRepository {
         longitude: String?,
         appId: String
     ) : Result<List<WeatherForNextSevenDays.WeatherList>>
+
+    fun refreshCurrentWeather()
 }

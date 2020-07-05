@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentForecastBinding
 import com.ducttapeprogrammer.myapplication.utils.getIntSharedPreference
@@ -19,12 +20,13 @@ import com.ducttapeprogrammer.myapplication.utils.setWeatherConditionIcon
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 @ExperimentalStdlibApi
 class ForecastFragment : Fragment() {
-        private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
-    /*private val currentWeatherViewModel by viewModels<CurrentWeatherViewModel>() {
+    private val currentWeatherViewModel by viewModels<CurrentWeatherViewModel> {
         CurrentWeatherViewModel.CurrentWeatherViewModelFactory(
-            DefaultCurrentWeatherRepository.getRepository(requireActivity().application)
+            DefaultCurrentWeatherRepository.getCurrentWeatherRepository()
         )
-    }*/
+    }
+
+    //        private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
     private lateinit var binding: FragmentForecastBinding
 
     override fun onCreateView(
@@ -32,14 +34,16 @@ class ForecastFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentForecastBinding.inflate(layoutInflater)
+        binding = FragmentForecastBinding.inflate(inflater, container, false).apply {
+            binding.viewModel = currentWeatherViewModel
+        }
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
-        setupViewModel()
+//        setupViewModel()
         setAdapter()
         observeViewModel()
         getCurrentWeatherData()
@@ -77,9 +81,9 @@ class ForecastFragment : Fragment() {
         })
     }
 
-    private fun setupViewModel() {
-//        currentWeatherViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
-        binding.viewModel = currentWeatherViewModel
-    }
+    /* private fun setupViewModel() {
+ //        currentWeatherViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
+         binding.viewModel = currentWeatherViewModel
+     }*/
 
 }

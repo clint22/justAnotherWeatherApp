@@ -1,6 +1,5 @@
 package com.ducttapeprogrammer.myapplication.forecast
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
@@ -18,7 +17,7 @@ class DefaultCurrentWeatherRepository (
     companion object {
         @Volatile
         private var INSTANCE: DefaultCurrentWeatherRepository? = null
-        fun getRepository(app: Application): DefaultCurrentWeatherRepository {
+        fun getCurrentWeatherRepository(): DefaultCurrentWeatherRepository {
             return INSTANCE ?: synchronized(this) {
                 DefaultCurrentWeatherRepository(RemoteDataSource).also {
                     INSTANCE = it
@@ -41,7 +40,7 @@ class DefaultCurrentWeatherRepository (
     /**
      * This function will observe any changes in [WeatherForNextSevenDays.WeatherList] and updates the changes
      * */
-    override fun observeWeatherForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>> =
+    override fun observeWeatherForNextSevenDays(): LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> =
         remoteDataSource.observeWeatherDataForNextSevenDays()
 
     /**
@@ -53,5 +52,9 @@ class DefaultCurrentWeatherRepository (
         appId: String
     ): Result<List<WeatherForNextSevenDays.WeatherList>> {
         return remoteDataSource.getWeatherDataForNextSevenDays(latitude, longitude, appId)
+    }
+
+    override fun refreshCurrentWeather() {
+        TODO("Not yet implemented")
     }
 }

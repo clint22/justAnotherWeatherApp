@@ -23,7 +23,7 @@ object RemoteDataSource : RemoteAppDataSource {
 
     private val observeCurrentWeather = MutableLiveData<CurrentWeather>()
     private val observeWeatherForNextSevenDays =
-        MutableLiveData<List<WeatherForNextSevenDays.WeatherList>>()
+        MutableLiveData<Result<List<WeatherForNextSevenDays.WeatherList>>>()
     private var currentWeather: CurrentWeather? = null
     private var weatherForNextSevenDays: WeatherForNextSevenDays? = null
     private var isCurrentWeatherExceptionOccurred: Boolean = false
@@ -59,7 +59,6 @@ object RemoteDataSource : RemoteAppDataSource {
         return if (isCurrentWeatherExceptionOccurred) {
             Result.Error(Unit)
         } else {
-
             Result.Success(currentWeather)
         }
     }
@@ -89,9 +88,11 @@ object RemoteDataSource : RemoteAppDataSource {
 
                         weatherForNextSevenDays = weatherDataForNextSevenDaysData
                         observeWeatherForNextSevenDays.postValue(
-                            weatherForNextSevenDays?.list?.subList(
-                                WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE,
-                                (weatherForNextSevenDays?.list!!.size - 1)
+                            Result.Success(
+                                weatherForNextSevenDays?.list?.subList(
+                                    WEATHER_FOR_NEXT_SEVEN_DAYS_INITIAL_RANGE,
+                                    (weatherForNextSevenDays?.list!!.size - 1)
+                                )
                             )
                         )
                         Timber.e(Gson().toJson(weatherDataForNextSevenDaysData))
@@ -112,7 +113,7 @@ object RemoteDataSource : RemoteAppDataSource {
 
     }
 
-    override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDays.WeatherList>> {
+    override fun observeWeatherDataForNextSevenDays(): LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> {
         return observeWeatherForNextSevenDays
     }
 

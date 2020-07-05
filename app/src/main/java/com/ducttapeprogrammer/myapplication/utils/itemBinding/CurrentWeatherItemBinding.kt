@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ducttapeprogrammer.myapplication.MyApplication
 import com.ducttapeprogrammer.myapplication.R
+import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.forecast.WeatherForNextSevenDaysAdapter
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
@@ -21,10 +22,12 @@ import timber.log.Timber
  */
 @ExperimentalStdlibApi
 @BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, items: List<WeatherForNextSevenDays.WeatherList>?) {
-    items?.let {
-        (listView.adapter as WeatherForNextSevenDaysAdapter).submitList(items)
+fun setItems(listView: RecyclerView, items: Result<List<WeatherForNextSevenDays.WeatherList>>?) {
+
+    if (items is Result.Success) {
+        (listView.adapter as WeatherForNextSevenDaysAdapter).submitList(items.data)
     }
+
 }
 
 /**
