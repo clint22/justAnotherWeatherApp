@@ -16,11 +16,13 @@ class CurrentWeatherViewModelTest {
     private lateinit var fakeCurrentWeatherRepository: FakeCurrentWeatherRepository
     private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
 
+
     @Before
     fun setupViewModel() {
 
         fakeCurrentWeatherRepository = FakeCurrentWeatherRepository()
         currentWeatherViewModel = CurrentWeatherViewModel(fakeCurrentWeatherRepository)
+
     }
 
     @Test
@@ -31,7 +33,6 @@ class CurrentWeatherViewModelTest {
             longitude = "21.3",
             appId = "1234"
         )
-
         assertThat(currentWeather?.succeeded, `is`(true))
 
     }

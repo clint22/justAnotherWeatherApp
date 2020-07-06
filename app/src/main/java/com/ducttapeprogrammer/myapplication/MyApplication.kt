@@ -1,6 +1,9 @@
 package com.ducttapeprogrammer.myapplication
 
 import android.app.Application
+import com.ducttapeprogrammer.myapplication.forecast.CurrentWeatherRepository
+import com.ducttapeprogrammer.myapplication.location.LocationRepository
+import com.facebook.stetho.Stetho
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -9,9 +12,17 @@ import timber.log.Timber.DebugTree
  * */
 class MyApplication : Application() {
 
-    override fun onCreate() {
+    val locationRepository: LocationRepository
+        get() = ServiceLocator.provideLocationRepository(this)
+
+    val currentWeatherRepository: CurrentWeatherRepository
+        get() = ServiceLocator.provideCurrentWeatherRepository()
+
+    override
+    fun onCreate() {
         super.onCreate()
         instance = this
+        Stetho.initializeWithDefaults(instance);
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         }

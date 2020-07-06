@@ -1,5 +1,6 @@
 package com.ducttapeprogrammer.myapplication.location
 
+import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ducttapeprogrammer.myapplication.data.source.FakeLocationRepository
 import org.hamcrest.MatcherAssert.assertThat
@@ -7,12 +8,14 @@ import org.hamcrest.core.IsEqual
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 /**
  * A class which contains test cases of all the operations in
  * LocationViewModel
  * */
 @RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.P])
 class LocationViewModelTest {
 
     private lateinit var fakeLocationRepository: FakeLocationRepository
@@ -56,7 +59,6 @@ class LocationViewModelTest {
 
         val places = locationViewModel.observeAllPlaces
         assertThat(places.value, IsEqual(fakeLocationRepository.observeAllPlaces().value))
-
     }
 
     /**

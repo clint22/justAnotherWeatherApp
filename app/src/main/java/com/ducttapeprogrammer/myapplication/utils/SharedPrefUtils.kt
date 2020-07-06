@@ -56,7 +56,6 @@ fun getStringSharedPreference(sharedPrefKey: String): String? {
  * Set a SharedPreference for a boolean value
  */
 fun Boolean.setBooleanSharedPreference(sharedPrefKey: String) {
-
     val preference = MyApplication.instance.applicationContext.getSharedPreferences(
         MyApplication.instance.getString(R.string.app_name), Context.MODE_PRIVATE
     )

@@ -10,9 +10,6 @@ import kotlinx.coroutines.launch
  * */
 class LocationViewModel(private val locationRepository: LocationRepository) : ViewModel() {
 
-    /*private val fakeDataSource = LocalDataSource()
-    private val locationRepository = DefaultLocationRepository(fakeDataSource)*/
-
     private val _locationClicked = MutableLiveData<Places>()
     val locationClicked: LiveData<Places> = _locationClicked
 
@@ -25,12 +22,10 @@ class LocationViewModel(private val locationRepository: LocationRepository) : Vi
      * the repository
      * */
     fun insertPlace(place: Places) {
-
         viewModelScope.launch {
-
             locationRepository.insertPlace(place)
-        }
 
+        }
     }
 
     /**

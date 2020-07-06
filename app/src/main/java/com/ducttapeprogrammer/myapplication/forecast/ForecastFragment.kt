@@ -22,7 +22,7 @@ import com.ducttapeprogrammer.myapplication.utils.setWeatherConditionIcon
 class ForecastFragment : Fragment() {
     private val currentWeatherViewModel by viewModels<CurrentWeatherViewModel> {
         CurrentWeatherViewModel.CurrentWeatherViewModelFactory(
-            DefaultCurrentWeatherRepository.getCurrentWeatherRepository()
+            (requireActivity().applicationContext as MyApplication).currentWeatherRepository
         )
     }
 
@@ -34,16 +34,14 @@ class ForecastFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentForecastBinding.inflate(inflater, container, false).apply {
-            binding.viewModel = currentWeatherViewModel
-        }
+        binding = FragmentForecastBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
-//        setupViewModel()
+        setupViewModel()
         setAdapter()
         observeViewModel()
         getCurrentWeatherData()
@@ -81,9 +79,8 @@ class ForecastFragment : Fragment() {
         })
     }
 
-    /* private fun setupViewModel() {
- //        currentWeatherViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
-         binding.viewModel = currentWeatherViewModel
-     }*/
+    private fun setupViewModel() {
+        binding.viewModel = currentWeatherViewModel
+    }
 
 }

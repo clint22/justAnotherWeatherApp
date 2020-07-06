@@ -6,6 +6,7 @@ import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.source.LocalAppDataSource
 import com.ducttapeprogrammer.myapplication.data.model.Places
 import com.ducttapeprogrammer.myapplication.data.source.RemoteAppDataSource
+import timber.log.Timber
 import java.lang.Exception
 
 /**
@@ -21,7 +22,9 @@ class LocalDataSource(private var placesDao: PlacesAndWeatherDao) :
     }
 
     override fun observeAllPlaces(): LiveData<Result<List<Places>>> {
+        Timber.d("observeAllPlacesCalled")
         return placesDao.observePlaces().map {
+            Timber.d("observePlacesMapCalled")
             Result.Success(it)
         }
     }

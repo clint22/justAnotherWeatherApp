@@ -11,7 +11,7 @@ import com.ducttapeprogrammer.myapplication.data.model.Places
  */
 @Database(
     entities = [Places::class],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

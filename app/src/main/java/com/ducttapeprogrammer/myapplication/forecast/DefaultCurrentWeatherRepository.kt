@@ -14,7 +14,7 @@ class DefaultCurrentWeatherRepository (
     private val remoteDataSource: RemoteAppDataSource
 ) : CurrentWeatherRepository {
 
-    companion object {
+    /*companion object {
         @Volatile
         private var INSTANCE: DefaultCurrentWeatherRepository? = null
         fun getCurrentWeatherRepository(): DefaultCurrentWeatherRepository {
@@ -24,7 +24,7 @@ class DefaultCurrentWeatherRepository (
                 }
             }
         }
-    }
+    }*/
 
     /**
      * This function will return the result of current weather from the [RemoteDataSource.getCurrentWeather]

@@ -40,15 +40,11 @@ import timber.log.Timber
  * */
 class LocationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentLocationBinding
-
-    //    private lateinit var locationViewModel: LocationViewModel
     private val locationViewModel by viewModels<LocationViewModel> {
         LocationViewModel.LocationViewModelFactory(
-            DefaultLocationRepository.getLocationRepository(requireActivity().application)
+            (requireActivity().applicationContext as MyApplication).locationRepository
         )
     }
-
-
     private val accessFineLocationAndCoarseLocationPermissionRequestCode =
         ACCESS_FINE_LOCATION_AND_COARSE_LOCATION_PERMISSION_REQUEST_CODE
     private val autocompletePlacesRequestCode = AUTO_COMPLETE_PLACES_REQUEST_CODE
@@ -61,18 +57,15 @@ class LocationFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentLocationBinding.inflate(inflater, container, false).apply {
-            binding.viewModel = locationViewModel
-        }
+        binding = FragmentLocationBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.lifecycleOwner = this.viewLifecycleOwner
         checkGpsEnabled()
         setClickListeners()
-//        setupViewModel()
+        setupViewModel()
         setAdapter()
         observeViewModel()
     }
@@ -119,13 +112,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
     }
 
-
-    /*private fun setupViewModel() {
-
-//        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
-        binding.viewModel = locationViewModel
-    }*/
-
     private fun setClickListeners() {
 
         binding.textViewGivePermission.setOnClickListener(this)
@@ -162,7 +148,9 @@ class LocationFragment : Fragment(), View.OnClickListener {
             Timber.d(locationPermissionGranted.toString())
             if (locationPermissionGranted) {
                 Timber.d("locationPermissionGranted")
-                true.setBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)
+                true.setBooleanSharedPreference(
+                    SHARED_PREF_PERMISSIONS_GIVEN
+                )
                 getLatitudeAndLongitude()
             } else {
                 binding.constraintLayoutPermissionDenied.visibility = View.VISIBLE
@@ -199,7 +187,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     requireActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -212,7 +199,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 binding.constraintLayoutPermissionDenied.visibility = View.VISIBLE
 
             } else {
-
                 requestPermissions(
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -382,5 +368,9 @@ class LocationFragment : Fragment(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         checkLocationPermission()
+    }
+
+    private fun setupViewModel() {
+        binding.viewModel = locationViewModel
     }
 }
