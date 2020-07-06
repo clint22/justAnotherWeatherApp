@@ -17,6 +17,10 @@ class LocationViewModel(private val locationRepository: LocationRepository) : Vi
         locationRepository.observeAllPlaces()
     val observeAllPlaces: LiveData<Result<List<Places>>> = _observeAllPlaces
 
+    private val _getAllPlaces: Result<List<Places>> =
+        locationRepository.getAllPlaces()
+    val getAllPlaces: Result<List<Places>> = _getAllPlaces
+
     /**
      * This function will help in calling the insertPlace function inside
      * the repository
