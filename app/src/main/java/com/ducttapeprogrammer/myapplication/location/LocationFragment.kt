@@ -63,6 +63,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.lifecycleOwner = this.viewLifecycleOwner
         checkGpsEnabled()
         setClickListeners()
         setupViewModel()
@@ -83,6 +84,14 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 latitude = it.latitude.toString(),
                 longitude = it.longitude.toString()
             )
+        })
+        locationViewModel.observeAllPlaces.observe(requireActivity(), Observer {
+            Timber.d("observeAllPlacesLocationFragment")
+            if (it is Result.Success) {
+                Timber.d("observerAllPlacesSuccess %s", Gson().toJson(it.data))
+            } else if (it is Result.Error) {
+                Timber.d("observeAllPlacesError")
+            }
         })
     }
 
@@ -299,6 +308,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
         if (requestCode == autocompletePlacesRequestCode) {
             when (resultCode) {
                 RESULT_OK -> {
+                    Timber.d("onActivityResult_Result_ok_called")
                     createPlace(data?.let { Autocomplete.getPlaceFromIntent(it) })
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
@@ -362,6 +372,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addPlaceToLocal(places: com.ducttapeprogrammer.myapplication.data.model.Places) {
+        Timber.d("addPlaceToLocalLocationFragment")
         locationViewModel.insertPlace(places)
     }
 

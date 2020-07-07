@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.Places
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**2
  * This class will act as a link b/w the [LocationFragment] and the [DefaultLocationRepository]
@@ -27,8 +28,8 @@ class LocationViewModel(private val locationRepository: LocationRepository) : Vi
      * */
     fun insertPlace(place: Places) {
         viewModelScope.launch {
+            Timber.d("insertPlaceLocationViewModel")
             locationRepository.insertPlace(place)
-
         }
     }
 

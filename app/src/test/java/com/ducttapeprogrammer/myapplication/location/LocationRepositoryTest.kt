@@ -20,7 +20,6 @@ class LocationRepositoryTest {
         country = "India"
     )
 
-
     private val localPlaces = listOf(places1).sortedBy { it.id }
 
     private lateinit var localDataSource: FakeLocalDataSource

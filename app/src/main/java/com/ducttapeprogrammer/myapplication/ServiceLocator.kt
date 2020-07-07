@@ -2,6 +2,7 @@ package com.ducttapeprogrammer.myapplication
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
+import androidx.room.Room
 import com.ducttapeprogrammer.myapplication.data.local.AppDatabase
 import com.ducttapeprogrammer.myapplication.data.local.LocalDataSource
 import com.ducttapeprogrammer.myapplication.data.remote.RemoteDataSource
@@ -50,7 +51,10 @@ object ServiceLocator {
     }
 
     private fun createDatabase(context: Context): AppDatabase {
-        val result = AppDatabase.getDatabase(context)
+        val result = Room.databaseBuilder(
+            context.applicationContext,
+            AppDatabase::class.java, "app_database"
+        ).build()
         database = result
         return result
     }

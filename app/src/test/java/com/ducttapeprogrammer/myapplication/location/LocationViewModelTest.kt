@@ -23,24 +23,24 @@ class LocationViewModelTest {
     private lateinit var locationViewModel: LocationViewModel
     private val places1 = com.ducttapeprogrammer.myapplication.data.model.Places(
         1,
-        92.12,
-        15.23,
+        32.12,
+        12.23,
         "Raichur",
         "Karnataka",
         "India"
     )
     private val places2 = com.ducttapeprogrammer.myapplication.data.model.Places(
         2,
-        12.12,
-        35.23,
+        52.12,
+        11.23,
         "Kochi",
         "Kerala",
         "India"
     )
     private val places3 = com.ducttapeprogrammer.myapplication.data.model.Places(
         3,
-        12.12,
-        16.23,
+        62.12,
+        56.23,
         "Kannur",
         "Kerala",
         "India"
@@ -58,7 +58,6 @@ class LocationViewModelTest {
 
     @Test
     fun observePlaces_requestAllPlacesFromLocationRepository() {
-
         val places = locationViewModel.observeAllPlaces
         assertThat(places.value, IsEqual(fakeLocationRepository.observeAllPlaces().value))
     }
@@ -66,7 +65,6 @@ class LocationViewModelTest {
 
     @Test
     fun getAllPlaces_requestAllPlacesFromLocationRepository() {
-
         val places = locationViewModel.getAllPlaces as Result.Success
         assertThat(places.data, IsEqual(localPlaces))
     }
