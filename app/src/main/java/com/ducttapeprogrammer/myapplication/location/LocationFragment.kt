@@ -18,8 +18,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentLocationBinding
@@ -40,7 +40,11 @@ import timber.log.Timber
  * */
 class LocationFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentLocationBinding
-    private lateinit var locationViewModel: LocationViewModel
+    private val locationViewModel by viewModels<LocationViewModel> {
+        LocationViewModel.LocationViewModelFactory(
+            (requireActivity().applicationContext as MyApplication).locationRepository
+        )
+    }
     private val accessFineLocationAndCoarseLocationPermissionRequestCode =
         ACCESS_FINE_LOCATION_AND_COARSE_LOCATION_PERMISSION_REQUEST_CODE
     private val autocompletePlacesRequestCode = AUTO_COMPLETE_PLACES_REQUEST_CODE
@@ -81,6 +85,14 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 longitude = it.longitude.toString()
             )
         })
+        locationViewModel.observeAllPlaces.observe(requireActivity(), Observer {
+            Timber.d("observeAllPlacesLocationFragment")
+            if (it is Result.Success) {
+                Timber.d("observerAllPlacesSuccess %s", Gson().toJson(it.data))
+            } else if (it is Result.Error) {
+                Timber.d("observeAllPlacesError")
+            }
+        })
     }
 
     private fun navigateToForecastFragment(
@@ -107,13 +119,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
         )
         binding.recyclerViewLocations.adapter = locationAdapter
 
-    }
-
-
-    private fun setupViewModel() {
-
-        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
-        binding.viewModel = locationViewModel
     }
 
     private fun setClickListeners() {
@@ -152,7 +157,9 @@ class LocationFragment : Fragment(), View.OnClickListener {
             Timber.d(locationPermissionGranted.toString())
             if (locationPermissionGranted) {
                 Timber.d("locationPermissionGranted")
-                true.setBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)
+                true.setBooleanSharedPreference(
+                    SHARED_PREF_PERMISSIONS_GIVEN
+                )
                 getLatitudeAndLongitude()
             } else {
                 binding.constraintLayoutPermissionDenied.visibility = View.VISIBLE
@@ -189,7 +196,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     requireActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -202,7 +208,6 @@ class LocationFragment : Fragment(), View.OnClickListener {
                 binding.constraintLayoutPermissionDenied.visibility = View.VISIBLE
 
             } else {
-
                 requestPermissions(
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -276,6 +281,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.linearLayoutCurrentPlace -> {
+                Timber.d("linearLayoutCurrentPlaceClickedCalled")
                 currentPlaceClicked = true
                 getLatitudeAndLongitude()
 
@@ -303,6 +309,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
         if (requestCode == autocompletePlacesRequestCode) {
             when (resultCode) {
                 RESULT_OK -> {
+                    Timber.d("onActivityResult_Result_ok_called")
                     createPlace(data?.let { Autocomplete.getPlaceFromIntent(it) })
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
@@ -366,11 +373,16 @@ class LocationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addPlaceToLocal(places: com.ducttapeprogrammer.myapplication.data.model.Places) {
+        Timber.d("addPlaceToLocalLocationFragment")
         locationViewModel.insertPlace(places)
     }
 
     override fun onResume() {
         super.onResume()
         checkLocationPermission()
+    }
+
+    private fun setupViewModel() {
+        binding.viewModel = locationViewModel
     }
 }

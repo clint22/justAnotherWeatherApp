@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.ducttapeprogrammer.myapplication.*
 import com.ducttapeprogrammer.myapplication.databinding.FragmentForecastBinding
 import com.ducttapeprogrammer.myapplication.utils.getIntSharedPreference
 import com.ducttapeprogrammer.myapplication.utils.getStringSharedPreference
 import com.ducttapeprogrammer.myapplication.utils.setWeatherConditionIcon
+import timber.log.Timber
 
 /**
  * This fragment acts as the UI for showing weather related information
@@ -20,18 +21,27 @@ import com.ducttapeprogrammer.myapplication.utils.setWeatherConditionIcon
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 @ExperimentalStdlibApi
 class ForecastFragment : Fragment() {
-    private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
+    private val currentWeatherViewModel by viewModels<CurrentWeatherViewModel> {
+        CurrentWeatherViewModel.CurrentWeatherViewModelFactory(
+            (requireActivity().applicationContext as MyApplication).currentWeatherRepository
+        )
+    }
+
+    //        private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
     private lateinit var binding: FragmentForecastBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("ForecastFragmentOnCreateViewCalled")
         // Inflate the layout for this fragment
         binding = FragmentForecastBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        Timber.d("ForecastFragmentOnActivityCreatedCalled")
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
         setupViewModel()
@@ -50,7 +60,6 @@ class ForecastFragment : Fragment() {
 
 
     private fun getCurrentWeatherData() {
-
         currentWeatherViewModel.getCurrentWeather(
             getStringSharedPreference(SHARED_PREF_CURRENT_LATITUDE),
             getStringSharedPreference(SHARED_PREF_CURRENT_LONGITUDE),
@@ -74,7 +83,6 @@ class ForecastFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        currentWeatherViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
         binding.viewModel = currentWeatherViewModel
     }
 

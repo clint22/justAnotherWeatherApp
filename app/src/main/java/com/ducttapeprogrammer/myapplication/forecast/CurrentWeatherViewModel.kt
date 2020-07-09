@@ -1,12 +1,11 @@
 package com.ducttapeprogrammer.myapplication.forecast
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.ducttapeprogrammer.myapplication.*
-import com.ducttapeprogrammer.myapplication.data.model.CurrentWeatherRemote
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
+import androidx.lifecycle.*
+import com.ducttapeprogrammer.myapplication.Event
+import com.ducttapeprogrammer.myapplication.Result
+import com.ducttapeprogrammer.myapplication.SHARED_PREF_PERMISSIONS_GIVEN
+import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
+import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.utils.convertKelvinToDegreeCelsius
 import com.ducttapeprogrammer.myapplication.utils.getBooleanSharedPreference
 import kotlinx.coroutines.launch
@@ -20,19 +19,22 @@ import kotlin.math.roundToInt
 /**
  * This class will act as the link b/w UI and the repository
  * */
-class CurrentWeatherViewModel : ViewModel() {
-    private val currentWeatherRepository = CurrentWeatherRepository()
+class CurrentWeatherViewModel(
+    private val currentWeatherRepository: CurrentWeatherRepository
+) :
+    ViewModel() {
 
+    private var currentWeather: Result<CurrentWeather>? = null
     private val _dataLoading = MutableLiveData(true)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
     private val _lottieAnimation = MutableLiveData<Event<Boolean>>()
     val lottieAnimation: LiveData<Event<Boolean>> = _lottieAnimation
 
-    private val _observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>> =
+    private val _observeWeatherForNextSevenDays: LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> =
         currentWeatherRepository.observeWeatherForNextSevenDays()
 
-    val observeWeatherForNextSevenDays: LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>> =
+    val observeWeatherForNextSevenDays: LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> =
         _observeWeatherForNextSevenDays
 
     // Two-way databinding, exposing MutableLiveData
@@ -43,17 +45,16 @@ class CurrentWeatherViewModel : ViewModel() {
 
     /**
      * This function will get the result from
-     * [CurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
+     * [DefaultCurrentWeatherRepository.getCurrentWeather] and updates the related liveData items
      * */
     fun getCurrentWeather(
         latitude: String?,
         longitude: String?,
         appId: String
-    ) {
+    ): Result<CurrentWeather>? {
 
         _lottieAnimation.value = Event(false)
         _dataLoading.value = true
-
         viewModelScope.launch {
 //            Current Weather API will be called only if the permissions are given
             if (getBooleanSharedPreference(SHARED_PREF_PERMISSIONS_GIVEN)) {
@@ -63,6 +64,7 @@ class CurrentWeatherViewModel : ViewModel() {
                     appId
                 ).let {
                     if (it is Result.Success) {
+                        currentWeather = it
                         onWeatherDataLoaded(it.data)
                         _lottieAnimation.value = Event(true)
                         currentWeatherRepository.getWeatherDataForNextSevenDays(
@@ -76,16 +78,29 @@ class CurrentWeatherViewModel : ViewModel() {
                 }
             }
         }
-
-
+        currentWeather.let {
+            return it
+        }
     }
 
-    private fun onWeatherDataLoaded(data: CurrentWeatherRemote?) {
+    private fun onWeatherDataLoaded(data: CurrentWeather?) {
         currentTemperature.value = convertKelvinToDegreeCelsius(
             data?.main?.temp
         ).toString()
         weatherCondition.value = data?.weather?.get(0)?.description?.capitalize(Locale.getDefault())
         windSpeed.value = (data?.wind?.speed)?.roundToInt().toString()
         currentRegion.value = data?.name + "," + data?.sys?.country
+    }
+
+    /**
+     * This class will create the CurrentWeatherViewModel factory which takes the
+     * current weather repository
+     * */
+    @Suppress("UNCHECKED_CAST")
+    class CurrentWeatherViewModelFactory(
+        private val currentWeatherRepository: CurrentWeatherRepository
+    ) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>) =
+            (CurrentWeatherViewModel(currentWeatherRepository) as T)
     }
 }

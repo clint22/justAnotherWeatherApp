@@ -1,47 +1,44 @@
 package com.ducttapeprogrammer.myapplication.data.local
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.ducttapeprogrammer.myapplication.Result
-import com.ducttapeprogrammer.myapplication.data.model.CurrentWeatherRemote
+import com.ducttapeprogrammer.myapplication.data.source.LocalAppDataSource
 import com.ducttapeprogrammer.myapplication.data.model.Places
-import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDaysRemote
-import com.ducttapeprogrammer.myapplication.data.source.AppDataSource
+import com.ducttapeprogrammer.myapplication.data.source.RemoteAppDataSource
+import com.google.gson.Gson
+import timber.log.Timber
+import java.lang.Exception
 
 /**
- * This class will write the logic of all the functions that is Local mentioned in the [AppDataSource]
+ * This class will write the logic of all the functions that is Local mentioned in the [RemoteAppDataSource]
  * */
-object LocalDataSource : AppDataSource {
+class LocalDataSource(private var placesDao: PlacesAndWeatherDao) :
+    LocalAppDataSource {
 
-    override suspend fun getCurrentWeather(
-        latitude: String?,
-        longitude: String?,
-        appId: String
-    ): Result<CurrentWeatherRemote> {
-        TODO("Implement CurrentWeather logic here")
-    }
-
-    override fun observeCurrentWeather(): LiveData<CurrentWeatherRemote> {
-        TODO("Implement Observe CurrentWeather logic here")
-    }
-
-    override suspend fun getWeatherDataForNextSevenDays(
-        latitude: String?,
-        longitude: String?,
-        appId: String
+    override suspend fun insertPlace(
+        place: Places
     ) {
-        TODO("Implement WeatherForNextSeven Days logic here")
+        Timber.d("insertPlaceCalled")
+        Timber.d("insertPlaceLocalDataSource %s", Gson().toJson(place))
+        placesDao.insertPlace(place)
     }
 
-    override fun observeWeatherDataForNextSevenDays(): LiveData<List<WeatherForNextSevenDaysRemote.WeatherList>> {
-        TODO("Implement Observe WeatherForNextSeven Days logic here")
+    override fun observeAllPlaces(): LiveData<Result<List<Places>>> {
+        Timber.d("observeAllPlacesCalled")
+        return placesDao.observePlaces().map {
+            Timber.d("observePlacesMapCalled")
+            Result.Success(it)
+        }
     }
 
-    override suspend fun insertPlace(place: Places) {
-        TODO("Implement Insert place logic here")
+    override fun getAllPlaces(): Result<List<Places>> {
+        return try {
+            Result.Success(placesDao.getAllPlaces())
+        } catch (e: KotlinNullPointerException) {
+            Result.Error(Unit)
+        }
     }
 
-    override fun observeAllPlaces(): LiveData<List<Places>> {
-        TODO("Implement Observe Places logic here")
-    }
 
 }
