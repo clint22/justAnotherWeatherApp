@@ -12,8 +12,6 @@ import timber.log.Timber
 class DefaultLocationRepository(
     private val localDataSource: LocalAppDataSource
 ) : LocationRepository {
-
-
     /**
      * This function will observe any changes in [Places] and updates the changes
      * */

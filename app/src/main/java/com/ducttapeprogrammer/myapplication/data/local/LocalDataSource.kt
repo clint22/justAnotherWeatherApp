@@ -6,6 +6,7 @@ import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.source.LocalAppDataSource
 import com.ducttapeprogrammer.myapplication.data.model.Places
 import com.ducttapeprogrammer.myapplication.data.source.RemoteAppDataSource
+import com.google.gson.Gson
 import timber.log.Timber
 import java.lang.Exception
 
@@ -18,6 +19,8 @@ class LocalDataSource(private var placesDao: PlacesAndWeatherDao) :
     override suspend fun insertPlace(
         place: Places
     ) {
+        Timber.d("insertPlaceCalled")
+        Timber.d("insertPlaceLocalDataSource %s", Gson().toJson(place))
         placesDao.insertPlace(place)
     }
 

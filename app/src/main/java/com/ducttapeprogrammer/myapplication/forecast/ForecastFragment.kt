@@ -13,6 +13,7 @@ import com.ducttapeprogrammer.myapplication.databinding.FragmentForecastBinding
 import com.ducttapeprogrammer.myapplication.utils.getIntSharedPreference
 import com.ducttapeprogrammer.myapplication.utils.getStringSharedPreference
 import com.ducttapeprogrammer.myapplication.utils.setWeatherConditionIcon
+import timber.log.Timber
 
 /**
  * This fragment acts as the UI for showing weather related information
@@ -33,12 +34,14 @@ class ForecastFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("ForecastFragmentOnCreateViewCalled")
         // Inflate the layout for this fragment
         binding = FragmentForecastBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        Timber.d("ForecastFragmentOnActivityCreatedCalled")
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
         setupViewModel()

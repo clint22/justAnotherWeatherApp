@@ -281,6 +281,7 @@ class LocationFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.linearLayoutCurrentPlace -> {
+                Timber.d("linearLayoutCurrentPlaceClickedCalled")
                 currentPlaceClicked = true
                 getLatitudeAndLongitude()
 

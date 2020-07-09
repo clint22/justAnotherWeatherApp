@@ -23,6 +23,7 @@ class FakeAndroidLocationRepository : LocationRepository {
     }
 
     override suspend fun insertPlace(place: Places) {
+        locationServiceData[place.id] = place
     }
 
     override fun refreshPlaces() {
