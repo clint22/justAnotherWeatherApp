@@ -1,6 +1,5 @@
 package com.ducttapeprogrammer.myapplication.forecast
 
-import android.content.Context
 import androidx.lifecycle.*
 import com.ducttapeprogrammer.myapplication.Event
 import com.ducttapeprogrammer.myapplication.Result
@@ -93,6 +92,10 @@ class CurrentWeatherViewModel(
         currentRegion.value = data?.name + "," + data?.sys?.country
     }
 
+    /**
+     * This class will create the CurrentWeatherViewModel factory which takes the
+     * current weather repository
+     * */
     @Suppress("UNCHECKED_CAST")
     class CurrentWeatherViewModelFactory(
         private val currentWeatherRepository: CurrentWeatherRepository

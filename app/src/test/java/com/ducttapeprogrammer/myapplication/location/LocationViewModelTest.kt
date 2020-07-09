@@ -48,6 +48,9 @@ class LocationViewModelTest {
     private val localPlaces = listOf(places1, places2, places3).sortedBy { it.id }
 
 
+    /**
+     * set up the viewModel by passing the fakeLocationRepository
+     * */
     @Before
     fun setupViewModel() {
         fakeLocationRepository = FakeLocationRepository()
@@ -56,6 +59,9 @@ class LocationViewModelTest {
     }
 
 
+    /**
+     * Function which tests observeAllPlaces is equal to fakeLocationRepository observeAllPlaces
+     * */
     @Test
     fun observePlaces_requestAllPlacesFromLocationRepository() {
         val places = locationViewModel.observeAllPlaces
@@ -63,6 +69,9 @@ class LocationViewModelTest {
     }
 
 
+    /**
+     * Function which tests getAllPlaces is equal to localPlaces ( Static )
+     * */
     @Test
     fun getAllPlaces_requestAllPlacesFromLocationRepository() {
         val places = locationViewModel.getAllPlaces as Result.Success

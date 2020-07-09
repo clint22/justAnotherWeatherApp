@@ -12,6 +12,10 @@ import com.ducttapeprogrammer.myapplication.forecast.DefaultCurrentWeatherReposi
 import com.ducttapeprogrammer.myapplication.location.DefaultLocationRepository
 import com.ducttapeprogrammer.myapplication.location.LocationRepository
 
+/**
+ * A simple dependency injection class which provides CurrentWeatherRepository, LocationRepository,
+ * and creates the local dB.
+ * */
 object ServiceLocator {
     private var database: AppDatabase? = null
 

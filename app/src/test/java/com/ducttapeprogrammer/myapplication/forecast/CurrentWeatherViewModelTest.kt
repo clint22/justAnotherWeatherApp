@@ -9,6 +9,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * Test double for CurrentWeatherViewModel
+ * */
 @ExperimentalStdlibApi
 @RunWith(AndroidJUnit4::class)
 class CurrentWeatherViewModelTest {
@@ -17,6 +20,9 @@ class CurrentWeatherViewModelTest {
     private lateinit var currentWeatherViewModel: CurrentWeatherViewModel
 
 
+    /**
+     * setup the viewModel() by passing the FakeCurrentWeatherRepository
+     * */
     @Before
     fun setupViewModel() {
 
@@ -25,6 +31,9 @@ class CurrentWeatherViewModelTest {
 
     }
 
+    /**
+     * Function which tests if the getCurrentWeather is 'Success' or 'not'
+     * */
     @Test
     fun getCurrentWeather_requestFromCurrentWeatherRepository() {
 

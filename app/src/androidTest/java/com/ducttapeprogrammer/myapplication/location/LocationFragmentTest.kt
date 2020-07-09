@@ -22,6 +22,9 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
+/**
+ * Location Fragment test class for Android unit testing using Mockito and Espresso
+ * */
 @ExperimentalCoroutinesApi
 @MediumTest
 @RunWith(AndroidJUnit4::class)
@@ -29,17 +32,29 @@ class LocationFragmentTest {
 
     private lateinit var locationRepository: LocationRepository
 
+    /**
+     * Using the @Before annotation to initialise the fake location repository and
+     * pass the fake location repository into the Service locator.
+     * */
     @Before
     fun initRepository() {
         locationRepository = FakeAndroidLocationRepository()
         ServiceLocator.locationRepository = locationRepository
     }
 
+    /**
+     * Using the @After annotation to clean up the db to make sure
+     * the database is not polluting the live local database.
+     * */
     @After
     fun cleanUpDb() {
         ServiceLocator.resetLocationRepository()
     }
 
+    /**
+     * Function which inserts a place and launches the Location Fragment and
+     * clicks on the current location and navigates to the Forecast Fragment
+     * */
     @Test
     fun currentLocation_DisplayedInUI() = runBlockingTest {
 

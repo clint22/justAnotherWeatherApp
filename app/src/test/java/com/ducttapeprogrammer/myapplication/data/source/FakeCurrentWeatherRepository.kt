@@ -9,6 +9,9 @@ import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 import com.ducttapeprogrammer.myapplication.forecast.CurrentWeatherRepository
 import kotlinx.coroutines.runBlocking
 
+/**
+ * This class will act as a double for CurrentWeatherRepository for unit testing.
+ * */
 class FakeCurrentWeatherRepository : CurrentWeatherRepository {
 
     var currentWeatherServiceData: LinkedHashMap<Int, CurrentWeather> = LinkedHashMap()
@@ -50,6 +53,9 @@ class FakeCurrentWeatherRepository : CurrentWeatherRepository {
         }
     }
 
+    /**
+     * This function will help in adding new weather data easily
+     * */
     fun addCurrentWeather(vararg currentWeathers: CurrentWeather) {
         for (currentWeather in currentWeathers) {
             currentWeatherServiceData[currentWeather.weatherId] = currentWeather

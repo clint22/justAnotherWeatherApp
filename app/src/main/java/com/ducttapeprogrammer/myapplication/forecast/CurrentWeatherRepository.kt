@@ -5,6 +5,9 @@ import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 
+/**
+ * This interface will provide methods for CurrentWeatherRepository and FakeCurrentWeatherRepository
+ * */
 interface CurrentWeatherRepository {
     /**
      * This function will return the result of current weather from the [RemoteDataSource.getCurrentWeather]
@@ -27,7 +30,10 @@ interface CurrentWeatherRepository {
         latitude: String?,
         longitude: String?,
         appId: String
-    ) : Result<List<WeatherForNextSevenDays.WeatherList>>
+    ): Result<List<WeatherForNextSevenDays.WeatherList>>
 
+    /**
+     * This function will refresh the current weather and calls the getCurrentWeather() method
+     * */
     fun refreshCurrentWeather()
 }

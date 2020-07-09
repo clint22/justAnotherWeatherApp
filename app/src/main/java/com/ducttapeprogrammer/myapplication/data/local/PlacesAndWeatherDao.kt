@@ -15,11 +15,14 @@ import com.ducttapeprogrammer.myapplication.data.model.Places
 interface PlacesAndWeatherDao {
 
     /**
-     * This Query will retrieve all the places in the table in ascending order according to it's ID
+     * This Query will observe all the places in the table
      * */
     @Query("SELECT * from places_table")
     fun observePlaces(): LiveData<List<Places>>
 
+    /**
+     * This query will retrieve all the places in the table
+     * */
     @Query("SELECT * from places_table")
     fun getAllPlaces(): List<Places>
 

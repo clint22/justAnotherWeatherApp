@@ -10,6 +10,9 @@ import org.hamcrest.core.IsEqual
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * A double class for WeatherRepository
+ * */
 class CurrentWeatherRepositoryTest {
 
     private val clouds = CurrentWeather.Clouds(
@@ -64,6 +67,9 @@ class CurrentWeatherRepositoryTest {
     //    Class under test
     private lateinit var currentWeatherRepository: DefaultCurrentWeatherRepository
 
+    /**
+     * Creating the current weather repository by passing the fake remote data source
+     * */
     @Before
     fun createRepository() {
 
@@ -77,6 +83,9 @@ class CurrentWeatherRepositoryTest {
             )
     }
 
+    /**
+     * Function which asserts if result from getCurrentWeather is equal to currentWeather( Static data )
+     * */
     @ExperimentalCoroutinesApi
     @Test
     fun getCurrentWeather_requestCurrentWeatherFromRemoteDataSource() = runBlockingTest {

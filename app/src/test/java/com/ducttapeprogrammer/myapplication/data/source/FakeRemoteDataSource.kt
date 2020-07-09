@@ -1,3 +1,4 @@
+
 package com.ducttapeprogrammer.myapplication.data.source
 
 import androidx.lifecycle.LiveData
@@ -5,6 +6,10 @@ import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.model.WeatherForNextSevenDays
 
+/**
+ * A Fake Remote data source which inherits and implements all the methods
+ * in the RemoteAppDataSource
+ * */
 class FakeRemoteDataSource(private var currentWeather: CurrentWeather? = null) :
     RemoteAppDataSource {
 
@@ -15,13 +20,13 @@ class FakeRemoteDataSource(private var currentWeather: CurrentWeather? = null) :
     ): Result<CurrentWeather> {
         return try {
             Result.Success(currentWeather)
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             Result.Error(Unit)
         }
     }
 
     override fun observeCurrentWeather(): LiveData<CurrentWeather> {
-        TODO("Not yet implemented")
+        TODO("Implement observe current weather logic")
     }
 
     override suspend fun getWeatherDataForNextSevenDays(
@@ -29,12 +34,12 @@ class FakeRemoteDataSource(private var currentWeather: CurrentWeather? = null) :
         longitude: String?,
         appId: String
     ): Result<List<WeatherForNextSevenDays.WeatherList>> {
-        TODO("Not yet implemented")
+        TODO("Implement get weather data for next 7 days logic")
     }
 
 
     override fun observeWeatherDataForNextSevenDays(): LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> {
-        TODO("Not yet implemented")
+        TODO("Implement observe weather data for next 7 days logic")
     }
 
 }

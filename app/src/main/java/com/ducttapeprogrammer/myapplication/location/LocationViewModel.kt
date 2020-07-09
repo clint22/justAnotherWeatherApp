@@ -43,6 +43,10 @@ class LocationViewModel(private val locationRepository: LocationRepository) : Vi
     }
 
 
+    /**
+     * This class will create the LocationViewModel factory which takes the
+     * location repository
+     * */
     @Suppress("UNCHECKED_CAST")
     class LocationViewModelFactory(
         private val locationRepository: LocationRepository

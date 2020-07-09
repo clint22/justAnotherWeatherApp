@@ -7,6 +7,9 @@ import com.ducttapeprogrammer.myapplication.data.model.Places
 import com.ducttapeprogrammer.myapplication.location.LocationRepository
 import kotlinx.coroutines.runBlocking
 
+/**
+ * Fake Location Repository ( for Android unit testing )
+ * */
 class FakeAndroidLocationRepository : LocationRepository {
 
     private var locationServiceData: LinkedHashMap<Int, Places> = LinkedHashMap()
@@ -30,6 +33,9 @@ class FakeAndroidLocationRepository : LocationRepository {
         observablePlaces.value = getAllPlaces()
     }
 
+    /**
+     * Can be used as an additional option to add new places easily
+     * */
     fun addPlaces(vararg places: Places) {
         for (place in places) {
             locationServiceData[place.id] = place

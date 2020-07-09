@@ -19,5 +19,8 @@ interface LocalAppDataSource {
      * */
     fun observeAllPlaces(): LiveData<Result<List<Places>>>
 
+    /**
+     * This function will return all the places in the local dB
+     * */
     fun getAllPlaces(): Result<List<Places>>
 }
