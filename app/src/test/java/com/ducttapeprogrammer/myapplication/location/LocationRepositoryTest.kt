@@ -27,6 +27,9 @@ class LocationRepositoryTest {
     //    Class under test
     private lateinit var locationRepository: DefaultLocationRepository
 
+    /**
+     * Function which creates a new repository by passing the fakeLocalDataSource
+     * */
     @Before
     fun createRepository() {
 
@@ -35,6 +38,9 @@ class LocationRepositoryTest {
 
     }
 
+    /**
+     * Function which tests getAllPlaces ( Success ) is equal to localPlaces ( Static data )
+     * */
     @Test
     fun getPlaces_requestAllPlacesFromLocalDataSource() = runBlockingTest {
 

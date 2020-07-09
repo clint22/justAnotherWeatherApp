@@ -21,7 +21,7 @@ class FakeLocalDataSource(private var places: MutableList<Places>? = mutableList
     override fun getAllPlaces(): Result<List<Places>> {
         return try {
             Result.Success(places)
-        } catch (e: RuntimeException) {
+        } catch (e: KotlinNullPointerException) {
             Result.Error(Unit)
         }
     }

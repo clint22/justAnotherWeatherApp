@@ -35,7 +35,7 @@ class LocalDataSource(private var placesDao: PlacesAndWeatherDao) :
     override fun getAllPlaces(): Result<List<Places>> {
         return try {
             Result.Success(placesDao.getAllPlaces())
-        } catch (e: RuntimeException) {
+        } catch (e: KotlinNullPointerException) {
             Result.Error(Unit)
         }
     }

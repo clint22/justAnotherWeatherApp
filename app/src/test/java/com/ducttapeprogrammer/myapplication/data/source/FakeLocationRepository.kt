@@ -29,6 +29,7 @@ class FakeLocationRepository : LocationRepository {
      * Function which helps to insert the new place
      * */
     override suspend fun insertPlace(place: Places) {
+        locationServiceData[place.id] = place
     }
 
     override fun refreshPlaces() {

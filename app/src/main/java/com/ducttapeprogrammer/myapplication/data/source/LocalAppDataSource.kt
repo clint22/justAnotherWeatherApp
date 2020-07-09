@@ -5,6 +5,9 @@ import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.local.PlacesAndWeatherDao
 import com.ducttapeprogrammer.myapplication.data.model.Places
 
+/**
+ * This interface will provide methods for LocalDataSource and FakeLocalDataSource
+ * */
 interface LocalAppDataSource {
 
     /**

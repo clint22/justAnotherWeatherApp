@@ -20,7 +20,7 @@ class FakeRemoteDataSource(private var currentWeather: CurrentWeather? = null) :
     ): Result<CurrentWeather> {
         return try {
             Result.Success(currentWeather)
-        } catch (e: RuntimeException) {
+        } catch (e: KotlinNullPointerException) {
             Result.Error(Unit)
         }
     }

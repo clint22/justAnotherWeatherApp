@@ -33,17 +33,17 @@ class LocationViewModelTest {
         2,
         52.12,
         11.23,
-        "Kochi",
-        "Kerala",
-        "India"
+        "Detroit",
+        "Michigan",
+        "USA"
     )
     private val places3 = com.ducttapeprogrammer.myapplication.data.model.Places(
         3,
         62.12,
         56.23,
-        "Kannur",
-        "Kerala",
-        "India"
+        "Boudha Stoupa",
+        "Kathmandu",
+        "Nepal"
     )
     private val localPlaces = listOf(places1, places2, places3).sortedBy { it.id }
 
