@@ -9,6 +9,9 @@ import org.hamcrest.core.IsEqual
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * A test double for LocationRepository
+ * */
 @ExperimentalCoroutinesApi
 class LocationRepositoryTest {
 
