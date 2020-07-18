@@ -1,6 +1,7 @@
 package com.ducttapeprogrammer.myapplication
 
 import android.app.Application
+import android.os.Build
 import com.ducttapeprogrammer.myapplication.forecast.CurrentWeatherRepository
 import com.ducttapeprogrammer.myapplication.location.LocationRepository
 import com.facebook.stetho.Stetho
@@ -22,10 +23,16 @@ class MyApplication : Application() {
     fun onCreate() {
         super.onCreate()
         instance = this
-        Stetho.initializeWithDefaults(instance);
+        if (!isRobolectricUnitTest()) {
+            Stetho.initializeWithDefaults(instance)
+        }
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         }
+    }
+
+    private fun isRobolectricUnitTest(): Boolean {
+        return "robolectric" == Build.FINGERPRINT
     }
 
     companion object {

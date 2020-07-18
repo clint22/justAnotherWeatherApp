@@ -10,21 +10,10 @@ import com.ducttapeprogrammer.myapplication.data.source.RemoteAppDataSource
 /**
  * This class will act as a link b/w [CurrentWeatherViewModel] and [RemoteDataSource]
  * */
-class DefaultCurrentWeatherRepository (
+class DefaultCurrentWeatherRepository(
     private val remoteDataSource: RemoteAppDataSource
 ) : CurrentWeatherRepository {
 
-    /*companion object {
-        @Volatile
-        private var INSTANCE: DefaultCurrentWeatherRepository? = null
-        fun getCurrentWeatherRepository(): DefaultCurrentWeatherRepository {
-            return INSTANCE ?: synchronized(this) {
-                DefaultCurrentWeatherRepository(RemoteDataSource).also {
-                    INSTANCE = it
-                }
-            }
-        }
-    }*/
 
     /**
      * This function will return the result of current weather from the [RemoteDataSource.getCurrentWeather]

@@ -1,5 +1,6 @@
 package com.ducttapeprogrammer.myapplication.forecast
 
+import com.ducttapeprogrammer.myapplication.MainCoroutineRule
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.model.CurrentWeather
 import com.ducttapeprogrammer.myapplication.data.source.FakeRemoteDataSource
@@ -8,12 +9,17 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 /**
  * A double class for WeatherRepository
  * */
+@ExperimentalCoroutinesApi
 class CurrentWeatherRepositoryTest {
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     private val clouds = CurrentWeather.Clouds(
         all = 0
@@ -82,13 +88,12 @@ class CurrentWeatherRepositoryTest {
                 remoteDataSource
             )
     }
-
     /**
      * Function which asserts if result from getCurrentWeather is equal to currentWeather( Static data )
      * */
     @ExperimentalCoroutinesApi
     @Test
-    fun getCurrentWeather_requestCurrentWeatherFromRemoteDataSource() = runBlockingTest {
+    fun getCurrentWeather_requestCurrentWeatherFromRemoteDataSource() = mainCoroutineRule.runBlockingTest {
 
         val weather = currentWeatherRepository.getCurrentWeather(
             latitude = "15.234",

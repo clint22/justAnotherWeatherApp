@@ -14,11 +14,13 @@ import kotlinx.coroutines.runBlocking
  * */
 class FakeCurrentWeatherRepository : CurrentWeatherRepository {
 
-    var currentWeatherServiceData: LinkedHashMap<Int, CurrentWeather> = LinkedHashMap()
-    var weatherForNextSevenDays: LinkedHashMap<Int, WeatherForNextSevenDays.WeatherList> =
+    private var currentWeatherServiceData: LinkedHashMap<Int, CurrentWeather> = LinkedHashMap()
+    private var weatherForNextSevenDays: LinkedHashMap<Int, WeatherForNextSevenDays.WeatherList> =
         LinkedHashMap()
     private val observableWeatherForNextSevenDays =
         MutableLiveData<Result<List<WeatherForNextSevenDays.WeatherList>>>()
+    private val observableCurrentWeather =
+        MutableLiveData<Result<CurrentWeather>>()
 
 
     override suspend fun getCurrentWeather(
@@ -44,14 +46,15 @@ class FakeCurrentWeatherRepository : CurrentWeatherRepository {
     }
 
     override fun refreshCurrentWeather() {
-        observableWeatherForNextSevenDays.value = runBlocking {
-            getWeatherDataForNextSevenDays(
+        observableCurrentWeather.value = runBlocking {
+            getCurrentWeather(
                 latitude = "91.23",
                 longitude = "12.34",
                 appId = "1234"
             )
         }
     }
+
 
     /**
      * This function will help in adding new weather data easily

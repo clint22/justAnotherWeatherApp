@@ -1,5 +1,6 @@
 package com.ducttapeprogrammer.myapplication.location
 
+import com.ducttapeprogrammer.myapplication.MainCoroutineRule
 import com.ducttapeprogrammer.myapplication.Result
 import com.ducttapeprogrammer.myapplication.data.source.FakeLocalDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -7,6 +8,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 /**
@@ -14,6 +16,9 @@ import org.junit.Test
  * */
 @ExperimentalCoroutinesApi
 class LocationRepositoryTest {
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     private val places1 = com.ducttapeprogrammer.myapplication.data.model.Places(
         latitude = 19.234234,
@@ -45,7 +50,7 @@ class LocationRepositoryTest {
      * Function which tests getAllPlaces ( Success ) is equal to localPlaces ( Static data )
      * */
     @Test
-    fun getPlaces_requestAllPlacesFromLocalDataSource() = runBlockingTest {
+    fun getPlaces_requestAllPlacesFromLocalDataSource() = mainCoroutineRule.runBlockingTest {
 
         val places = locationRepository.getAllPlaces() as Result.Success
         assertThat(places.data, IsEqual(localPlaces))

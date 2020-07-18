@@ -37,6 +37,11 @@ class CurrentWeatherViewModel(
     val observeWeatherForNextSevenDays: LiveData<Result<List<WeatherForNextSevenDays.WeatherList>>> =
         _observeWeatherForNextSevenDays
 
+
+    /*private val _getAllPlaces: Result<List<Places>> =
+        locationRepository.getAllPlaces()
+    val getAllPlaces: Result<List<Places>> = _getAllPlaces*/
+
     // Two-way databinding, exposing MutableLiveData
     val currentTemperature = MutableLiveData<String>()
     val weatherCondition = MutableLiveData<String>()
@@ -103,4 +108,6 @@ class CurrentWeatherViewModel(
         override fun <T : ViewModel> create(modelClass: Class<T>) =
             (CurrentWeatherViewModel(currentWeatherRepository) as T)
     }
+
+
 }
